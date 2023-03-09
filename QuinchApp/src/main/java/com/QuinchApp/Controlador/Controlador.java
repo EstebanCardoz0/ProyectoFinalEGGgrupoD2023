@@ -18,7 +18,7 @@ public class Controlador {
     @GetMapping("/alquiler")
     public String alquiler(){
     
-    return "Hola grupo D";
+    return "Hola grupo D, esto es una prueba";
     }
     
 }
