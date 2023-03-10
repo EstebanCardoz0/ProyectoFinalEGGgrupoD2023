@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.QuinchApp.Entidades;
 
 import java.util.Date;
@@ -14,15 +9,17 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-/**
- *
- * @author Esteban
- */
-@Entity @Data @Table(name="usuario")
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "usuario")
 public class Usuario {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -38,25 +35,4 @@ public class Usuario {
     private Date fechaAlta;
     private boolean activo;
 
-    public Usuario(Integer id, String nombre, String nombreUsuario, String email, String password, long telefono, Imagen fotoPerfil, Date fechaAlta, boolean activo) {
-        this.id = id;
-        this.nombre = nombre;
-        this.nombreUsuario = nombreUsuario;
-        this.email = email;
-        this.password = password;
-        this.telefono = telefono;
-        this.fotoPerfil = fotoPerfil;
-        this.fechaAlta = fechaAlta;
-        this.activo = activo;
-    }
-
-
-
-
-
-
- 
-    
-    
-    
 }

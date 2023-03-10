@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.QuinchApp.Repositorio;
+package com.QuinchApp.Repositorios;
 
-import com.QuinchApp.Entidades.Propiedad;
+import com.QuinchApp.Entidades.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author Esteban
  */
 @Repository
-public interface PropiedadRepositorio extends JpaRepository<Propiedad, Integer>{
+public interface ClienteRepositorio extends JpaRepository<Cliente, Integer>{
     
 }

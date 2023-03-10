@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.QuinchApp.Entidades;
 
 import javax.persistence.Entity;
@@ -12,10 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Data;
 
-/**
- *
- * @author Esteban
- */
 @Entity
 @Data
 @Table(name = "propiedad")
@@ -25,8 +16,6 @@ public class Propiedad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPropiedad;
 
-    
-    
     private String nombre;
     private String Descripcion;
     private double valor;
@@ -48,8 +37,4 @@ public class Propiedad {
         this.disponibilidad = disponibilidad;
     }
 
-  
-
-    
-    
 }
