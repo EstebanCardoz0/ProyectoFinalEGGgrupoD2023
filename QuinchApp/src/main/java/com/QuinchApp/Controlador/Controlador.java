@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Controlador {
+<<<<<<< HEAD
     
     @GetMapping("/alquiler")
     public String alquiler(){
@@ -12,4 +13,13 @@ public class Controlador {
     return "Hola grupo D";
     }
     
+=======
+
+    @GetMapping("/alquiler")
+    public String alquiler() {
+
+        return "Hola grupo D, esto es una prueba";
+    }
+
+>>>>>>> developer
 }
