@@ -1,7 +1,7 @@
-package com.QuinchApp.Servicio;
+package com.QuinchApp.Servicios;
 
 import com.QuinchApp.Entidades.Imagen;
-import com.QuinchApp.Repositorio.ImagenRepositorio;
+import com.QuinchApp.Repositorios.ImagenRepositorio;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

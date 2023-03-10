@@ -1,4 +1,4 @@
-package com.QuinchApp.Repositorio;
+package com.QuinchApp.Repositorios;
 
 import com.QuinchApp.Entidades.Propiedad;
 import org.springframework.data.jpa.repository.JpaRepository;
