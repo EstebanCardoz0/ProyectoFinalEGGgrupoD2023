@@ -1,4 +1,4 @@
-package com.QuinchApp.Repositorio;
+package com.QuinchApp.Repositorios;
 
 import com.QuinchApp.Entidades.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +11,12 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
 
     @Query("SELECT u FROM Usuario u WHERE u.email = :email")
     public Usuario buscarPorEmail(@Param("email") String email);
+    
+    
+    @Query("SELECT u FROM Usuario u WHERE u.usuario.nombreUsuario = :nombreUsuario")
+    public Usuario buscarPorNombreUsuario (@Param("nombreUsuario")String nombreUsuario);
+    
+    @Query("SELECT u FROM Usuario u WHERE u.usuario.nombre = :nombre")
+    public Usuario buscarPorNombre (@Param("nombre")String nombre);
+    
 }

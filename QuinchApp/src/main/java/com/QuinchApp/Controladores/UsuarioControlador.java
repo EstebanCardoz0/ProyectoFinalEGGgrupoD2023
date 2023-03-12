@@ -1,8 +1,9 @@
-package com.QuinchApp.Controlador;
+package com.QuinchApp.Controladores;
 
-import com.QuinchApp.Servicio.UsuarioServicio;
+import com.QuinchApp.Servicios.UsuarioServicio;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,19 @@ public class UsuarioControlador {
             @RequestParam("fechaAlta") Date fechaAlta, @RequestParam("activo") boolean activo, @RequestParam("archivo") MultipartFile archivo) throws Exception {
         try {
             usuarioServicio.registrar(nombre, nombreUsuario, email, password, telefono, fechaAlta, activo, archivo);
+            return "Exito";
+        } catch (Exception exception) {
+            System.out.println(exception);
+            return "Error";
+        }
+    }
+    
+    @PostMapping("/actualizar/{id}")
+    public String actualizar(@PathVariable int id, @RequestParam("nombre") String nombre, @RequestParam("nombreUsuario") String nombreUsuario, 
+            @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("telefono") long telefono, 
+            @RequestParam("archivo") MultipartFile archivo) throws Exception {
+        try{
+            usuarioServicio.actualizar(id, nombre, nombreUsuario, email, password, telefono, archivo);
             return "Exito";
         } catch (Exception exception) {
             System.out.println(exception);
