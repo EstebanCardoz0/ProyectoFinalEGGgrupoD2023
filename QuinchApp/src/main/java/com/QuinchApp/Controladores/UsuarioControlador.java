@@ -1,8 +1,8 @@
 package com.QuinchApp.Controladores;
 
 import com.QuinchApp.Servicios.UsuarioServicio;
-import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +16,11 @@ public class UsuarioControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+
+    @GetMapping("/registrar")
+    public String registrar() {
+        return "registro";
+    }
 
     @PostMapping("/registro")
     public String registro(@RequestParam("nombre") String nombre, @RequestParam("nombreUsuario") String nombreUsuario,
