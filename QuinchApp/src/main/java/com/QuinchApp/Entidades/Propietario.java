@@ -19,5 +19,5 @@ public class Propietario extends Usuario {
     public Propietario(Integer id, String nombre, String nombreUsuario, String email, String password, long telefono, Imagen fotoPerfil, Date fechaAlta, boolean activo) {
         super(id, nombre, nombreUsuario, email, password, telefono, fotoPerfil, fechaAlta, activo);
     }
-
+    
 }
