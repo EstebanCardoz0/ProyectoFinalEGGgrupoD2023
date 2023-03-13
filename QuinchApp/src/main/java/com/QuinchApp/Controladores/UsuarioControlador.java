@@ -1,7 +1,11 @@
 package com.QuinchApp.Controladores;
 
+import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Servicios.UsuarioServicio;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@RestController
+@Controller
 @RequestMapping("/usuario")
 public class UsuarioControlador {
 
@@ -20,7 +24,7 @@ public class UsuarioControlador {
 
     @GetMapping("/registrar")
     public String registrar() {
-        return "registro";
+        return "/registro";
     }
 
     @PostMapping("/registro")
@@ -49,6 +53,14 @@ public class UsuarioControlador {
         }
     }
 
+    @GetMapping("/listar")
+    public String listar(ModelMap modelo){
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+        modelo.addAttribute("usuario", usuarios);
+        
+        return "usuarioList";
+    }
+    
     @DeleteMapping("/borrar/{id}")
     public String borrarUsuario(@PathVariable Integer id) throws Exception {
         try {
