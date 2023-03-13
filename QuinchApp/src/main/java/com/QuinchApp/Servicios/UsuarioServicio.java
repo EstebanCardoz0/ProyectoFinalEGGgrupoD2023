@@ -3,7 +3,9 @@ package com.QuinchApp.Servicios;
 import com.QuinchApp.Entidades.Imagen;
 import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Repositorios.UsuarioRepositorio;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,4 +61,15 @@ public class UsuarioServicio {
         }
     }
 
+    
+  public List<Usuario> listarUsuarios(){
+    List<Usuario> usuarios= usuarioRepositorio.findAll();
+    return usuarios;
+}
+
+    
+    
+    
+    
+    
 }

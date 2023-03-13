@@ -13,10 +13,10 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
     public Usuario buscarPorEmail(@Param("email") String email);
     
     
-    @Query("SELECT u FROM Usuario u WHERE u.usuario.nombreUsuario = :nombreUsuario")
+    @Query("SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario")
     public Usuario buscarPorNombreUsuario (@Param("nombreUsuario")String nombreUsuario);
     
-    @Query("SELECT u FROM Usuario u WHERE u.usuario.nombre = :nombre")
+    @Query("SELECT u FROM Usuario u WHERE u.nombre = :nombre")
     public Usuario buscarPorNombre (@Param("nombre")String nombre);
     
 }
