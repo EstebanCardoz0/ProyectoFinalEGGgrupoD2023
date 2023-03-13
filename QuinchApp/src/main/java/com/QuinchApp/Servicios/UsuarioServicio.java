@@ -4,6 +4,7 @@ import com.QuinchApp.Entidades.Imagen;
 import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Repositorios.UsuarioRepositorio;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,5 +93,5 @@ public class UsuarioServicio {
     public void borrar(Integer id) {
         usuarioRepositorio.deleteById(id);
     }
-    
 }
+
