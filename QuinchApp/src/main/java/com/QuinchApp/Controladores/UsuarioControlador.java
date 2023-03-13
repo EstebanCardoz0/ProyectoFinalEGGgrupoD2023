@@ -28,15 +28,24 @@ public class UsuarioControlador {
 
     @PostMapping("/registro")
     public String registro(@RequestParam("nombre") String nombre, @RequestParam("nombreUsuario") String nombreUsuario,
-            @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("telefono") long telefono,
-            @RequestParam("archivo") MultipartFile archivo) throws Exception {
+            @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("password") String password2, @RequestParam("telefono") long telefono,
+            @RequestParam("archivo") MultipartFile archivo, ModelMap modelo) throws Exception {
         try {
-            usuarioServicio.registrar(nombre, nombreUsuario, email, password, telefono, archivo);
-            return "Exito";
+            usuarioServicio.registrar(nombre, nombreUsuario, email, password, password2, telefono, archivo);
+            modelo.put("exito", "El usuario fue registrado correctamente!");
         } catch (Exception exception) {
             System.out.println(exception);
-            return "Error";
+            modelo.put("nombre", nombre);
+            modelo.put("nombreUsuario", nombreUsuario);
+            modelo.put("telefono", telefono);
+            modelo.put("email", email);
+            modelo.put("password", password);
+            modelo.put("password2", password2);
+            modelo.put("archivo", archivo);
+            modelo.put("error", "Verifique que los datos hayan sido cargado correctamente y el email no este registrado");
+            return "registro";
         }
+        return "registro";
     }
 
     @PostMapping("/actualizar/{id}")
@@ -53,13 +62,13 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/listar")
-    public String listar(ModelMap modelo){
+    public String listar(ModelMap modelo) {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
         modelo.addAttribute("usuario", usuarios);
-        
+
         return "usuarioList";
     }
-    
+
     @DeleteMapping("/borrar/{id}")
     public String borrarUsuario(@PathVariable Integer id) throws Exception {
         try {
@@ -70,6 +79,11 @@ public class UsuarioControlador {
             return "Error";
         }
 
+    }
+
+    @GetMapping("/terminos")
+    public String terminos() {
+        return "terminos";
     }
 
 }
