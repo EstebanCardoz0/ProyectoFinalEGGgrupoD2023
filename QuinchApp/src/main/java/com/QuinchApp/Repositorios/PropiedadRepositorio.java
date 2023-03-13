@@ -14,6 +14,6 @@ public interface PropiedadRepositorio extends JpaRepository<Propiedad, Integer> 
         @Query("SELECT pr FROM Propiedad pr WHERE pr.nombre = :nombre")
     public Propiedad buscarPorNombre (@Param("nombre")String nombre);
     
-    @Query("SELECT pr FROM Propiedad pr WHERE pr.propietario.nombre = :nombre")
+    @Query("SELECT pr FROM Propiedad pr WHERE pr.nombre = :nombre")
     public List<Propiedad> buscarPorPropietario (@Param("nombre")String nombre);
 }
