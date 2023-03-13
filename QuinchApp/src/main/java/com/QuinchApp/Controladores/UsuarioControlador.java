@@ -2,6 +2,7 @@ package com.QuinchApp.Controladores;
 
 import com.QuinchApp.Servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,4 +48,17 @@ public class UsuarioControlador {
             return "Error";
         }
     }
+
+    @DeleteMapping("/borrar/{id}")
+    public String borrarUsuario(@PathVariable Integer id) throws Exception {
+        try {
+            usuarioServicio.borrar(id);
+            return "Exito";
+        } catch (Exception exception) {
+            System.out.println(exception);
+            return "Error";
+        }
+
+    }
+
 }
