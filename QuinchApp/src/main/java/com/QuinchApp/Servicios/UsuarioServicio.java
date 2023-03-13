@@ -87,4 +87,10 @@ public class UsuarioServicio {
         }
     }
 
+    
+        @Transactional
+    public void borrar(Integer id) {
+        usuarioRepositorio.deleteById(id);
+    }
+    
 }
