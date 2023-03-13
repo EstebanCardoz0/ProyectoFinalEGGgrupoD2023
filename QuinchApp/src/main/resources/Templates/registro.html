@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -14,10 +15,12 @@ and open the template in the editor.
     <body>
         <div id="login">
             <h3 class="text-center text-white pt-5">Registro</h3>
+
             <div class="container">
                 <div id="login-row" class="row justify-content-center align-items-center">
                     <div id="login-column" class="col-md-6">
                         <div id="login-box" class="col-md-12">
+
                             <form id="login-form" class="needs-validation" novalidate>
                                 <h2 class="text-center text-info">Registrese aqui!</h3>
                                     <div class="form-group">
@@ -203,8 +206,25 @@ and open the template in the editor.
 
 
 
+
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" name="submit" class="btn btn-info btn-md" value="Registrarme">
+                                </div>
+                                <div id="register-link" class="text-right">
+                                    <a href="/" class="text-info">Volver a iniciar sesion</a>
+                                </div>
+                                <div th:if="${error != null}" class="alert alert-danger" role="alert">
+                                    <p class="MensajeError" th:text="${error}"></p>
+                                </div>
+                                <div th:if="${exito != null}" class="alert alert-success" role="alert">
+                                    <p class="MensajeExito" th:text="${exito}"></p>
+                                    <a class="btn" th:href="@{/}" > Volver a Index </a>
+                                </div>
+
 
 
                                     </body>
                                     </html>
+
