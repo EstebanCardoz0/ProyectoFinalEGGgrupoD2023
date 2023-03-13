@@ -3,7 +3,6 @@ package com.QuinchApp.Servicios;
 import com.QuinchApp.Entidades.Imagen;
 import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Repositorios.UsuarioRepositorio;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -22,8 +21,8 @@ public class UsuarioServicio {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrar(String nombre, String nombreUsuario, String email, String password, long telefono,  MultipartFile archivo) throws Exception {
-        validar(nombre, nombreUsuario, email, password, telefono, archivo);
+    public void registrar(String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo) throws Exception {
+        validar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
         usuario.setNombreUsuario(nombreUsuario);
@@ -41,7 +40,7 @@ public class UsuarioServicio {
         usuarioRepositorio.save(usuario);
     }
 
-    private void validar(String nombre, String nombreUsuario, String email, String password, long telefono, MultipartFile archivo) throws Exception {
+    private void validar(String nombre, String nombreUsuario, String email, String password, long telefono, MultipartFile archivo, String password2) throws Exception {
         if (nombre.isEmpty() || nombre == null) {
             throw new Exception("El nombre no puede estar estar vacío");
         }
@@ -53,6 +52,12 @@ public class UsuarioServicio {
         }
         if (password.isEmpty()) {
             throw new Exception("La contraseña no puede estar vacía");
+        }
+        if (password2.isEmpty()) {
+            throw new Exception("Debe repetir la contraseña");
+        }
+        if (!password.equals(password2)) {
+            throw new Exception("Las contraseñas ingresadas deben ser iguales");
         }
         if (telefono == 0L) {
             throw new Exception("El telefono no puede estar vacío");
@@ -89,16 +94,14 @@ public class UsuarioServicio {
         }
     }
 
-    
-  public List<Usuario> listarUsuarios(){
-    List<Usuario> usuarios= usuarioRepositorio.findAll();
-    return usuarios;
-}
+    public List<Usuario> listarUsuarios() {
+        List<Usuario> usuarios = usuarioRepositorio.findAll();
+        return usuarios;
+    }
 
-  
-        @Transactional
+    @Transactional
     public void borrar(Integer id) {
         usuarioRepositorio.deleteById(id);
     }
-    
+
 }
