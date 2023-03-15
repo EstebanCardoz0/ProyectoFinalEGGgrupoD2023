@@ -14,5 +14,11 @@ public interface PropietarioRepositorio extends JpaRepository<Propietario, Integ
 
     @Query("SELECT p FROM Propietario p WHERE p.email = :email")
     public Propietario buscarPorEmail(@Param("email") String email);
+    
+    @Query("SELECT p FROM Propietario p WHERE p.nombreUsuario = :nombreUsuario")
+    public Propietario buscarPorNombreUsuario(@Param("nombreUsuario") String nombreUsuario);
+    
+    @Query("SELECT p FROM Propietario p WHERE p.id = :id")
+    public Propietario buscarPorId(@Param("id")Integer idUsuario);
 
 }
