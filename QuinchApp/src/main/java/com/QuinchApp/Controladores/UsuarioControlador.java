@@ -78,7 +78,6 @@ public class UsuarioControlador {
             System.out.println(exception);
             return "Error";
         }
-
     }
 
     @GetMapping("/terminos")

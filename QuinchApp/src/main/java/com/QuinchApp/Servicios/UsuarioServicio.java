@@ -3,14 +3,23 @@ package com.QuinchApp.Servicios;
 import com.QuinchApp.Entidades.Imagen;
 import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Repositorios.UsuarioRepositorio;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
 public class UsuarioServicio {
@@ -27,8 +36,7 @@ public class UsuarioServicio {
         usuario.setNombre(nombre);
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setEmail(email);
-        //usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-        usuario.setPassword(password);
+        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         // usuario.setRol(Rol.USER);
         usuario.setTelefono(telefono);
         Date fechaAlta = new Date();
@@ -103,5 +111,21 @@ public class UsuarioServicio {
     public void borrar(Integer id) {
         usuarioRepositorio.deleteById(id);
     }
+    
+//     @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
+//        if (usuario != null) {
+//            List<GrantedAuthority> permisos = new ArrayList();
+//            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
+//            permisos.add(p);
+//            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+//            HttpSession session = attr.getRequest().getSession(true);
+//            session.setAttribute("usuariosession", usuario);
+//            return new User(usuario.getEmail(), usuario.getPassword(), permisos);
+//        } else {
+//            return null;
+//        }
+//    }
 
 }
