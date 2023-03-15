@@ -1,6 +1,7 @@
 package com.QuinchApp.Servicios;
 
 import com.QuinchApp.Entidades.Imagen;
+import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Propietario;
 import com.QuinchApp.Repositorios.PropietarioRepositorio;
 import java.util.Date;
@@ -20,15 +21,15 @@ public class PropietarioServicio {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrar(String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo) throws Exception {
+    public void registrar(String nombre, String nombreUsuario, String email, String password, String password2, long telefono,List<Propiedad> propiedades , MultipartFile archivo) throws Exception {
         validar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
         Propietario propietario = new Propietario();
         propietario.setNombre(nombre);
         propietario.setNombreUsuario(nombreUsuario);
         propietario.setEmail(email);
-        //usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+        //propietario.setPassword(new BCryptPasswordEncoder().encode(password));
         propietario.setPassword(password);
-        // usuario.setRol(Rol.USER);
+        // propietario.setRol(Rol.PROPIETARIO);
         propietario.setTelefono(telefono);
         Date fechaAlta = new Date();
         propietario.setFechaAlta(fechaAlta);
@@ -36,6 +37,7 @@ public class PropietarioServicio {
         propietario.setActivo(activo);
         Imagen miImagen = imagenServicio.guardar(archivo);
         propietario.setFotoPerfil(miImagen);
+        propietario.setPropiedades(propiedades);//lista de propiedades
         propietarioRepositorio.save(propietario);
 
     }
