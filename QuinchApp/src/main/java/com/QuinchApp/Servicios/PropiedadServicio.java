@@ -56,7 +56,7 @@ public class PropiedadServicio {
     }
 
     @Transactional
-    public void actualizarPropiedad(int id, String nombre, String descripcion, double valor, int capacidad, List<ServicioEnum> servicios) throws Exception {
+    public void actualizarPropiedad(int id, String nombre, String descripcion, double valor, int capacidad, MultipartFile imagen, ServicioEnum servicio) throws Exception {
         if (id < 0) {
             throw new Exception("Ingrese un id");
         }
@@ -67,6 +67,19 @@ public class PropiedadServicio {
             propiedad.setDescripcion(descripcion);
             propiedad.setValor(valor);
             propiedad.setCapacidad(capacidad);
+            List<Imagen> imagenes = propiedad.getImagenes();
+            if (imagenes == null) {
+                imagenes = new ArrayList();
+                propiedad.setImagenes(imagenes);
+            }
+            imagenes.add((Imagen) imagen);
+            propiedad.setImagenes(imagenes);
+            List<ServicioEnum> servicios = propiedad.getServicios();
+            if (servicios == null) {
+                servicios = new ArrayList();
+                propiedad.setServicios(servicios);
+            }
+            servicios.add(servicio);
             propiedad.setServicios(servicios);
             propiedadRepositorio.save(propiedad);
         }
@@ -78,17 +91,24 @@ public class PropiedadServicio {
     }
 
     @Transactional
-    public void borrar(Integer id) {
+    public void borrar(int id) {
         propiedadRepositorio.deleteById(id);
     }
 
-    public void verUbicacion(Propiedad propiedad) {
-        String location = propiedad.getUbicacion();
-        String mapLink = "https://www.google.com/maps?q=" + location.replace(" ", "+");
-        try {
-            Desktop.getDesktop().browse(new URI(mapLink));
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
+    public void verUbicacion(int id) throws Exception {
+        if (id < 0) {
+            throw new Exception("Ingrese un id");
+        }
+        Optional<Propiedad> respuesta = propiedadRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Propiedad propiedad = respuesta.get();
+            String location = propiedad.getUbicacion();
+            String mapLink = "https://www.google.com/maps?q=" + location.replace(" ", "+");
+            try {
+                Desktop.getDesktop().browse(new URI(mapLink));
+            } catch (IOException | URISyntaxException e) {
+                e.printStackTrace();
+            }
         }
     }
 
