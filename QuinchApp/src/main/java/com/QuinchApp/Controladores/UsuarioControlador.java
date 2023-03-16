@@ -65,7 +65,6 @@ public class UsuarioControlador {
     public String listar(ModelMap modelo) {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
         modelo.addAttribute("usuario", usuarios);
-
         return "usuarioList";
     }
 
