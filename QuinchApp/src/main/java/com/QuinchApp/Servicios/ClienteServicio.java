@@ -7,8 +7,10 @@ package com.QuinchApp.Servicios;
 
 import com.QuinchApp.Entidades.Cliente;
 import com.QuinchApp.Entidades.Imagen;
+import com.QuinchApp.Entidades.Reserva;
 import com.QuinchApp.Enums.Rol;
 import com.QuinchApp.Repositorios.ClienteRepositorio;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +31,6 @@ public class ClienteServicio {
 
     @Autowired
     private ImagenServicio imagenServicio;
-//ESPERAR LA RESERVA
 
     @Transactional
     public void registrar(String nombre, String nombreCliente, String email, String password, String password2, long telefono, MultipartFile archivo) throws Exception {
@@ -53,7 +54,7 @@ public class ClienteServicio {
 
     //ESPERAR LA RESERVA
     @Transactional
-    public void actualizar(int id, String nombre, String nombreCliente, String email, String password, long telefono, MultipartFile archivo) throws Exception {
+    public void actualizar(Reserva reserva, int id, String nombre, String nombreCliente, String email, String password, long telefono, MultipartFile archivo) throws Exception {
         if (id < 0) {
             throw new Exception("Ingrese un id");
         }
@@ -65,6 +66,14 @@ public class ClienteServicio {
             usuario.setEmail(email);
             usuario.setPassword(password);
             usuario.setTelefono(telefono);
+
+            List<Reserva> reser = usuario.getReserva();
+            if (reser == null) {
+                reser = new ArrayList();
+                usuario.setReserva(reser);
+            }
+            reser.add(reserva);
+            usuario.setReserva(reser);
             int idImagen = 0;
             if (usuario.getFotoPerfil() != null) {
                 idImagen = usuario.getFotoPerfil().getIdImagen();

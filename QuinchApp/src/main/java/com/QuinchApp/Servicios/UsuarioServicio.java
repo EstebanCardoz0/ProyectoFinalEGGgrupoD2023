@@ -113,7 +113,6 @@ public class UsuarioServicio implements UserDetailsService {
     public void borrar(Integer id) {
         usuarioRepositorio.deleteById(id);
     }
-
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
@@ -129,5 +128,4 @@ public class UsuarioServicio implements UserDetailsService {
             return null;
         }
     }
-
 }
