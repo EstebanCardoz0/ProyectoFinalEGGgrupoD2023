@@ -29,6 +29,7 @@ public class ClienteServicio {
 
     @Autowired
     private ImagenServicio imagenServicio;
+//ESPERAR LA RESERVA
 
     @Transactional
     public void registrar(String nombre, String nombreCliente, String email, String password, String password2, long telefono, MultipartFile archivo) throws Exception {
@@ -39,7 +40,7 @@ public class ClienteServicio {
         cliente.setEmail(email);
         //usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         cliente.setPassword(password);
-         cliente.setRol(Rol.CLIENTE);
+        cliente.setRol(Rol.CLIENTE);
         cliente.setTelefono(telefono);
         Date fechaAlta = new Date();
         cliente.setFechaAlta(fechaAlta);
@@ -50,7 +51,7 @@ public class ClienteServicio {
         clienteRepositorio.save(cliente);
     }
 
-    //poner reserva
+    //ESPERAR LA RESERVA
     @Transactional
     public void actualizar(int id, String nombre, String nombreCliente, String email, String password, long telefono, MultipartFile archivo) throws Exception {
         if (id < 0) {
@@ -84,7 +85,6 @@ public class ClienteServicio {
         clienteRepositorio.deleteById(id);
     }
 
-    //sumar reserva
     private void validar(String nombre, String nombreCliente, String email, String password, long telefono, MultipartFile archivo, String password2) throws Exception {
         if (nombre.isEmpty() || nombre == null) {
             throw new Exception("El nombre no puede estar estar vacío");
