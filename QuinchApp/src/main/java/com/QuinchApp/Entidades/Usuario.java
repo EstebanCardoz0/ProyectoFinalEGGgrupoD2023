@@ -32,8 +32,7 @@ public class Usuario {
     private String email;
     private String password;
     private long telefono;
-//  private List <Reserva> reserva;
-    
+//  private List <Reserva> reserva;    
     @Enumerated(EnumType.STRING)
     private Rol rol;
     @OneToOne
@@ -43,3 +42,4 @@ public class Usuario {
     private boolean activo;
 
 }
+
