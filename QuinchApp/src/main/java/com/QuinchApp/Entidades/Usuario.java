@@ -1,7 +1,11 @@
 package com.QuinchApp.Entidades;
 
+import com.QuinchApp.Enums.Rol;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +32,10 @@ public class Usuario {
     private String email;
     private String password;
     private long telefono;
-    //rol
+//  private List <Reserva> reserva;
+    
+    @Enumerated(EnumType.STRING)
+    private Rol rol;
     @OneToOne
     private Imagen fotoPerfil;
     @Temporal(TemporalType.DATE)
