@@ -3,7 +3,10 @@ package com.QuinchApp.Entidades;
 import com.QuinchApp.Enums.PropiedadEnum;
 import com.QuinchApp.Enums.ServicioEnum;
 import java.util.List;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,12 +30,16 @@ public class Propiedad {
     private double valor;
     private int capacidad;
     private boolean disponibilidad;
+
+    @Enumerated(EnumType.STRING)
     private PropiedadEnum tipoDePropiedad;
     @OneToOne
     private Propietario propietario;
     @OneToMany
     private List<Imagen> imagenes;
-    @OneToMany
+    
+    @ElementCollection   //solo con ElementCollection puedo utilizar List de Enums
+    @Enumerated(EnumType.STRING)      
     private List<ServicioEnum> servicios;
     //- Date calendario
 
@@ -52,7 +59,5 @@ public class Propiedad {
         this.imagenes = imagenes;
         this.servicios = servicios;
     }
-    
-    
 
 }

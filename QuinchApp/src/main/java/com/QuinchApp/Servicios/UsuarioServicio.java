@@ -2,6 +2,7 @@ package com.QuinchApp.Servicios;
 
 import com.QuinchApp.Entidades.Imagen;
 import com.QuinchApp.Entidades.Usuario;
+import com.QuinchApp.Enums.Rol;
 import com.QuinchApp.Repositorios.UsuarioRepositorio;
 import java.util.Date;
 import java.util.List;
@@ -28,10 +29,10 @@ public class UsuarioServicio {
         usuario.setEmail(email);
         //usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setPassword(password);
-        // usuario.setRol(Rol.USER);
         usuario.setTelefono(telefono);
         Date fechaAlta = new Date();
         usuario.setFechaAlta(fechaAlta);
+
         boolean activo = Boolean.TRUE;
         usuario.setActivo(activo);
         Imagen miImagen = imagenServicio.guardar(archivo);

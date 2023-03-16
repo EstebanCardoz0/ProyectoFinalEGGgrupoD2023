@@ -3,6 +3,7 @@ package com.QuinchApp.Servicios;
 import com.QuinchApp.Entidades.Imagen;
 import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Propietario;
+import com.QuinchApp.Enums.Rol;
 import com.QuinchApp.Repositorios.PropietarioRepositorio;
 import java.util.Date;
 import java.util.List;
@@ -11,9 +12,15 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.web.context.request.RequestContextHolder;
+//import org.springframework.web.context.request.ServletRequestAttributes;
+
+
+
 
 @Service
-public class PropietarioServicio {
+public class PropietarioServicio{
 
     @Autowired
     private PropietarioRepositorio propietarioRepositorio;
@@ -21,7 +28,7 @@ public class PropietarioServicio {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrar(String nombre, String nombreUsuario, String email, String password, String password2, long telefono,List<Propiedad> propiedades , MultipartFile archivo) throws Exception {
+    public void registrar(String nombre, String nombreUsuario, String email, String password, String password2, long telefono, List<Propiedad> propiedades, MultipartFile archivo) throws Exception {
         validar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
         Propietario propietario = new Propietario();
         propietario.setNombre(nombre);
@@ -29,7 +36,7 @@ public class PropietarioServicio {
         propietario.setEmail(email);
         //propietario.setPassword(new BCryptPasswordEncoder().encode(password));
         propietario.setPassword(password);
-        // propietario.setRol(Rol.PROPIETARIO);
+        propietario.setRol(Rol.PROPIETARIO);
         propietario.setTelefono(telefono);
         Date fechaAlta = new Date();
         propietario.setFechaAlta(fechaAlta);
@@ -105,4 +112,29 @@ public class PropietarioServicio {
     public void borrar(Integer id) {
         propietarioRepositorio.deleteById(id);
     }
+    
+//     @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//
+//        Propietario propietario = propietarioRepositorio.buscarPorEmail(email);
+//
+//        if (propietario != null) {
+//
+//            List<GrantedAuthority> permisos = new ArrayList();
+//
+//            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + propietario.getRol().toString());
+//
+//            permisos.add(p);
+//
+//            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+//
+//            HttpSession session = attr.getRequest().getSession(true);
+//
+//            session.setAttribute("usuariosession", propietario);
+//
+//            return new Propietario(propietario.getEmail(), propietario.getPassword(), permisos);
+//        } else {
+//            return null;
+//        }
+//}
 }
