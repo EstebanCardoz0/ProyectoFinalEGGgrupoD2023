@@ -2,6 +2,7 @@ package com.QuinchApp.Entidades;
 
 import com.QuinchApp.Enums.PropiedadEnum;
 import com.QuinchApp.Enums.ServicioEnum;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -56,8 +57,8 @@ public class Propiedad {
         this.disponibilidad = disponibilidad;
         this.tipoDePropiedad = tipoDePropiedad;
         this.propietario = propietario;
-        this.imagenes = imagenes;
-        this.servicios = servicios;
+        this.imagenes = new ArrayList();
+        this.servicios = new ArrayList();
     }
 
 }
