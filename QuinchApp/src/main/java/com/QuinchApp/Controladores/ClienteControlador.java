@@ -32,10 +32,10 @@ public class ClienteControlador {
 
     @GetMapping("/registrar")
     public String registrar() {
-        return "/registro";//PREGUNTAR
+        return "/registro";//PREGUNTAR POR VISTAS
     }
 
-    @PostMapping("/registro")
+    @PostMapping("/registro") //ESPERAR RESERVA
     public String registro(@RequestParam("nombre") String nombre, @RequestParam("nombreCliente") String nombreCliente,
             @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("password") String password2, @RequestParam("telefono") long telefono,
             @RequestParam("archivo") MultipartFile archivo, ModelMap modelo) throws Exception {
