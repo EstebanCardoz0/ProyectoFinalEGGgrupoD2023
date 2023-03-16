@@ -2,6 +2,7 @@ package com.QuinchApp.Servicios;
 
 import com.QuinchApp.Entidades.Imagen;
 import com.QuinchApp.Entidades.Usuario;
+import com.QuinchApp.Enums.Rol;
 import com.QuinchApp.Repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,10 +18,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
 @Service
 public class UsuarioServicio {
 
@@ -41,6 +38,7 @@ public class UsuarioServicio {
         usuario.setTelefono(telefono);
         Date fechaAlta = new Date();
         usuario.setFechaAlta(fechaAlta);
+
         boolean activo = Boolean.TRUE;
         usuario.setActivo(activo);
         Imagen miImagen = imagenServicio.guardar(archivo);
@@ -111,7 +109,6 @@ public class UsuarioServicio {
     public void borrar(Integer id) {
         usuarioRepositorio.deleteById(id);
     }
-    
 //     @Override
 //    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 //        Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
