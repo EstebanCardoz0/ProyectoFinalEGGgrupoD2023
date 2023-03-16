@@ -7,6 +7,7 @@ package com.QuinchApp.Servicios;
 
 import com.QuinchApp.Entidades.Cliente;
 import com.QuinchApp.Entidades.Imagen;
+import com.QuinchApp.Enums.Rol;
 import com.QuinchApp.Repositorios.ClienteRepositorio;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +39,7 @@ public class ClienteServicio {
         cliente.setEmail(email);
         //usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         cliente.setPassword(password);
-        // cliente.setRol(Rol.USER);
+         cliente.setRol(Rol.CLIENTE);
         cliente.setTelefono(telefono);
         Date fechaAlta = new Date();
         cliente.setFechaAlta(fechaAlta);
