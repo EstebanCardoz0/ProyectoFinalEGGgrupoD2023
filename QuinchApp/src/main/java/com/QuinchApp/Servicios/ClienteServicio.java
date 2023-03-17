@@ -52,7 +52,6 @@ public class ClienteServicio {
         clienteRepositorio.save(cliente);
     }
 
-    //ESPERAR LA RESERVA
     @Transactional
     public void actualizar(Reserva reserva, int id, String nombre, String nombreCliente, String email, String password, long telefono, MultipartFile archivo) throws Exception {
         if (id < 0) {
