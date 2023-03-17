@@ -24,7 +24,7 @@ public class PropiedadControlador {
     @Autowired
     private PropiedadServicio propiedadServicio;
 
-    @GetMapping("/registrarPropiedad")
+    @GetMapping("/registroPropiedad")
     public String registrarPropiedad() {
         return "registroPropiedad.html";
     }
