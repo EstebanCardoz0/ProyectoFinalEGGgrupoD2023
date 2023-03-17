@@ -104,9 +104,15 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
+    @Transactional
     public List<Usuario> listarUsuarios() {
         List<Usuario> usuarios = usuarioRepositorio.findAll();
         return usuarios;
+    }
+
+    @Transactional
+    public Usuario getOne(Integer id) {
+        return usuarioRepositorio.getOne(id);
     }
 
     @Transactional

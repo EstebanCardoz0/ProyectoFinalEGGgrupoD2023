@@ -4,13 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class Controlador {
 
     @GetMapping("/login")
-    public String login(@RequestParam(required = false) String error,String  email,String password, ModelMap modelo) {
+    public String login(@RequestParam(required = false) String error, String email, String password, ModelMap modelo) {
         if (error != null) {
             modelo.put("email", email);
             modelo.put("password", password);
@@ -27,6 +26,9 @@ public class Controlador {
         return "registro";
     }
 
+    @GetMapping("/quienes-somos")
+    public String quienesSomos() {
+        return "quienes-somos";
+    }
+
 }
-
-
