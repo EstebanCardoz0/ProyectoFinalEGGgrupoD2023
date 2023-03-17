@@ -51,7 +51,7 @@ public class ClienteServicio {
         cliente.setFotoPerfil(miImagen);
         clienteRepositorio.save(cliente);
     }
-
+//preguntar como es el required para RESERVA
     @Transactional
     public void actualizar(Reserva reserva, int id, String nombre, String nombreCliente, String email, String password, long telefono, MultipartFile archivo) throws Exception {
         if (id < 0) {
