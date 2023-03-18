@@ -23,7 +23,7 @@ public class UsuarioControlador {
 
     @GetMapping("/registrar")
     public String registrar() {
-        return "/registro";
+        return "/registro.html";
     }
 
     @PostMapping("/registro")
