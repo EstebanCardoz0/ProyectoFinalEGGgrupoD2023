@@ -3,7 +3,9 @@ package com.QuinchApp.Controladores;
 import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Servicios.UsuarioServicio;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -54,10 +56,10 @@ public class UsuarioControlador {
             @RequestParam("archivo") MultipartFile archivo) throws Exception {
         try {
             usuarioServicio.actualizar(id, nombre, nombreUsuario, email, password, telefono, archivo);
-            return "Exito";
+            return "exito";
         } catch (Exception exception) {
             System.out.println(exception);
-            return "Error";
+            return "error";
         }
     }
 
@@ -83,4 +85,45 @@ public class UsuarioControlador {
     public String terminos() {
         return "terminos";
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_ADMIN', 'ROLE_PROPIETARIO')")
+    @GetMapping("/perfil")
+    public String perfil(ModelMap modelo, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.put("usuario", usuario);
+        return "perfil";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_ADMIN', 'ROLE_PROPIETARIO')")
+    @GetMapping("/perfilModificar")
+    public String perfilModificar(ModelMap modelo, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.put("usuario", usuario);
+        return "perfilModificar";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_ADMIN', 'ROLE_PROPIETARIO')")
+    @PostMapping("/perfilModificar/{id}")
+    public String actualizar(HttpSession session, @PathVariable int id, @RequestParam("nombre") String nombre, @RequestParam("nombreUsuario") String nombreUsuario,
+            @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("telefono") long telefono,
+            @RequestParam("archivo") MultipartFile archivo, ModelMap modelo) {
+        try {
+            Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+            modelo.put("nombre", nombre);
+            modelo.put("nombreUsuario", nombreUsuario);
+            modelo.put("telefono", telefono);
+            modelo.put("email", email);
+            modelo.put("password", password);
+            modelo.put("archivo", archivo);
+            usuarioServicio.actualizar(id, nombre, nombreUsuario, email, password, telefono, archivo);
+            modelo.put("exito", "Usuario actualizado correctamente!");
+            return "/";
+        } catch (Exception ex) {
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("email", email);
+            return "perfilModificar";
+        }
+    }
+
 }
