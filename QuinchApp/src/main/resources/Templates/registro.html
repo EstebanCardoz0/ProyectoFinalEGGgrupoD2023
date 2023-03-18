@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--<<<<<<< HEAD-->
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -163,6 +164,31 @@ and open the template in the editor.
                                                 })
                                             })()
                                         </script>
+                                        <!--=======
+                                        <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaft.or/extras/spring-security">
+                                          <head th:replace="/fragment/head :: head"> </head>
+                                            <body>
+                                                <header th:replace="/fragment/navbar :: div"> </header>
+                                                <section>
+                                                    <div class="container">
+                                                        <div id="login-row" class="row justify-content-center align-items-center">
+                                                            <div id="login-column" class="col-md-6">
+                                                                <div id="login-box" class="col-md-12">
+                                                                    <form action="/usuario/registro" method="POST" enctype="multipart/form-data"> 
+                                                                        <div class="form-group">
+                                                                            <label for="nombre" class="text-info">Nombre:</label>
+                                                                            <input type="text" class="form-control" id="nombre" name="nombre" th:value="${nombre}" placeholder="Mark" required >
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="email" class="form-label">Correo:</label>
+                                                                            <input type="text" class="form-control" name="email" id="email"  th:value="${email}" placeholder="miemail@gmail.com" required>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="nombreUsuario" class="form-label">Nombre de usuario</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                                                                                <input type="text" class="form-control" name="nombreUsuario" id="nombreUsuario" th:value="${nombreUsuario}"  placeholder="miUsuario" required>
+                                        >>>>>>> 7034ba3eaeff86c41168a4e7a667ca855376e37d-->
                                     </div>
                                 </div>
                                 </nav>

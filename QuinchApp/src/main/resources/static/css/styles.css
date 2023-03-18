@@ -10,6 +10,7 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+/*<<<<<<< HEAD:QuinchApp/src/main/resources/Templates/css/styles.css*/
 :root {
     --bs-blue: #0d6efd;
     --bs-indigo: #6610f2;
@@ -64,6 +65,8 @@
     --bs-body-bg: #fff;
 }
 
+/*=======
+>>>>>>> 7034ba3eaeff86c41168a4e7a667ca855376e37d:QuinchApp/src/main/resources/static/css/styles.css*/
 *,
 *::before,
 *::after {
@@ -77,6 +80,7 @@
 }
 
 body {
+    /*<<<<<<< HEAD:QuinchApp/src/main/resources/Templates/css/styles.css*/
     margin: 0;
     font-family: var(--bs-body-font-family);
     font-size: var(--bs-body-font-size);
@@ -87,6 +91,11 @@ body {
     background-color: var(--bs-body-bg);
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    /*=======
+      margin: 0;
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    >>>>>>> 7034ba3eaeff86c41168a4e7a667ca855376e37d:QuinchApp/src/main/resources/static/css/styles.css*/
 }
 
 hr {
@@ -627,6 +636,7 @@ progress {
     color: #6c757d;
 }
 
+/*<<<<<<< HEAD:QuinchApp/src/main/resources/Templates/css/styles.css*/
 .container,
 .container-fluid,
 .container-xxl,
@@ -666,6 +676,8 @@ progress {
         max-width: 1320px;
     }
 }
+/*=======
+>>>>>>> 7034ba3eaeff86c41168a4e7a667ca855376e37d:QuinchApp/src/main/resources/static/css/styles.css*/
 .row {
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
@@ -11370,6 +11382,7 @@ header.masthead .bg-circle-4 {
 }
 
 @media (min-width: 992px) {
+    /*<<<<<<< HEAD:QuinchApp/src/main/resources/Templates/css/styles.css*/
     header.masthead {
         padding-top: calc(10rem + 55px);
         padding-bottom: 10rem;
@@ -11381,3 +11394,20 @@ header.masthead .bg-circle-4 {
         font-size: 4rem;
     }
 }
+/*=======
+  header.masthead {
+    padding-top: calc(10rem + 55px);
+    padding-bottom: 10rem;
+  }
+  header.masthead .masthead-content .masthead-heading {
+    font-size: 6rem;
+  }
+  header.masthead .masthead-content .masthead-subheading {
+    font-size: 4rem;
+  }
+}
+
+
+
+
+>>>>>>> 7034ba3eaeff86c41168a4e7a667ca855376e37d:QuinchApp/src/main/resources/static/css/styles.css*/
