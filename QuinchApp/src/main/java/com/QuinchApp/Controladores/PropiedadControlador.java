@@ -6,8 +6,6 @@ import com.QuinchApp.Enums.PropiedadEnum;
 import com.QuinchApp.Enums.ServicioEnum;
 import com.QuinchApp.Servicios.PropiedadServicio;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,7 +24,7 @@ public class PropiedadControlador {
     @Autowired
     private PropiedadServicio propiedadServicio;
 
-    @GetMapping("/registrarPropiedad")
+    @GetMapping("/registroPropiedad")
     public String registrarPropiedad() {
         return "registroPropiedad.html";
     }
