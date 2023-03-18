@@ -6,6 +6,7 @@
 package com.QuinchApp.Controladores;
 
 import com.QuinchApp.Entidades.Cliente;
+import com.QuinchApp.Entidades.Reserva;
 import com.QuinchApp.Servicios.ClienteServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,13 +57,13 @@ public class ClienteControlador {
         }
         return "registro";
     }
-
+//preguntar como suma reserva
     @PostMapping("/actualizar/{id}")
     public String actualizar(@PathVariable int id, @RequestParam("nombre") String nombre, @RequestParam("nombreCliente") String nombreCliente,
             @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("telefono") long telefono,
-            @RequestParam("archivo") MultipartFile archivo) throws Exception {
+            @RequestParam("archivo") MultipartFile archivo, @RequestParam("reserva") Reserva reserva) throws Exception {
         try {
-            clienteServicio.actualizar(id, nombre, nombreCliente, email, password, telefono, archivo);
+            clienteServicio.actualizar(reserva,id, nombre, nombreCliente, email, password, telefono, archivo);
             return "Exito";
         } catch (Exception exception) {
             System.out.println(exception);

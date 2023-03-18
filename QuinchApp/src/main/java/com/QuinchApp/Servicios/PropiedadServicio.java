@@ -10,6 +10,7 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -27,8 +28,8 @@ public class PropiedadServicio {
 
     @Transactional
     public void registrarPropiedad(String nombre, String ubicacion, String descripcion, double valor, int capacidad,
-            PropiedadEnum tipoDePropiedad, Propietario propietario, MultipartFile imagenes, List<ServicioEnum> servicios) throws Exception {
-        validar(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad, propietario, (List<Imagen>) imagenes, servicios);
+            PropiedadEnum tipoDePropiedad, Propietario propietario, MultipartFile imagen, ServicioEnum servicio) throws Exception {
+        validar(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad, propietario);
         Propiedad propiedad = new Propiedad();
         propiedad.setNombre(nombre);
         propiedad.setUbicacion(ubicacion);
@@ -37,14 +38,25 @@ public class PropiedadServicio {
         propiedad.setCapacidad(capacidad);
         propiedad.setTipoDePropiedad(tipoDePropiedad);
         propiedad.setPropietario(propietario);
-        Imagen imagenesPropiedad = imagenServicio.guardar(imagenes);
-        propiedad.setImagenes((List<Imagen>) imagenesPropiedad);
+        List<Imagen> imagenes = propiedad.getImagenes();
+        if (imagenes == null) {
+            imagenes = new ArrayList();
+            propiedad.setImagenes(imagenes);
+        }
+        imagenes.add((Imagen) imagen);
+        propiedad.setImagenes(imagenes);
+        List<ServicioEnum> servicios = propiedad.getServicios();
+        if (servicios == null) {
+            servicios = new ArrayList();
+            propiedad.setServicios(servicios);
+        }
+        servicios.add(servicio);
         propiedad.setServicios(servicios);
         propiedadRepositorio.save(propiedad);
     }
 
     @Transactional
-    public void actualizarPropiedad(int id, String nombre, String descripcion, double valor, int capacidad, List<ServicioEnum> servicios) throws Exception {
+    public void actualizarPropiedad(int id, String nombre, String descripcion, double valor, int capacidad, MultipartFile imagen, ServicioEnum servicio) throws Exception {
         if (id < 0) {
             throw new Exception("Ingrese un id");
         }
@@ -55,6 +67,19 @@ public class PropiedadServicio {
             propiedad.setDescripcion(descripcion);
             propiedad.setValor(valor);
             propiedad.setCapacidad(capacidad);
+            List<Imagen> imagenes = propiedad.getImagenes();
+            if (imagenes == null) {
+                imagenes = new ArrayList();
+                propiedad.setImagenes(imagenes);
+            }
+            imagenes.add((Imagen) imagen);
+            propiedad.setImagenes(imagenes);
+            List<ServicioEnum> servicios = propiedad.getServicios();
+            if (servicios == null) {
+                servicios = new ArrayList();
+                propiedad.setServicios(servicios);
+            }
+            servicios.add(servicio);
             propiedad.setServicios(servicios);
             propiedadRepositorio.save(propiedad);
         }
@@ -66,22 +91,33 @@ public class PropiedadServicio {
     }
 
     @Transactional
-    public void borrar(Integer id) {
+    public void borrar(int id) {
         propiedadRepositorio.deleteById(id);
     }
-    
-    public void verUbicacion(Propiedad propiedad) {
-        String location = propiedad.getUbicacion();
-        String mapLink = "https://www.google.com/maps?q=" + location.replace(" ", "+");
-        try {
-            Desktop.getDesktop().browse(new URI(mapLink));
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
+
+    public void verUbicacion(int id) throws Exception {
+        if (id < 0) {
+            throw new Exception("Ingrese un id");
         }
+        Optional<Propiedad> respuesta = propiedadRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Propiedad propiedad = respuesta.get();
+            String location = propiedad.getUbicacion();
+            String mapLink = "https://www.google.com/maps?q=" + location.replace(" ", "+");
+            try {
+                Desktop.getDesktop().browse(new URI(mapLink));
+            } catch (IOException | URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public Propiedad getOne(int id) {
+        return propiedadRepositorio.getOne(id);
     }
 
     private void validar(String nombre, String ubicacion, String descripcion, double valor, int capacidad,
-            PropiedadEnum tipoDePropiedad, Propietario propietario, List<Imagen> imagenes, List<ServicioEnum> servicios) throws Exception {
+            PropiedadEnum tipoDePropiedad, Propietario propietario) throws Exception {
         if (nombre.isEmpty() || nombre == null) {
             throw new Exception("El nombre no puede estar estar vacío");
         }
@@ -102,12 +138,6 @@ public class PropiedadServicio {
         }
         if (propietario == null) {
             throw new Exception("Indica el propietario de la propiedad");
-        }
-        if (imagenes == null) {
-            throw new Exception("Suba fotos de la propiedad");
-        }
-        if (servicios == null) {
-            throw new Exception("Indique que servicios tiene la propiedad");
         }
     }
 
