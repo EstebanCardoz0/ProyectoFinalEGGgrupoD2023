@@ -1,0 +1,28 @@
+<div>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">QuinchApp</a>
+            <div class="collapse navbar-collapse elementosNav" id="navbarNavDropdown">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Alquileres</a>
+                    </li>
+                </ul>
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:if="${session.usuariosession == null}" href="/usuario/registrar">Registrarse</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:if="${session.usuariosession == null}" href="/login">Iniciar sesion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"  th:if="${session.usuariosession != null}" sec:authorize="hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('PROPIETARIO')" th:text="${session.usuariosession.nombreUsuario}" href="/usuario/perfil"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:if="${session.usuariosession != null}" sec:authorize="hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('PROPIETARIO')"  href="/logout">Cerrar sesion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>

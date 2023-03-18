@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+
 @Service
 public class UsuarioServicio implements UserDetailsService {
 
@@ -104,9 +105,15 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
+    @Transactional
     public List<Usuario> listarUsuarios() {
         List<Usuario> usuarios = usuarioRepositorio.findAll();
         return usuarios;
+    }
+
+    @Transactional
+    public Usuario getOne(Integer id) {
+        return usuarioRepositorio.getOne(id);
     }
 
     @Transactional

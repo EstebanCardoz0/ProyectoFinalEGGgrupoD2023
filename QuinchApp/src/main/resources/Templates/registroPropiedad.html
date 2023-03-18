@@ -1,0 +1,96 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bootstrap demo</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    </head>
+    <body>
+        <form class="row g-3" th:action="@{/propiedad/registroPropiedad}" method="POST" enctype="multipart/form-data">
+            <div class="col-md-4">
+                <label for="nombre" class="form-label">Nombre de la Propiedad</label>
+                <input type="text" class="form-control is-valid" name="nombre" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="ubicacion" class="form-label">Direccion</label>
+                <input type="text" class="form-control is-valid" name="ubicacion" value="Ej: Juan Jose Silva 57, Formosa, Formosa" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="descripcion" class="form-label">Descripcion</label>
+                <input type="text" class="form-control is-valid" name="descripcion" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="valor" class="form-label">$</label>
+                <input type="number" class="form-control is-valid" name="valor" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="capacidad" class="form-label">Capacidad</label>
+                <input type="number" class="form-control is-valid" name="capacidad" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="tipoDePropiedad" class="form-label">Tipo de Propiedad</label>
+                <select class="form-select is-invalid" name="tipoDePropiedad" aria-describedby="validationServer04Feedback" required>
+                    <option selected disabled value="">Elije...</option>
+                    <option value="QUINCHO">Quincho</option>
+                    <option value="SALON_DE_FIESTA">Salon de Fiesta</option>
+                    <option value="CASA_QUINTA">Casa Quinta</option>
+                    <option value="PATIO">Patio</option>
+                </select>
+                <div id="validationServer04Feedback" class="invalid-feedback">
+                    Seleccione un tipo de propiedad valido.
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="propietario" class="form-label">Propietario</label>
+                <input type="text" class="form-control is-valid" name="Propietario">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <input type="file" class="form-control is-valid" name="imagen">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="servicio" class="form-label">Servicios</label>
+                <select class="form-select is-invalid" name="servicio" aria-describedby="validationServer04Feedback" required>
+                    <option selected disabled value="">Elije...</option>
+                    <option value="WIFI">Wi-Fi</option>
+                    <option value="PARRILLA">Parrilla</option>
+                    <option value="PISCINA">Piscina</option>
+                    <option value="PING_PONG">Ping Pong</option>
+                    <option value="BILLAR">Billar</option>
+                    <option value="AIRE_ACONDICIONADO">Aire Acondicionado</option>
+                    <option value="COCINA">Cocina</option>
+                </select>
+                <div id="validationServer04Feedback" class="invalid-feedback">
+                    Seleccione servicio valido.
+                </div>
+                <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Registrar</button>
+                </div>
+            </div>
+        </form>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    </body>
+</html>
+
