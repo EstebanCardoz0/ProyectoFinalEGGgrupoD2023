@@ -1,108 +1,273 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaft.or/extras/spring-security">
+<!--<<<<<<< HEAD-->
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmls:th="https://www.thymeleaf.org/">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+
     <head>
-        <title>QuinchApp - Registro</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>One Page Wonder - Start Bootstrap Template</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
+              rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     </head>
+
     <body>
-        <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">QuinchApp</a>
-                <div class="collapse navbar-collapse elementosNav" id="navbarNavDropdown">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">Home</a>
-                        </li>
-                    </ul>
-                    <ul class="nav justify-content-end">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Iniciar sesión</a>
-                        </li>
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+            <div class="container px-5">
+                <link rel="icon" href="/imagenes/logo-top-quincho1.webp" type="webp" sizes="16px">
+                <a class="navbar-brand" href="C:\Users\Usuario\OneDrive\Desktop\startbootstrap-one-page-wonder-gh-pages/index.html" favicon=>QUINCHOAPP</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
+                        class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#!">Registrarse</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">Log In</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <section>
-            <div class="container">
-                <div id="login-row" class="row justify-content-center align-items-center">
-                    <div id="login-column" class="col-md-6">
-                        <div id="login-box" class="col-md-12">
-                            <form action="/usuario/registro" method="POST" enctype="multipart/form-data"> 
-                                <div class="form-group">
-                                    <label for="nombre" class="text-info">Nombre:</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre" th:value="${nombre}" placeholder="Mark" required >
-                                </div>
-                                <div class="form-group">
-                                    <label for="email" class="form-label">Correo:</label>
-                                    <input type="text" class="form-control" name="email" id="email"  th:value="${email}" placeholder="miemail@gmail.com" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="nombreUsuario" class="form-label">Nombre de usuario</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text" id="inputGroupPrepend2">@</span>
-                                        <input type="text" class="form-control" name="nombreUsuario" id="nombreUsuario" th:value="${nombreUsuario}"  placeholder="miUsuario" required>
+        <header class="masthead text-center text-white">
+            <div class="masthead-content">
+                <div class="container px-5">
+                    <h2 class="masthead-subheading mb-0">Registrese aqui!</h2>
+                    <div id="login">
+                        <div class="container">
+                            <div id="login-row" class="row justify-content-center align-items-center">
+                                <div id="login-column" class="col-md-6">
+                                    <div id="login-box" class="col-md-12">
+                                        <form id="login-form" class="needs-validation" novalidate>
+                                            <div class="form-group">
+                                                <label for="nombreUsuario" class="text-info">Apellido y Nombre:</label><br />
+                                                <input type="text" name="nombreApellido" id="nombreApellido" class="form-control"
+                                                       th:value="${nombreApellido}" required />
+                                                <div class="valid-feedback">
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Es necesario poner el Apellido y nombre
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nombreUsuario" class="text-info">Nombre de usuario:</label><br />
+                                                <input type="text" name="nombreUsuario" id="nombreUsuario" class="form-control"
+                                                       th:value="${nombreUsuario}" required />
+                                                <div class="valid-feedback">
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Es necesario poner el nombre de usuario
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email" class="text-info">Correo Electronico:</label><br />
+                                                <input type="email" name="email" id="email" class="form-control" th:value="${email} "
+                                                       required />
+                                                <div class="valid-feedback">
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Es necesario poner el correo Electronico
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="telefono " class="text-info">Telefono de contacto:</label><br />
+                                                <input type="tel " name="telefono" id="telefono" class="form-control" th:value="${telefono} "
+                                                       required />
+                                                <div class="valid-feedback">
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Es necesario poner el numero de telefono
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="password " class="text-info">Contraseña:</label><br />
+                                                <input type="password " name="password " id="password " class="form-control"
+                                                       th:value=" ${password} " required />
+                                                <div class="valid-feedback">
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Es necesario poner el password
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="password2 " class="text-info">Repita la contraseña:</label><br />
+                                                <input type="password " name="password2 " id="password2 " class="form-control"
+                                                       th:value="${password2} " required />
+                                                <div class="valid-feedback">
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Es necesario poner el password
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="imagen" class="text-info">Imagen de perfil:</label>
+                                                <div class="input-group">
+                                                    <label class="input-group-btn">
+                                                        <span class="btn btn-primary btn-file">
+                                                            <input accept=".jpg,.png,.jpeg,.gif" class="hidden form-control" name="imagen" type="file" id="imagen"
+                                                                   th:value="${nombreUsuario} "
+                                                                   required />
+                                                            <div class="valid-feedback">
+
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                Es necesario poner la imagen
+                                                            </div>
+                                                        </span>
+                                                    </label>
+                                                    </label>
+                                                </div>
+                                                <br />
+                                                <div class="col-12 text-center">
+                                                    <button class="btn btn-primary btn-lg " type="submit" name="submit ">Registrarme como usuario</button>
+                                                </div>
+                                                <br>
+                                                <div class="col-12 text-center">
+                                                    <button class="btn btn-primary btn-lg " type="submit" name="submit ">Registrarme como propietario</button>
+                                                </div>
+                                                <div id="register-link " class="text-right">
+                                                    <a href="/login " class="text-info">Volver a iniciar sesion</a>
+                                                </div>
+                                        </form>
+                                        <script>
+                                            // Example starter JavaScript for disabling form submissions if there are invalid fields
+                                            (() => {
+                                                'use strict'
+
+                                                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                                const forms = document.querySelectorAll('.needs-validation')
+
+                                                // Loop over them and prevent submission
+                                                Array.from(forms).forEach(form => {
+                                                    form.addEventListener('submit', event => {
+                                                        if (!form.checkValidity()) {
+                                                            event.preventDefault()
+                                                            event.stopPropagation()
+                                                        }
+
+                                                        form.classList.add('was-validated')
+                                                    }, false)
+                                                })
+                                            })()
+                                        </script>
+                                        <!--=======
+                                        <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaft.or/extras/spring-security">
+                                          <head th:replace="/fragment/head :: head"> </head>
+                                            <body>
+                                                <header th:replace="/fragment/navbar :: div"> </header>
+                                                <section>
+                                                    <div class="container">
+                                                        <div id="login-row" class="row justify-content-center align-items-center">
+                                                            <div id="login-column" class="col-md-6">
+                                                                <div id="login-box" class="col-md-12">
+                                                                    <form action="/usuario/registro" method="POST" enctype="multipart/form-data"> 
+                                                                        <div class="form-group">
+                                                                            <label for="nombre" class="text-info">Nombre:</label>
+                                                                            <input type="text" class="form-control" id="nombre" name="nombre" th:value="${nombre}" placeholder="Mark" required >
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="email" class="form-label">Correo:</label>
+                                                                            <input type="text" class="form-control" name="email" id="email"  th:value="${email}" placeholder="miemail@gmail.com" required>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="nombreUsuario" class="form-label">Nombre de usuario</label>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                                                                                <input type="text" class="form-control" name="nombreUsuario" id="nombreUsuario" th:value="${nombreUsuario}"  placeholder="miUsuario" required>
+                                        >>>>>>> 7034ba3eaeff86c41168a4e7a667ca855376e37d-->
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="telefono" class="text-info">Teléfono:</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono" th:value="${telefono}" placeholder="3794111111" required >
-                                </div>
-                                <div class="form-group">
-                                    <label for="password" class="text-info">Contraseña:</label><br>                                   
-                                    <div class="input-group-append">
-                                        <input type="password" name="password" id="password" class="form-control"
-                                               th:value="${password}"required> 
-                                        <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
+                                </nav>
+                                <section>
+                                    <div class="container">
+                                        <div id="login-row" class="row justify-content-center align-items-center">
+                                            <div id="login-column" class="col-md-6">
+                                                <div id="login-box" class="col-md-12">
+                                                    <form action="/usuario/registro" method="POST" enctype="multipart/form-data"> 
+                                                        <div class="form-group">
+                                                            <label for="nombre" class="text-info">Nombre:</label>
+                                                            <input type="text" class="form-control" id="nombre" name="nombre" th:value="${nombre}" placeholder="Mark" required >
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="email" class="form-label">Correo:</label>
+                                                            <input type="text" class="form-control" name="email" id="email"  th:value="${email}" placeholder="miemail@gmail.com" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="nombreUsuario" class="form-label">Nombre de usuario</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                                                                <input type="text" class="form-control" name="nombreUsuario" id="nombreUsuario" th:value="${nombreUsuario}"  placeholder="miUsuario" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="telefono" class="text-info">Teléfono:</label>
+                                                            <input type="text" class="form-control" id="telefono" name="telefono" th:value="${telefono}" placeholder="3794111111" required >
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="password" class="text-info">Contraseña:</label><br>                                   
+                                                            <div class="input-group-append">
+                                                                <input type="password" name="password" id="password" class="form-control"
+                                                                       th:value="${password}"required> 
+                                                                <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="password2" class="text-info">Repita la contraseña:</label><br>                                   
+                                                            <div class="input-group-append">
+                                                                <input type="password" name="password2" id="password2" class="form-control"
+                                                                       th:value="${password2}"required>
+                                                                <button id="show_password2" class="btn btn-primary" type="button" onclick="mostrarPassword2()"> <span class="fa fa-eye-slash icon2"></span> </button>
+                                                            </div>                               
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="archivo" class="imagen">Imagen de perfil:</label><br>
+                                                            <input type="file" name="archivo" id="archivo" class="form-control"
+                                                                   th:value="${archivo}">
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                                                                <label class="form-check-label" for="invalidCheck2">
+                                                                    <p> Acepto haber leído los <a class="text-info" th:href="@{/usuario/terminos}">  términos y condiciones </a> </p> 
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Registrarme">
+                                                        </div>
+                                                        <div id="register-link" class="text-right">
+                                                            <a href="/" class="text-info">Volver a iniciar sesion</a>
+                                                        </div>
+                                                        <div th:if="${error != null}" class="alert alert-danger" role="alert">
+                                                            <p class="MensajeError" th:text="${error}"></p>
+                                                        </div>
+                                                        <div th:if="${exito != null}" class="alert alert-success" role="alert">
+                                                            <p class="MensajeExito" th:text="${exito}"></p>
+                                                            <a class="btn" th:href="@{/}" > Volver a Index </a>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="password2" class="text-info">Repita la contraseña:</label><br>                                   
-                                    <div class="input-group-append">
-                                        <input type="password" name="password2" id="password2" class="form-control"
-                                               th:value="${password2}"required>
-                                        <button id="show_password2" class="btn btn-primary" type="button" onclick="mostrarPassword2()"> <span class="fa fa-eye-slash icon2"></span> </button>
-                                    </div>                               
-                                </div>
-                                <div class="form-group">
-                                    <label for="archivo" class="imagen">Imagen de perfil:</label><br>
-                                    <input type="file" name="archivo" id="archivo" class="form-control"
-                                           th:value="${archivo}">
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-                                        <label class="form-check-label" for="invalidCheck2">
-                                            <p> Acepto haber leído los <a class="text-info" th:href="@{/usuario/terminos}">  términos y condiciones </a> </p> 
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" name="submit" class="btn btn-info btn-md" value="Registrarme">
-                                </div>
-                                <div id="register-link" class="text-right">
-                                    <a href="/" class="text-info">Volver a iniciar sesion</a>
-                                </div>
-                                <div th:if="${error != null}" class="alert alert-danger" role="alert">
-                                    <p class="MensajeError" th:text="${error}"></p>
-                                </div>
-                                <div th:if="${exito != null}" class="alert alert-success" role="alert">
-                                    <p class="MensajeExito" th:text="${exito}"></p>
-                                    <a class="btn" th:href="@{/}" > Volver a Index </a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> 
-          <!-- Footer-->
-        <div th:replace = "/fragment/footer :: div"></div>
-        <!-- Bootstrap core JS-->
-        <div th:replace = "/fragment/script :: script"></div>
-    </body>
-</html>
+                                </section> 
+                                <!-- Footer-->
+                                <div th:replace = "/fragment/footer :: div"></div>
+                                <!-- Bootstrap core JS-->
+                                <div th:replace = "/fragment/script :: script"></div>
+                                </body>
+                                </html>

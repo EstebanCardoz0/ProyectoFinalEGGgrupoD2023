@@ -111,6 +111,10 @@ public class PropiedadServicio {
             }
         }
     }
+    
+    public Propiedad getOne(int id) {
+        return propiedadRepositorio.getOne(id);
+    }
 
     private void validar(String nombre, String ubicacion, String descripcion, double valor, int capacidad,
             PropiedadEnum tipoDePropiedad, Propietario propietario) throws Exception {
