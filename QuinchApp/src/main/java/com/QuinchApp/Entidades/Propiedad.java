@@ -35,7 +35,7 @@ public class Propiedad {
     @Enumerated(EnumType.STRING)
     private PropiedadEnum tipoDePropiedad;
     @OneToOne
-    private Propietario propietario;
+    private Usuario propietario;
     @OneToMany
     private List<Imagen> imagenes;
     
@@ -47,7 +47,7 @@ public class Propiedad {
     public Propiedad() {
     }
 
-    public Propiedad(Integer idPropiedad, String nombre, String ubicacion, String Descripcion, double valor, int capacidad, boolean disponibilidad, PropiedadEnum tipoDePropiedad, Propietario propietario, List<Imagen> imagenes, List<ServicioEnum> servicios) {
+    public Propiedad(Integer idPropiedad, String nombre, String ubicacion, String Descripcion, double valor, int capacidad, boolean disponibilidad, PropiedadEnum tipoDePropiedad, Usuario propietario, List<Imagen> imagenes, List<ServicioEnum> servicios) {
         this.idPropiedad = idPropiedad;
         this.nombre = nombre;
         this.ubicacion = ubicacion;
