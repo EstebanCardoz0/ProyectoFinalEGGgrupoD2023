@@ -1,0 +1,52 @@
+body{
+    color: #2A0A1B;
+
+}
+#nav{
+    background-color: #2A0A1B !important;
+        opacity: 0.9;
+   filter: alpha(opacity=10)
+}
+.derecha{
+    margin-top: 2%;
+    text-align: right !important;
+    float:right !important;
+}
+#navbarText{
+    margin-top: -0.5%;
+}
+.navbar-collapse {
+    background: #343a4000 !important;
+    text-align: right;
+}
+#navbarText{
+    padding-right: 3%;
+}
+#cardTrue{
+    background-color: #fff;
+    max-width: 30%;
+    color: black;
+    text-align: center;
+    -webkit-box-shadow: 14px 17px 32px -11px rgba(0,0,0,0.57);
+    -moz-box-shadow: 14px 17px 32px -11px rgba(0,0,0,0.57);
+    box-shadow: 14px 17px 32px -11px rgba(0,0,0,0.57);
+}
+
+.footer{
+    background-color: #2A0A1B !important;
+    opacity: 0.9; 
+    padding: 4%;
+}
+.container1{
+    background-image: linear-gradient(to right top, #c7784f, #d16e60, #d46876, #cf658d, #c268a5);
+    padding: 15%;
+}
+
+.btn{
+    display: inline-block;
+    padding: 2em 2em;
+    background: #55acee !important;
+    color: #fff;
+    border-radius: 4em !important;
+    border:none;
+}
