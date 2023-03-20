@@ -59,13 +59,13 @@
             </div>
             <div class="col-md-4">
                 <label for="propietario" class="form-label">Propietario</label>
-                <input type="text" class="form-control is-valid" name="Propietario">
+                <input type="text" class="form-control is-valid" name="propietario" th:value="${propietario}"r>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
             <div class="col-md-4">
-                <input type="file" class="form-control is-valid" name="imagen">
+                <input type="file" class="form-control is-valid" name="imagen"th:value="${imagen}">
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -85,8 +85,15 @@
                 <div id="validationServer04Feedback" class="invalid-feedback">
                     Seleccione servicio valido.
                 </div>
+                <div th:if="${error != null}" class="alert alert-danger" role="alert">
+                    <p class="MensajeError" th:text="${error}"></p>
+                </div>
+                <div th:if="${exito != null}" class="alert alert-success" role="alert">
+                    <p class="MensajeExito" th:text="${exito}"></p>
+                    <a class="btn" th:href="@{/}" > Volver a Index </a>
+                </div>
                 <div class="col-12">
-                        <button class="btn btn-primary" type="submit">Registrar</button>
+                    <button class="btn btn-primary" type="submit">Registrar</button>
                 </div>
             </div>
         </form>
