@@ -50,6 +50,24 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setFotoPerfil(miImagen);
         usuarioRepositorio.save(usuario);
     }
+    @Transactional
+    public void registrarPropietario(String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo) throws Exception {
+        validar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
+        Usuario usuario = new Usuario();
+        usuario.setNombre(nombre);
+        usuario.setNombreUsuario(nombreUsuario);
+        usuario.setEmail(email);
+        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+        usuario.setRol(Rol.PROPIETARIO);
+        usuario.setTelefono(telefono);
+        Date fechaAlta = new Date();
+        usuario.setFechaAlta(fechaAlta);
+        boolean activo = Boolean.TRUE;
+        usuario.setActivo(activo);
+        Imagen miImagen = imagenServicio.guardar(archivo);
+        usuario.setFotoPerfil(miImagen);
+        usuarioRepositorio.save(usuario);
+    }
 
     private void validar(String nombre, String nombreUsuario, String email, String password, long telefono, MultipartFile archivo, String password2) throws Exception {
         if (nombre.isEmpty() || nombre == null) {
