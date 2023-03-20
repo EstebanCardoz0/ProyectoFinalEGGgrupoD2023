@@ -31,9 +31,14 @@ public class UsuarioControlador {
     @PostMapping("/registro")
     public String registro(@RequestParam("nombre") String nombre, @RequestParam("nombreUsuario") String nombreUsuario,
             @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("password") String password2, @RequestParam("telefono") long telefono,
-            @RequestParam("archivo") MultipartFile archivo, ModelMap modelo) throws Exception {
+            @RequestParam("archivo") MultipartFile archivo, @RequestParam("tipoUsuario") String tipo, ModelMap modelo) throws Exception {
+        System.out.print(tipo);
         try {
-            usuarioServicio.registrar(nombre, nombreUsuario, email, password, password2, telefono, archivo);
+            if (tipo.equalsIgnoreCase("cliente")) {
+                usuarioServicio.registrar(nombre, nombreUsuario, email, password, password2, telefono, archivo);
+            } else {
+                usuarioServicio.registrarPropietario(nombre, nombreUsuario, email, password, password2, telefono, archivo);
+            }
             modelo.put("exito", "El usuario fue registrado correctamente!");
         } catch (Exception exception) {
             System.out.println(exception);
