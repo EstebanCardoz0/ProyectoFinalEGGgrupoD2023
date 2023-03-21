@@ -50,9 +50,10 @@ public class UsuarioControlador {
             modelo.put("password2", password2);
             modelo.put("archivo", archivo);
             modelo.put("error", "Verifique que los datos hayan sido cargado correctamente y el email no este registrado");
-            return "registro";
+            return "registro"; 
         }
-        return "registro";
+        return "registro"; 
+//        ACA DEBERIA DIRIGIRNOS A UNA NUEVA VISTA CON LAS ACCIONES DE CLIENTE O DE PROPIETARIOS
     }
 
     @PostMapping("/actualizar/{id}")
