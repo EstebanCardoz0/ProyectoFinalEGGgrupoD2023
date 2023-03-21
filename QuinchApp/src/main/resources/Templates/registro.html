@@ -1,6 +1,5 @@
 
 <!DOCTYPE html>
-<<<<<<< HEAD
 <!--<<<<<<< HEAD-->
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -16,7 +15,7 @@ and open the template in the editor.
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>One Page Wonder - Start Bootstrap Template</title>
+    <title>QUINCHAPP</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -41,7 +40,7 @@ and open the template in the editor.
                             <div id="login-column" class="col-md-6">
                                 <div id="login-box" class="col-md-12">
                                     <form id="login-form" class="needs-validation" novalidate>
-<!--                                        <div class="form-group">
+                                        <div class="form-group">
                                             <label for="nombreUsuario" class="text-info">Apellido y Nombre:</label><br />
                                             <input type="text" name="nombreApellido" id="nombreApellido" class="form-control"
                                                    th:value="${nombreApellido}" required />
@@ -135,7 +134,7 @@ and open the template in the editor.
                                     <a href="/login " class="text-info">Volver a iniciar sesion</a>
                                 </div>
                                 </form>
-                                <script>
+                                <script><!--
                                     // Example starter JavaScript for disabling form submissions if there are invalid fields
                                     (() => {
                                     'use strict'
@@ -155,9 +154,9 @@ and open the template in the editor.
                                     }, false)
                                     })
                                     })()
-                                </script>
-                                =======
-                                <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaft.or/extras/spring-security">
+-->                                </script>
+                               
+<!--                                <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaft.or/extras/spring-security">
                                   <head th:replace="/fragment/head :: head"> </head>
                                     <body>
                                         <header th:replace="/fragment/navbar :: div"> </header>
@@ -180,10 +179,10 @@ and open the template in the editor.
                                                                     <div class="input-group">
                                                                         <span class="input-group-text" id="inputGroupPrepend2">@</span>
                                                                         <input type="text" class="form-control" name="nombreUsuario" id="nombreUsuario" th:value="${nombreUsuario}"  placeholder="miUsuario" required>
-                                >>>>>>> 7034ba3eaeff86c41168a4e7a667ca855376e37d
+                              
                             </div>
                         </div>-->
-                        </nav>
+<!--                        </nav>
                         <section>
                             <div class="container">
                                 <div id="login-row" class="row justify-content-center align-items-center">
@@ -229,6 +228,18 @@ and open the template in the editor.
                                                     <label for="archivo" class="imagen">Imagen de perfil:</label><br>
                                                     <input type="file" name="archivo" id="archivo" class="form-control"
                                                            th:value="${archivo}">
+                                                         <select name="tipoUsuario">
+                                    <option
+                                        th:value="cliente" 
+                                        th:text="cliente"
+                                        th:selected="cliente"
+                                        />
+                                    <option
+                                        th:value="propietario" 
+                                        th:text="propietario"
+                                        th:selected="propietario"
+                                        />
+                                </select>
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="form-check">
@@ -263,11 +274,10 @@ and open the template in the editor.
                         <div th:replace = "/fragment/script :: script"></div>
                         </body>
                         </html>
-=======
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaft.or/extras/spring-security">
+=======-->
+<!--<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaft.or/extras/spring-security">
     <head th:replace="/fragment/head :: head"> </head>
     <body>
-        <header th:replace="/fragment/navbar :: div"> </header>
         <section>
             <div class="container">
                 <div id="login-row" class="row justify-content-center align-items-center">
@@ -353,12 +363,11 @@ and open the template in the editor.
                 </div>
             </div>
         </section> 
-        <!-- Footer-->
+         Footer
         <div th:replace = "/fragment/footer :: div"></div>
-        <!-- Bootstrap core JS-->
+         Bootstrap core JS
         <div th:replace = "/fragment/script :: script"></div>
     </body>
-</html>
+</html>-->
 
 
->>>>>>> developer
