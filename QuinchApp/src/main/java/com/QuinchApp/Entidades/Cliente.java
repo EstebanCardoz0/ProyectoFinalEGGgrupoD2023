@@ -11,7 +11,6 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "cliente")
 public class Cliente extends Usuario {
 
     @OneToMany
