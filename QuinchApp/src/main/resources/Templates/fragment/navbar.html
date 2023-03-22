@@ -8,7 +8,7 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" th:if="${session.usuariosession == null}" href="/usuario/registrar">Registrarse</a></li>
                         <li class="nav-item"><a class="nav-link" th:if="${session.usuariosession == null}" href="/login">Iniciar sesion</a></li>
-                        <li class="nav-item"><a class="nav-link" th:if="${session.usuariosession == null}" href="/">Cerrar sesion</a></li>
+                        <li class="nav-item"><a class="nav-link" th:if="${session.usuariosession != null}" href="/">Cerrar sesion</a></li>
                     </ul>
                 </div>
             </div>
