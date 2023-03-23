@@ -41,20 +41,13 @@ public class PropiedadControlador {
     }
 
     @PostMapping("/registroPropiedad")
-    public String registroPropiedad(@RequestParam("nombre") String nombre,
-            @RequestParam("ubicacion") String ubicacion,
-            @RequestParam("descripcion") String descripcion,
-            @RequestParam("valor") double valor,
-            @RequestParam("capacidad") int capacidad,
-            @RequestParam("tipoDePropiedad") PropiedadEnum tipoDePropiedad,
-            @RequestParam("imagen") MultipartFile imagen,
-            @RequestParam("servicio") ServicioEnum servicio,
-            HttpSession session,
-            ModelMap modelo) {
+    public String registroPropiedad(@RequestParam("nombre") String nombre, @RequestParam("ubicacion") String ubicacion,
+            @RequestParam("descripcion") String descripcion, @RequestParam("valor") double valor, @RequestParam("capacidad") int capacidad,
+            @RequestParam("tipoDePropiedad") PropiedadEnum tipoDePropiedad, @RequestParam("propietario") String propietario,
+            @RequestParam("imagen") MultipartFile imagen, @RequestParam("servicio") ServicioEnum servicio, ModelMap modelo) {
         try {
-            String nombrePropietario = (String) session.getAttribute("nombrePropietario");
-            Propietario propietario = propietarioServicio.buscarPropietarioPorNombre(nombrePropietario);
-            propiedadServicio.registrarPropiedad(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad, propietario, imagen, servicio);
+            propiedadServicio.registrarPropiedad(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad,
+                    propietario, imagen, servicio);
             modelo.put("exito", "La propiedad fue registrada correctamente!");
         } catch (Exception e) {
             System.out.println(e);
@@ -64,6 +57,7 @@ public class PropiedadControlador {
             modelo.put("valor", valor);
             modelo.put("capacidad", capacidad);
             modelo.put("tipoDePropiedad", tipoDePropiedad);
+            modelo.put("propietario", propietario);
             modelo.put("imagen", imagen);
             modelo.put("servicio", servicio);
             modelo.put("error", "Verifique que los datos hayan sido cargado correctamente.");

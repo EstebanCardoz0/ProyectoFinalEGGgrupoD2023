@@ -27,12 +27,12 @@ public class Controlador {
     @Autowired
     private PropietarioRepositorio propietarioRepositorio;
 
-    @GetMapping("/index")
-    public String index(ModelMap modelo) {
-        return "index.html";
-    }
 
-    @GetMapping("/dashboardCliente")
+//    @GetMapping("/index")
+//    public String index(ModelMap modelo) {
+//        return "index.html";
+//    }
+        @GetMapping("/dashboardCliente")
     public String dashboardCliente(ModelMap modelo) {
         return "dashboardCliente.html";
     }
