@@ -33,11 +33,11 @@ public class PropiedadControlador {
     @PostMapping("/registroPropiedad")
     public String registroPropiedad(@RequestParam("nombre") String nombre, @RequestParam("ubicacion") String ubicacion,
             @RequestParam("descripcion") String descripcion, @RequestParam("valor") double valor, @RequestParam("capacidad") int capacidad,
-            @RequestParam("tipoDePropiedad") PropiedadEnum tipoDePropiedad, @RequestParam("propietario") String Propietario,
+            @RequestParam("tipoDePropiedad") PropiedadEnum tipoDePropiedad, @RequestParam("propietario") String propietario,
             @RequestParam("imagen") MultipartFile imagen, @RequestParam("servicio") ServicioEnum servicio, ModelMap modelo) {
         try {
             propiedadServicio.registrarPropiedad(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad,
-                    Propietario, imagen, servicio);
+                    propietario, imagen, servicio);
             modelo.put("exito", "La propiedad fue registrada correctamente!");
         } catch (Exception e) {
             System.out.println(e);
@@ -47,7 +47,7 @@ public class PropiedadControlador {
             modelo.put("valor", valor);
             modelo.put("capacidad", capacidad);
             modelo.put("tipoDePropiedad", tipoDePropiedad);
-            modelo.put("propietario", Propietario);
+            modelo.put("propietario", propietario);
             modelo.put("imagen", imagen);
             modelo.put("servicio", servicio);
             modelo.put("error", "Verifique que los datos hayan sido cargado correctamente.");
