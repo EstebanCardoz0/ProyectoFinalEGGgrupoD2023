@@ -53,7 +53,7 @@ public class UsuarioControlador {
             return "registro"; 
         }
         return "registro"; 
-//        ACA DEBERIA DIRIGIRNOS A UNA NUEVA VISTA CON LAS ACCIONES DE CLIENTE O DE PROPIETARIOS
+
     }
 
     @PostMapping("/actualizar/{id}")
