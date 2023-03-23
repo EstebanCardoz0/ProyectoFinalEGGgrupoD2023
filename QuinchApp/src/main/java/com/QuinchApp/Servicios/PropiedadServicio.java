@@ -32,13 +32,8 @@ public class PropiedadServicio {
 
     @Transactional
     public void registrarPropiedad(String nombre, String ubicacion, String descripcion, double valor, int capacidad,
-            PropiedadEnum tipoDePropiedad, String usuario, MultipartFile imagen, ServicioEnum servicio) throws Exception {
-        validar(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad, usuario);
-        Usuario miUsuario = new Usuario();
-        Optional<Usuario> usuarioPropietario = usuarioRepositorio.buscarPorNombreUsuario(usuario);
-        if (usuarioPropietario.isPresent()) {
-            miUsuario = usuarioPropietario.get();
-        }
+            PropiedadEnum tipoDePropiedad, Propietario propietario, MultipartFile imagen, ServicioEnum servicio) throws Exception {
+        validar(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad, propietario.getNombreUsuario());
         Propiedad propiedad = new Propiedad();
         propiedad.setNombre(nombre);
         propiedad.setUbicacion(ubicacion);
@@ -46,7 +41,7 @@ public class PropiedadServicio {
         propiedad.setValor(valor);
         propiedad.setCapacidad(capacidad);
         propiedad.setTipoDePropiedad(tipoDePropiedad);
-        propiedad.setPropietario(miUsuario);
+        propiedad.setPropietario(propietario);
         List<ServicioEnum> servicios = propiedad.getServicios();
         if (servicios == null) {
             servicios = new ArrayList();
