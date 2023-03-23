@@ -68,7 +68,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
         </dependency>
-         </dependencies>
+    </dependencies>
     <build>
         <plugins>
             <plugin>

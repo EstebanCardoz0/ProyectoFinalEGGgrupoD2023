@@ -93,5 +93,10 @@ public class ClienteControlador {
     public String terminos() {
         return "terminos";
     }
+        
+        @GetMapping("/dashboard")
+    public String panelAdministrativo(){
+        return "panel.html";
+    }
 
 }//final
