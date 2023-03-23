@@ -1,5 +1,8 @@
 package com.QuinchApp.Controladores;
 
+import com.QuinchApp.Entidades.Usuario;
+import javax.servlet.http.HttpSession;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +18,15 @@ public class Controlador {
         return "index.html";
     }
 
+    @GetMapping("/index")
+    public String index(ModelMap modelo) {
+        return "index.html";
+    }
+        @GetMapping("/dashboardCliente")
+    public String dashboardCliente(ModelMap modelo) {
+        return "dashboardCliente.html";
+    }
+
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, String email, String password, ModelMap modelo) {
         if (error != null) {
@@ -24,6 +36,8 @@ public class Controlador {
         }
         return "login";
     }
+    
+    
 
     @GetMapping("/registro")
     public String registro(@RequestParam(required = false) String error, ModelMap modelo) {
