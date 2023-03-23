@@ -10,7 +10,6 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "propietario")
 public class Propietario extends Usuario {
 
     @OneToMany

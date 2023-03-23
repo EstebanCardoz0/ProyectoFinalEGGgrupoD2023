@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/")
 public class Controlador {
+    
+    @GetMapping("/index")
+    public String index(ModelMap modelo) {
+        return "index.html";
+    }
 
     @GetMapping("/index")
     public String index(ModelMap modelo) {
