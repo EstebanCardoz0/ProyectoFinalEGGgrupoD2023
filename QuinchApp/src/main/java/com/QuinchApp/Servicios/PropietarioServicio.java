@@ -113,6 +113,11 @@ public class PropietarioServicio{
         propietarioRepositorio.deleteById(id);
     }
     
+    @Transactional
+    public Propietario buscarPropietarioPorNombre(String nombre) {
+        return propietarioRepositorio.buscarPorNombre(nombre);
+    }
+    
 //     @Override
 //    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 //
