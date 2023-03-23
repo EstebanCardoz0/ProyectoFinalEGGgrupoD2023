@@ -6,9 +6,13 @@ import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Enums.PropiedadEnum;
 import com.QuinchApp.Enums.ServicioEnum;
 import com.QuinchApp.Servicios.PropiedadServicio;
+import com.QuinchApp.Servicios.PropietarioServicio;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +29,14 @@ public class PropiedadControlador {
     @Autowired
     private PropiedadServicio propiedadServicio;
 
+    @Autowired
+    private PropietarioServicio propietarioServicio;
+
     @GetMapping("/registroPropiedad")
-    public String registrarPropiedad() {
+    public String registrarPropiedad(Model model, Authentication authentication) {
+        Propietario propietario = propietarioServicio.buscarPropietarioPorNombre(authentication.getName());
+        model.addAttribute("propietario", propietario);
+        model.addAttribute("propiedad", new Propiedad());
         return "registroPropiedad.html";
     }
 
