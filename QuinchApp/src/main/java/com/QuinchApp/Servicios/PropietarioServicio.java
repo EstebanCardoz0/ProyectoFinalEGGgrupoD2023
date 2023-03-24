@@ -135,4 +135,8 @@ public class PropietarioServicio{
 //            return null;
 //        }
 //}
+
+    public Propietario buscarPropietarioPorId(Integer id) {
+         return propietarioRepositorio.buscarPorId(id);
+    }
 }
