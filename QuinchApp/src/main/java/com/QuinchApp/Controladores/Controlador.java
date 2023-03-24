@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/")
 public class Controlador {
 
-<<<<<<< HEAD
-=======
+
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_PROPIETARIO')")
->>>>>>> developer
     @GetMapping("/dashboardCliente")
     public String dashboardCliente(ModelMap modelo) {
         return "dashboardCliente.html";
@@ -31,7 +29,6 @@ public class Controlador {
         }
         return "login";
     }
-<<<<<<< HEAD
 
     @GetMapping("/registro")
     public String registro(@RequestParam(required = false) String error, ModelMap modelo) {
@@ -40,8 +37,6 @@ public class Controlador {
         }
         return "registro";
     }
-=======
->>>>>>> developer
 
     @GetMapping("/quienes-somos")
     public String quienesSomos() {
