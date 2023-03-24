@@ -50,6 +50,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setFotoPerfil(miImagen);
         usuarioRepositorio.save(usuario);
     }
+    
     @Transactional
     public void registrarPropietario(String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo) throws Exception {
         validar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
