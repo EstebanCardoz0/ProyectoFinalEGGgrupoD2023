@@ -1,7 +1,7 @@
 package com.QuinchApp.Controladores;
 
-import com.QuinchApp.Entidades.Usuario;
-import javax.servlet.http.HttpSession;
+import com.QuinchApp.Repositorios.PropietarioRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/")
 public class Controlador {
 
+<<<<<<< HEAD
+=======
+    @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_PROPIETARIO')")
+>>>>>>> developer
     @GetMapping("/dashboardCliente")
     public String dashboardCliente(ModelMap modelo) {
         return "dashboardCliente.html";
@@ -27,6 +31,7 @@ public class Controlador {
         }
         return "login";
     }
+<<<<<<< HEAD
 
     @GetMapping("/registro")
     public String registro(@RequestParam(required = false) String error, ModelMap modelo) {
@@ -35,10 +40,11 @@ public class Controlador {
         }
         return "registro";
     }
+=======
+>>>>>>> developer
 
     @GetMapping("/quienes-somos")
     public String quienesSomos() {
         return "quienes-somos";
     }
-
 }

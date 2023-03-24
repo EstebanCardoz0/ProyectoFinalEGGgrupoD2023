@@ -2,7 +2,6 @@ package com.QuinchApp.Servicios;
 
 import com.QuinchApp.Entidades.Imagen;
 import com.QuinchApp.Entidades.Propiedad;
-import com.QuinchApp.Entidades.Propietario;
 import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Enums.PropiedadEnum;
 import com.QuinchApp.Enums.ServicioEnum;
