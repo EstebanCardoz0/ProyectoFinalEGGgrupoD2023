@@ -12,17 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/")
 public class Controlador {
-    
-    @GetMapping("/index")
-    public String index(ModelMap modelo) {
-        return "index.html";
-    }
 
-    @GetMapping("/index")
-    public String index(ModelMap modelo) {
-        return "index.html";
-    }
-        @GetMapping("/dashboardCliente")
+    @GetMapping("/dashboardCliente")
     public String dashboardCliente(ModelMap modelo) {
         return "dashboardCliente.html";
     }
@@ -36,8 +27,6 @@ public class Controlador {
         }
         return "login";
     }
-    
-    
 
     @GetMapping("/registro")
     public String registro(@RequestParam(required = false) String error, ModelMap modelo) {
