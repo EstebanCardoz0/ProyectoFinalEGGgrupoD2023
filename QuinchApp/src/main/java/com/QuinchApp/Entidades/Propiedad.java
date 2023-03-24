@@ -24,23 +24,20 @@ public class Propiedad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPropiedad;
-
     private String nombre;
     private String ubicacion;
     private String Descripcion;
     private double valor;
     private int capacidad;
     private boolean disponibilidad;
-
     @Enumerated(EnumType.STRING)
     private PropiedadEnum tipoDePropiedad;
     @OneToOne
     private Usuario propietario;
     @OneToMany
     private List<Imagen> imagenes;
-    
     @ElementCollection   //solo con ElementCollection puedo utilizar List de Enums
-    @Enumerated(EnumType.STRING)      
+    @Enumerated(EnumType.STRING)
     private List<ServicioEnum> servicios;
     //- Date calendario
 
@@ -60,5 +57,4 @@ public class Propiedad {
         this.imagenes = new ArrayList();
         this.servicios = new ArrayList();
     }
-
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.QuinchApp.Controladores;
 
 import com.QuinchApp.Entidades.Cliente;
@@ -20,10 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- *
- * @author Esteban
- */
 @Controller
 @RequestMapping("/cliente")
 public class ClienteControlador {
