@@ -2,7 +2,6 @@ package com.QuinchApp.Servicios;
 
 import com.QuinchApp.Entidades.Imagen;
 import com.QuinchApp.Entidades.Propiedad;
-import com.QuinchApp.Entidades.Propietario;
 import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Enums.PropiedadEnum;
 import com.QuinchApp.Enums.ServicioEnum;
@@ -32,8 +31,13 @@ public class PropiedadServicio {
 
     @Transactional
     public void registrarPropiedad(String nombre, String ubicacion, String descripcion, double valor, int capacidad,
-            PropiedadEnum tipoDePropiedad, Propietario propietario, MultipartFile imagen, ServicioEnum servicio) throws Exception {
-        validar(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad, propietario.getNombreUsuario());
+            PropiedadEnum tipoDePropiedad, String usuario, MultipartFile imagen, ServicioEnum servicio) throws Exception {
+        validar(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad, usuario);
+        Usuario miUsuario = new Usuario();
+        Optional<Usuario> usuarioPropietario = usuarioRepositorio.buscarPorNombreUsuario(usuario);
+        if (usuarioPropietario.isPresent()) {
+            miUsuario = usuarioPropietario.get();
+        }
         Propiedad propiedad = new Propiedad();
         propiedad.setNombre(nombre);
         propiedad.setUbicacion(ubicacion);
@@ -41,7 +45,7 @@ public class PropiedadServicio {
         propiedad.setValor(valor);
         propiedad.setCapacidad(capacidad);
         propiedad.setTipoDePropiedad(tipoDePropiedad);
-        propiedad.setPropietario(propietario);
+        propiedad.setPropietario(miUsuario);
         List<ServicioEnum> servicios = propiedad.getServicios();
         if (servicios == null) {
             servicios = new ArrayList();
