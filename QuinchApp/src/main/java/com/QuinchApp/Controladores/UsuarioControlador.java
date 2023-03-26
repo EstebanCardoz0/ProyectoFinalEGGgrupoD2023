@@ -40,6 +40,7 @@ public class UsuarioControlador {
                 usuarioServicio.registrarPropietario(nombre, nombreUsuario, email, password, password2, telefono, archivo);
             }
             modelo.put("exito", "El usuario fue registrado correctamente!");
+            return "login";
         } catch (Exception exception) {
             System.out.println(exception);
             modelo.put("nombre", nombre);
@@ -52,8 +53,6 @@ public class UsuarioControlador {
             modelo.put("error", "Verifique que los datos hayan sido cargado correctamente y el email no este registrado");
             return "registro"; 
         }
-        return "registro"; 
-
     }
 
     @PostMapping("/actualizar/{id}")
