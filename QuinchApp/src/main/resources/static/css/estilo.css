@@ -4,8 +4,8 @@ body{
 }
 #nav{
     background-color: #2A0A1B !important;
-        opacity: 0.9;
-   filter: alpha(opacity=10)
+    opacity: 0.9;
+    filter: alpha(opacity=10)
 }
 .derecha{
     margin-top: 2%;
@@ -50,4 +50,22 @@ body{
     color: #fff;
     border-radius: 4em !important;
     border:none;
+}
+
+.btn2{
+    color: #fff !important;
+    background-color: transparent !important;
+    outline:none !important;
+    box-shadow: 0 !important;
+    text-decoration: none;
+    border: 0px solid transparent !important; 
+    margin-top: -3%
+}
+
+.btnR{
+    margin-top: 3%;
+}
+
+.someClass{
+    display: none;
 }

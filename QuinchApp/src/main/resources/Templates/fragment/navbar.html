@@ -6,22 +6,24 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                      <li>       
+                    <li>       
                         <a class="nav-link"  th:if="${session.usuariosession != null}" sec:authorize="hasRole('PROPIETARIO') or hasRole('CLIENTE')" href="/dashboardCliente">Administrar</a>
-                      </li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page"  th:if="${session.usuariosession == null}" href="/usuario/registrar">Registrarse</a></li>
-                    <li class="nav-item"><a class="nav-link" th:if="${session.usuariosession == null}" href="/login"><div class="dropdown">
-                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                    </li>
+                    <li class="nav-item"><a class="btnR nav-link active" aria-current="page"  th:if="${session.usuariosession == null} ?: ''" href="/usuario/registrar">Registrarse</a></li>
+                    <li class="nav-item"><a class="btnR nav-link active" aria-current="page"  th:if="${session.usuariosession == null} ?: ''" href="/login">Iniciar </a></li>
+                    <!--  <li class="nav-item"><a class="nav-link" th:if="${session.usuariosession == null}" ><div class="dropdown">
+                                <button  class="btn2 nav-link"  data-bs-toggle="dropdown" data-bs-auto-close="outside" >
                                     Iniciar Sesion
                                 </button>
-                                <form class="dropdown-menu p-4"  th:if="${session.usuariosession == null}" >
+                               <form class="dropdown-menu p-4" th:action="@{/verificacionLogin}" method="POST"  >
                                     <div class="mb-3">
                                         <label for="exampleDropdownFormEmail2" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com">
+                                        <input type="email" class="form-control" name="email" th:value="${email}"  placeholder="EMAIL" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleDropdownFormPassword2" class="form-label">Contraseña</label>
-                                        <input type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password">
+                                        <input type="password" name="password" id="password" class="form-control"
+                                               th:value="${password}" placeholder="CONTRASEÑA"required>
                                     </div>
                                     <div class="mb-3">
                                         <div class="form-check">
@@ -31,17 +33,18 @@
                                             </label>
                                         </div>
                                     </div>
+
                                     <button type="submit" class="btn btn-primary">Sign in</button>
                                 </form>
-                            </div></a>
-                    </li>
+            </a>
+            </li>-->
                     <li>        
-                        <a class="nav-link"  th:if="${session.usuariosession != null}" sec:authorize="hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('PROPIETARIO')" th:text="${session.usuariosession.nombreUsuario}" href="/usuario/perfil"></a>
+            <img th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" th:if='${session.usuariosession != null}' class="card-img-top" alt="archivo" >  
+                        <a class="nav-link"   th:if='${session.usuariosession != null}' sec:authorize="hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('PROPIETARIO')" th:text="${session.usuariosession.nombreUsuario}" href="/usuario/perfil"></a>
                     </li>
                     <li class="nav-item"><a class="nav-link"  th:if="${session.usuariosession != null}" sec:authorize="hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('PROPIETARIO')"  href="/logout">Cerrar sesion</a></li>
                 </ul>
             </div>
-        </div>
     </nav>
 </div>
 
