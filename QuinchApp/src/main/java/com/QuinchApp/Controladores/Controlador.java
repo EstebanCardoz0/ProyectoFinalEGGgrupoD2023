@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/")
 public class Controlador {
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> developer
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_PROPIETARIO')")
     @GetMapping("/dashboardCliente")
     public String dashboardCliente(ModelMap modelo) {
