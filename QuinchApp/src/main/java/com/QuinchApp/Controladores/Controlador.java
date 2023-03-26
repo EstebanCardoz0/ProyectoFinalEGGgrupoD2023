@@ -1,7 +1,5 @@
 package com.QuinchApp.Controladores;
 
-import com.QuinchApp.Repositorios.PropietarioRepositorio;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/")
 public class Controlador {
-
 
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_PROPIETARIO')")
     @GetMapping("/dashboardCliente")
@@ -42,4 +39,5 @@ public class Controlador {
     public String quienesSomos() {
         return "quienes-somos";
     }
+    
 }
