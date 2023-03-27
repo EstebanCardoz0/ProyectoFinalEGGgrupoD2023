@@ -75,18 +75,45 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setFotoPerfil(miImagen);
         usuarioRepositorio.save(usuario);
     }
+    
+    private void validarActualizar(String nombre, String nombreUsuario, String email, String password, long telefono, MultipartFile archivo, String password2) throws Exception {
+        if (nombre == null || nombre.isEmpty()) {
+            throw new Exception("El nombre no puede estar estar vacío");
+        }
+        if (nombreUsuario == null || nombreUsuario.isEmpty()) {
+            throw new Exception("El nombre de usuareio no puede estar estar vacío");
+        }
+        if (email == null || email.isEmpty()) {
+            throw new Exception("El email no puede estar vacio");
+        }
+        if (password.isEmpty()) {
+            throw new Exception("La contraseña no puede estar vacía");
+        }
+        if (password2.isEmpty()) {
+            throw new Exception("Debe repetir la contraseña");
+        }
+        if (!password.equals(password2)) {
+            throw new Exception("Las contraseñas ingresadas deben ser iguales");
+        }
+        if (telefono == 0L) {
+            throw new Exception("El telefono no puede estar vacío");
+        }
+        if (archivo == null) {
+            throw new Exception("La imagen no puede estar vacía");
+        }
+           }
 
     private void validar(String nombre, String nombreUsuario, String email, String password, long telefono, MultipartFile archivo, String password2) throws Exception {
         if (nombre == null || nombre.isEmpty()) {
             throw new Exception("El nombre no puede estar estar vacío");
         }
-        if (nombreUsuario == null || nombreUsuario.isEmpty() ) {
+        if (nombreUsuario == null || nombreUsuario.isEmpty()) {
             throw new Exception("El nombre de usuareio no puede estar estar vacío");
         }
-        if ( email == null || email.isEmpty() ) {
+        if (email == null || email.isEmpty()) {
             throw new Exception("El email no puede estar vacio");
         }
-        if (password.isEmpty() ) {
+        if (password.isEmpty()) {
             throw new Exception("La contraseña no puede estar vacía");
         }
         if (password2.isEmpty()) {
@@ -108,7 +135,8 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void actualizar(int id, String nombre, String nombreUsuario, String email, String password, long telefono, MultipartFile archivo) throws Exception {
+    public void actualizarCliente(int id, String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo) throws Exception {
+        validarActualizar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
         if (id < 0) {
             throw new Exception("Ingrese un id");
         }
@@ -118,7 +146,33 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setNombre(nombre);
             usuario.setNombreUsuario(nombreUsuario);
             usuario.setEmail(email);
-            usuario.setPassword(password);
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+            usuario.setRol(Rol.CLIENTE);
+            usuario.setTelefono(telefono);
+            int idImagen = 0;
+            if (usuario.getFotoPerfil() != null) {
+                idImagen = usuario.getFotoPerfil().getIdImagen();
+            }
+            Imagen miImagen = imagenServicio.actualizar(archivo, idImagen);
+            usuario.setFotoPerfil(miImagen);
+            usuarioRepositorio.save(usuario);
+        }
+    }
+
+    @Transactional
+    public void actualizarPropietario(int id, String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo) throws Exception {
+        validarActualizar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
+        if (id < 0) {
+            throw new Exception("Ingrese un id");
+        }
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            usuario.setNombre(nombre);
+            usuario.setNombreUsuario(nombreUsuario);
+            usuario.setEmail(email);
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+            usuario.setRol(Rol.PROPIETARIO);
             usuario.setTelefono(telefono);
             int idImagen = 0;
             if (usuario.getFotoPerfil() != null) {
@@ -161,8 +215,6 @@ public class UsuarioServicio implements UserDetailsService {
 //            return null;
 //        }
 //    }
-    
-    
 //     public UsuarioServicio(UsuarioRepositorio usuarioRepositorio, PasswordEncoder passwordEncoder) {
 //        this.usuarioRepositorio = usuarioRepositorio;
 //        this.passwordEncoder = passwordEncoder;
@@ -189,8 +241,6 @@ public class UsuarioServicio implements UserDetailsService {
 //            throw new UsernameNotFoundException("Usuario no encontrado");
 //        }
 //    }
-    
-    
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
