@@ -27,15 +27,16 @@ public class Reserva {
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
     @Temporal(TemporalType.DATE)
-    private Date FechaSalida;
+    private Date fechaSalida;
     @OneToOne
     private Propiedad propiedad;
     @ManyToOne
     private Cliente Cliente;
     private Boolean confirmada;
 
-    public Reserva(Date FechaSalida, Propiedad propiedad, Cliente Cliente) {
-        this.FechaSalida = FechaSalida;
+    public Reserva(Date fechaInicio, Date fechaSalida, Propiedad propiedad, Cliente Cliente) {
+        this.fechaInicio = fechaInicio;
+        this.fechaSalida = fechaSalida;
         this.propiedad = propiedad;
         this.Cliente = Cliente;
     }
