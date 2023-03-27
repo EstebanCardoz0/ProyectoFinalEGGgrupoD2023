@@ -5,12 +5,14 @@
             <a class="navbar-brand" href="/">QUINCHOAPP</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <li>       
-                    <a class="nav-link"  href="/propiedad/listarPropiedades">Propiedades</a>
-                </li>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">      
+                        <a class="nav-link"  href="/propiedad/listarPropiedades">Propiedades</a>
+                    </li>
+                </ul>                
                 <ul class="navbar-nav ms-auto">
                     <li>       
-                        <a class="nav-link"  th:if="${session.usuariosession != null}" sec:authorize="hasRole('PROPIETARIO') or hasRole('CLIENTE')" href="/dashboardCliente">Administrar</a>
+                        <a class="btnR nav-link active" aria-current="page"  th:if="${session.usuariosession != null}" sec:authorize="hasRole('PROPIETARIO') or hasRole('CLIENTE')" href="/dashboardCliente">Administrar</a>
                     </li>
                     <li class="nav-item"><a class="btnR nav-link active" aria-current="page"  th:if="${session.usuariosession == null} ?: ''" href="/usuario/registrar">Registrarse</a></li>
                     <li class="nav-item"><a class="btnR nav-link active" aria-current="page"  th:if="${session.usuariosession == null} ?: ''" href="/login">Iniciar </a></li>
