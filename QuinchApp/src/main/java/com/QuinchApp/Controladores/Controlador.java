@@ -16,7 +16,7 @@ public class Controlador {
     public String dashboardCliente(ModelMap modelo) {
         return "dashboardCliente.html";
     }
-
+     
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, String email, String password, ModelMap modelo) {
         if (error != null) {
