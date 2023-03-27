@@ -4,7 +4,6 @@
     <body>
         <header th:replace="/fragment/navbar :: div"> </header>
         <section>
-            <nav th:replace="/fragment/navbar :: div"> </nav>
             <header class="masthead text-center text-white">
                 <div class="masthead-content">
                     <div class="container px-5">
@@ -22,7 +21,7 @@
                             <div>
                                 <label>Contraseña:</label>
                                 <div class="input-group-append">
-                                    <input type="password" name="password" id="password" class="form-control"
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="CONTRASEÑA"
                                            th:value="${password}"required> 
                                     <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
                                 </div>
