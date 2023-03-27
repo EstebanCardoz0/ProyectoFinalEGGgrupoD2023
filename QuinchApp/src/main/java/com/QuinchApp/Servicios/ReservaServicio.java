@@ -12,18 +12,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
-public class ReservaServivio {
+public class ReservaServicio {
 
     @Autowired
     private ReservaRepositorio reservaRepositorio;
 
     @Transactional
-    public void registrar(Date FechaSalida, Propiedad propiedad, Cliente Cliente) throws Exception {
+    public void registrar(Date fechaInicio,Date fechaSalida, Propiedad propiedad, Cliente Cliente) throws Exception {
         boolean activo = Boolean.TRUE;
-        Reserva reserva = new Reserva(FechaSalida, propiedad, Cliente);
+        Reserva reserva = new Reserva(fechaInicio,fechaSalida, propiedad, Cliente);
         reserva.setConfirmada(activo);
-        Date fechInicioReserva = new Date();
-        reserva.setFechaInicio(fechInicioReserva);
+      reserva.setFechaInicio(fechaInicio);
+      reserva.setFechaSalida(fechaSalida);
         reservaRepositorio.save(reserva);
     }
 
