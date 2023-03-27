@@ -18,14 +18,12 @@ public class ReservaServicio {
     private ReservaRepositorio reservaRepositorio;
 
     @Transactional
-    public void registrar(Date fechaInicio, Date fechaSalida, Propiedad propiedad, Cliente cliente) throws Exception {
-        Reserva reserva = new Reserva(fechaInicio, fechaSalida, propiedad, cliente);
+    public void registrar(Date fechaInicio,Date fechaSalida, Propiedad propiedad, Cliente Cliente) throws Exception {
         boolean activo = Boolean.TRUE;
+        Reserva reserva = new Reserva(fechaInicio,fechaSalida, propiedad, Cliente);
         reserva.setConfirmada(activo);
-        reserva.setFechaInicio(fechaInicio);
-        reserva.setFechaSalida(fechaSalida);
-        reserva.setPropiedad(propiedad);
-        reserva.setCliente(cliente);
+      reserva.setFechaInicio(fechaInicio);
+      reserva.setFechaSalida(fechaSalida);
         reservaRepositorio.save(reserva);
     }
 

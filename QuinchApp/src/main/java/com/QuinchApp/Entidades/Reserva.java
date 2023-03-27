@@ -34,7 +34,7 @@ public class Reserva {
     private Cliente Cliente;
     private Boolean confirmada;
 
-    public Reserva(Date fechaInicio, Date fechaSalida, Propiedad propiedad, Cliente Cliente) {
+    public Reserva(Date fechaInicio,Date fechaSalida, Propiedad propiedad, Cliente Cliente) {
         this.fechaInicio = fechaInicio;
         this.fechaSalida = fechaSalida;
         this.propiedad = propiedad;
