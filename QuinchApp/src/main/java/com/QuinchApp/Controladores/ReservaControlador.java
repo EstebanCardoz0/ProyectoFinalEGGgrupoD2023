@@ -3,7 +3,7 @@ package com.QuinchApp.Controladores;
 import com.QuinchApp.Entidades.Cliente;
 import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Reserva;
-import com.QuinchApp.Servicios.ReservaServivio;
+import com.QuinchApp.Servicios.ReservaServicio;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ReservaControlador {
 
     @Autowired
-    private ReservaServivio reservaServivio;
+    private ReservaServicio reservaServicio;
 //    
 //    @GetMapping("/registrar")
 //    public String registrar() {
@@ -28,15 +28,16 @@ public class ReservaControlador {
 //    }
 
     @PostMapping("/registro")
-    public String regristro(@RequestParam("FechaSalida") Date FechaSalida, @RequestParam("propiedad") Propiedad propiedad,
+    public String regristro(@RequestParam("fechaInicio") Date fechaInicio, @RequestParam("fechaSalida") Date fechaSalida, @RequestParam("propiedad") Propiedad propiedad,
             @RequestParam("cliente") Cliente cliente, ModelMap modelo) throws Exception {
         try {
-            reservaServivio.registrar(FechaSalida, propiedad, cliente);
+            reservaServicio.registrar(fechaInicio, fechaSalida, propiedad, cliente);
             modelo.put("exito", "La reserva fue registrada correctamente!");
         } catch (Exception ex) {
             System.out.println(ex);
             modelo.put("error", ex.getMessage());
-            modelo.put("FechaSalida", FechaSalida);
+            modelo.put("fechaInicio", fechaInicio);
+            modelo.put("fechaSalida", fechaSalida);
             modelo.put("propiedad", propiedad);
             modelo.put("cliente", cliente);
             modelo.put("error", "Verifique que los datos hayan sido cargado correctamente");
@@ -47,7 +48,7 @@ public class ReservaControlador {
 
     @GetMapping("/modificarUno/{id}")
     public String modificarUno(@PathVariable Integer id, ModelMap modelo) {
-        modelo.put("reservaLista", reservaServivio.getOne(id));
+        modelo.put("reservaLista", reservaServicio.getOne(id));
         return "formModificarReserva";
     }
 
@@ -55,7 +56,7 @@ public class ReservaControlador {
     public String modificar(@PathVariable Integer id, @RequestParam("FechaSalida") Date FechaSalida, @RequestParam("propiedad") Propiedad propiedad,
             @RequestParam("cliente") Cliente cliente, Boolean confirmada, ModelMap modelo) throws Exception {
         try {
-            reservaServivio.actualizar(Integer.SIZE, FechaSalida, propiedad, cliente, confirmada);
+            reservaServicio.actualizar(Integer.SIZE, FechaSalida, propiedad, cliente, confirmada);
             return "redirect:../listar";
         } catch (Exception e) {
             modelo.put("error", e.getMessage());
@@ -65,20 +66,20 @@ public class ReservaControlador {
 
     @GetMapping("/listar")
     public String listar(ModelMap modelo) {
-        List<Reserva> reserva = reservaServivio.listarResevas();
+        List<Reserva> reserva = reservaServicio.listarResevas();
         modelo.addAttribute("reserva", reserva);
         return "usuarioList";
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable Integer id) throws Exception {
-        reservaServivio.borrar(id);
+        reservaServicio.borrar(id);
         return "redirect:../listar";
     }
 
     @RequestMapping("/altaBaja/{id}")
     public String altaBaja(@PathVariable(name = "id") Integer id) {
-        reservaServivio.bajaAlta(id);
+        reservaServicio.bajaAlta(id);
         return "redirect:/reservas";
     }
 }
