@@ -21,11 +21,11 @@ public class ReservaControlador {
 
     @Autowired
     private ReservaServivio reservaServivio;
-//    
-//    @GetMapping("/registrar")
-//    public String registrar() {
-//        return "formRegistrar";
-//    }
+    
+    @GetMapping("/registrar")
+    public String registrar() {
+        return "Formulario_Reservas.html";
+    }
 
     @PostMapping("/registro")
     public String regristro(@RequestParam("FechaSalida") Date FechaSalida, @RequestParam("propiedad") Propiedad propiedad,
