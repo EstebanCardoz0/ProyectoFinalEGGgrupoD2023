@@ -75,11 +75,13 @@ public class PropiedadControlador {
 
     @GetMapping("/listarPropiedades")
     public String listarPropiedades(ModelMap modelo) {
-        List<Propiedad> propiedades = propiedadServicio.listarPropiedades();
-        modelo.addAttribute("propiedad", propiedades);
-        return "listaPropiedades.html";
+        List<Propiedad> propiedad = propiedadServicio.listarPropiedades();
+        modelo.addAttribute("propiedad", propiedad);
+        return "index.html";
     }
 
+ 
+    
     @DeleteMapping("/borrarPropiedad/{id}")
     public String borrarPropiedad(@PathVariable int id) {
         try {
