@@ -1,12 +1,12 @@
 {
-  "name": "proyecto-final-quinchoapp",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo "Error: no test specified" && exit 1",
-    "scss": "node-sass --watch scss -o css"
-  }
-  "author": "",
-  "license": "ISC"
+    "name": "proyecto-final-quinchoapp",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo 'Error: no test specified' && exit 1",
+        "scss": "node-sass --watch scss -o css"
+    },
+    "author": "",
+    "license": "ISC"
 }
