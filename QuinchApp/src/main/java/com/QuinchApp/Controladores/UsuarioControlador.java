@@ -50,31 +50,30 @@ public class UsuarioControlador {
             modelo.put("password2", password2);
             modelo.put("archivo", archivo);
             modelo.put("error", "Verifique que los datos hayan sido cargado correctamente y el email no este registrado");
-            return "registro"; 
+            return "registro";
         }
-        return "registro"; 
+        return "registro";
 
     }
 
-    @PostMapping("/actualizar/{id}")
-    public String actualizar(@PathVariable int id, @RequestParam("nombre") String nombre, @RequestParam("nombreUsuario") String nombreUsuario,
-            @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("telefono") long telefono,
-            @RequestParam("archivo") MultipartFile archivo) throws Exception {
-        try {
-            usuarioServicio.actualizar(id, nombre, nombreUsuario, email, password, telefono, archivo);
-            return "exito";
-        } catch (Exception exception) {
-            System.out.println(exception);
-            return "error";
-        }
-    }
-
-    @GetMapping("/listar")
-    public String listar(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
-        modelo.addAttribute("usuario", usuarios);
-        return "usuarioList";
-    }
+//    @PostMapping("/actualizar/{id}")
+//    public String actualizar(@PathVariable int id, @RequestParam("nombre") String nombre, @RequestParam("nombreUsuario") String nombreUsuario,
+//            @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("telefono") long telefono,
+//            @RequestParam("archivo") MultipartFile archivo) throws Exception {
+//        try {
+//            usuarioServicio.actualizar(id, nombre, nombreUsuario, email, password, telefono, archivo);
+//            return "exito";
+//        } catch (Exception exception) {
+//            System.out.println(exception);
+//            return "error";
+//        }
+//    }
+//    @GetMapping("/listar")
+//    public String listar(ModelMap modelo) {
+//        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+//        modelo.addAttribute("usuario", usuarios);
+//        return "usuarioList";
+//    }
 
     @DeleteMapping("/borrar/{id}")
     public String borrarUsuario(@PathVariable Integer id) throws Exception {
@@ -105,31 +104,42 @@ public class UsuarioControlador {
     public String perfilModificar(ModelMap modelo, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.put("usuario", usuario);
-        return "perfilModificar";
+        return "modiificarUsuario";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_ADMIN', 'ROLE_PROPIETARIO')")
     @PostMapping("/perfilModificar/{id}")
     public String actualizar(HttpSession session, @PathVariable int id, @RequestParam("nombre") String nombre, @RequestParam("nombreUsuario") String nombreUsuario,
-            @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("telefono") long telefono,
-            @RequestParam("archivo") MultipartFile archivo, ModelMap modelo) {
+            @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("password2") String password2, @RequestParam("telefono") long telefono,
+            @RequestParam("archivo") MultipartFile archivo, @RequestParam("tipoUsuario") String tipo, ModelMap modelo) {
+        modelo.addAttribute("usuario", new Usuario());
         try {
+            if (tipo.equalsIgnoreCase("cliente")) {
+                usuarioServicio.actualizarCliente(id, nombre, nombreUsuario, email, password, password2, telefono, archivo);
+            } else {
+                usuarioServicio.actualizarPropietario(id, nombre, nombreUsuario, email, password, password2, telefono, archivo);
+            }
             Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-            modelo.put("nombre", nombre);
-            modelo.put("nombreUsuario", nombreUsuario);
-            modelo.put("telefono", telefono);
-            modelo.put("email", email);
+            modelo.put("usuario", usuario);
             modelo.put("password", password);
-            modelo.put("archivo", archivo);
-            usuarioServicio.actualizar(id, nombre, nombreUsuario, email, password, telefono, archivo);
-            modelo.put("exito", "Usuario actualizado correctamente!");
-            return "/";
+            modelo.put("password2", password2);
+            modelo.put("exito", "Usuario actualizado correctamente!, vuelva a iniciar sesion para ver los cambios");
+            return "modiificarUsuario";
         } catch (Exception ex) {
             modelo.put("error", ex.getMessage());
-            modelo.put("nombre", nombre);
-            modelo.put("email", email);
-            return "perfilModificar";
+            Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+            modelo.put("usuario", usuario);
+            modelo.put("password", password);
+            modelo.put("password2", password2);
+            return "modiificarUsuario";
         }
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping("/listar")
+    public String listarUsuario(ModelMap modelo) {
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+        modelo.addAttribute("usuario", usuarios);
+        return "listadoUsuario";
+    }
 }

@@ -22,4 +22,6 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
     @Query("SELECT u FROM Usuario u WHERE u.id = :id")
     public Usuario buscarPorId(@Param("id") Integer idUsuario);
 
+    Usuario findByEmail(String email);
+
 }
