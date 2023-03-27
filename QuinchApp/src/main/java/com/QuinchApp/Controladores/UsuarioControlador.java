@@ -68,12 +68,12 @@ public class UsuarioControlador {
 //            return "error";
 //        }
 //    }
-    @GetMapping("/listar")
-    public String listar(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
-        modelo.addAttribute("usuario", usuarios);
-        return "usuarioList";
-    }
+//    @GetMapping("/listar")
+//    public String listar(ModelMap modelo) {
+//        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+//        modelo.addAttribute("usuario", usuarios);
+//        return "usuarioList";
+//    }
 
     @DeleteMapping("/borrar/{id}")
     public String borrarUsuario(@PathVariable Integer id) throws Exception {
@@ -135,4 +135,11 @@ public class UsuarioControlador {
         }
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping("/listar")
+    public String listarUsuario(ModelMap modelo) {
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+        modelo.addAttribute("usuario", usuarios);
+        return "listadoUsuario";
+    }
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en">
+    <head th:replace="/fragment/head_cliente :: head"> </head>
+    <header th:replace="/fragment/navbar-Dashboard :: div"> </header>
+    <body>
+        <div class="col-sm-10 col-md-10">
+            <div class="well">
+                <h1>Todos los Usuarios</h1>
+            </div>
+            <a type="button" class="btn btn-success"  >Agregar</a>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Nombre de Usuario</th>
+                        <th>Email</th>
+                        <th>Telefono</th>
+                        <th>Perfil</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="usuario:${usuario}">
+                        <td th:text="${usuario.nombre}"></td>
+                        <td th:text="${usuario.nombreUsuario}"></td>
+                        <td th:text="${usuario.email}"></td>
+                        <td th:text="${usuario.telefono}"></td>
+                        <td th:text="${usuario.rol}"></td>
+                        <td th:text="${usuario.fechaAlta}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
