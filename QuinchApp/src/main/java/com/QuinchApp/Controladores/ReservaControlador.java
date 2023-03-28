@@ -3,9 +3,12 @@ package com.QuinchApp.Controladores;
 import com.QuinchApp.Entidades.Cliente;
 import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Reserva;
+import com.QuinchApp.Entidades.Usuario;
+import com.QuinchApp.Repositorios.UsuarioRepositorio;
 import com.QuinchApp.Servicios.ReservaServicio;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,6 +25,9 @@ public class ReservaControlador {
     @Autowired
     private ReservaServicio reservaServicio;
     
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
+    
     @GetMapping("/registrar")
     public String registrar() {
         return "Formulario_Reservas.html";
@@ -29,8 +35,10 @@ public class ReservaControlador {
 
     @PostMapping("/registro")
     public String regristro(@RequestParam("fechaInicio") Date fechaInicio, @RequestParam("fechaSalida") Date fechaSalida, @RequestParam("propiedad") Propiedad propiedad,
-            @RequestParam("cliente") Cliente cliente, ModelMap modelo) throws Exception {
+            HttpSession session, ModelMap modelo) throws Exception {
         try {
+            String nombreCliente = (String) session.getAttribute("nombreUsuario");
+            Usuario cliente = usuarioRepositorio.buscarPorNombre(nombreCliente);
             reservaServicio.registrar(fechaInicio, fechaSalida, propiedad, cliente);
             modelo.put("exito", "La reserva fue registrada correctamente!");
         } catch (Exception ex) {
@@ -39,7 +47,6 @@ public class ReservaControlador {
             modelo.put("fechaInicio", fechaInicio);
             modelo.put("fechaSalida", fechaSalida);
             modelo.put("propiedad", propiedad);
-            modelo.put("cliente", cliente);
             modelo.put("error", "Verifique que los datos hayan sido cargado correctamente");
             return "formRegistrar";
         }

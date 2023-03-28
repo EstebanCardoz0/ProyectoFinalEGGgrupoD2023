@@ -3,6 +3,7 @@ package com.QuinchApp.Servicios;
 import com.QuinchApp.Entidades.Cliente;
 import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Reserva;
+import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Repositorios.ReservaRepositorio;
 import java.util.Date;
 import java.util.List;
@@ -18,12 +19,13 @@ public class ReservaServicio {
     private ReservaRepositorio reservaRepositorio;
 
     @Transactional
-    public void registrar(Date fechaInicio,Date fechaSalida, Propiedad propiedad, Cliente Cliente) throws Exception {
+    public void registrar(Date fechaInicio, Date fechaSalida, Propiedad propiedad, Usuario cliente) throws Exception {
+        Reserva reserva = new Reserva();
         boolean activo = Boolean.TRUE;
-        Reserva reserva = new Reserva(fechaInicio,fechaSalida, propiedad, Cliente);
         reserva.setConfirmada(activo);
-      reserva.setFechaInicio(fechaInicio);
-      reserva.setFechaSalida(fechaSalida);
+        reserva.setFechaInicio(fechaInicio);
+        reserva.setFechaSalida(fechaSalida);
+        reserva.setCliente((Cliente) cliente);
         reservaRepositorio.save(reserva);
     }
 

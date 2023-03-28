@@ -1,5 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html class="supernova"><head>
+<html class="supernova"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaft.or/extras/spring-security">
+    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="alternate" type="application/json+oembed" href="https://www.jotform.com/oembed/?format=json&amp;url=https%3A%2F%2Fform.jotform.com%2F230847696798682" title="oEmbed Form">
         <link rel="alternate" type="text/xml+oembed" href="https://www.jotform.com/oembed/?format=xml&amp;url=https%3A%2F%2Fform.jotform.com%2F230847696798682" title="oEmbed Form">
@@ -29,8 +31,11 @@
                             </div>
                         </div>
                     </li>
-                    <li class="form-line" data-type="control_textbox" id="id_21"><label class="form-label form-label-top" id="label_21" for="input_21"> Nombre </label>
-                        <div id="cid_21" class="form-input-wide"> <input type="text" id="input_21" name="q21_clickTo" data-type="input-textbox" class="form-textbox" data-defaultvalue="" size="40" value="" data-component="textbox" aria-labelledby="label_21" /> </div>
+                    <li class="form-line" data-type="control_textbox" id="id_21">
+                        <label class="form-label form-label-top" id="label_21" for="input_21"> Nombre</label>
+                        <div id="cid_21" class="form-input-wide"> 
+                            <input type="text" id="input_21" name="q21_clickTo" data-type="input-textbox" class="form-textbox" data-defaultvalue="" size="40" value="" data-component="textbox" aria-labelledby="label_21" th:if='${session.usuariosession != null}' th:text="${session.usuariosession.nombreUsuario}"/>
+                        </div>
                     </li>
                         <li class="form-line" data-type="control_textbox" id="id_21"><label class="form-label form-label-top" id="label_21" for="input_21"> Propietario </label>
                         <div id="cid_21" class="form-input-wide"> <input type="text" id="input_21" name="q21_clickTo" data-type="input-textbox" class="form-textbox" data-defaultvalue="" size="40" value="" data-component="textbox" aria-labelledby="label_21" /> </div>
@@ -65,7 +70,7 @@
                     </li>-->
                     <li style="display:none">Should be Empty: <input type="text" name="website" value="" /></li>
                 </ul>
-                <div th:replace = "/fragment/script_formReservas :: script"></div>
+                
             </div>
         </form>
     </body>
