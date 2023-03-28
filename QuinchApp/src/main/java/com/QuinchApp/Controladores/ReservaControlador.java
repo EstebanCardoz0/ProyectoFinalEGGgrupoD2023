@@ -29,7 +29,9 @@ public class ReservaControlador {
     private UsuarioRepositorio usuarioRepositorio;
     
     @GetMapping("/registrar")
-    public String registrar() {
+    public String registrar(ModelMap modelo, HttpSession session) {
+        Usuario cliente = (Usuario) session.getAttribute("usuariosession");
+        modelo.put("cliente", cliente);
         return "Formulario_Reservas.html";
     }
 
