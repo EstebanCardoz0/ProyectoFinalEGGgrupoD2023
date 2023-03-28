@@ -10,15 +10,15 @@
     <body>
         <div class="container d-flex justify-content-center align-items-center rounded" style="height: 100vh">
             <main class="form-signin w-100 m-auto">
-                <form>
+                <form th:action="@{/reserva/registro}" method="POST">
                     <h1 class="h3 mb-3 fw-normal">Reserva</h1>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Propiedad: [[${propiedad.nombre}]]</label>
+                        <input type="hidden" class="form-control" name="propiedad" th:value="${propiedad.idPropiedad}">
+                    </div>
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Nombre Cliente</label>
                         <input type="text" class="form-control" name="cliente" th:if='${session.usuariosession != null}' th:value="${session.usuariosession.nombreUsuario}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Propiedad</label>
-                        <input type="email" class="form-control" name="propiedad" placeholder="name@example.com">
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Fecha de Entrada</label>
@@ -26,7 +26,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Fecha de Salida</label>
-                        <input type="date" class="form-control" name="fechaSalidad">
+                        <input type="date" class="form-control" name="fechaSalida">
                     </div>
                     <button class="w-100 btn btn-lg btn-primary" type="submit">Reservar</button>
                     <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
