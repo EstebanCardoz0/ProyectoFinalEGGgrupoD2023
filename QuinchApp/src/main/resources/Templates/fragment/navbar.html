@@ -47,7 +47,7 @@
             </a>
             </li>-->
                     <li>        
-                        <a class="nav-link"   th:if='${session.usuariosession != null}' sec:authorize="hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('PROPIETARIO')" th:text="${session.usuariosession.nombreUsuario}" href="/usuario/perfil"></a>
+                        <a class="nav-link" th:if='${session.usuariosession != null}' sec:authorize="hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('PROPIETARIO')" th:text="${session.usuariosession.nombreUsuario}" href="/usuario/perfil"></a>
                     </li>
                     <li class="nav-item"><a class="nav-link"  th:if="${session.usuariosession != null}" sec:authorize="hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('PROPIETARIO')"  href="/logout">Cerrar sesion</a></li>
                 </ul>
