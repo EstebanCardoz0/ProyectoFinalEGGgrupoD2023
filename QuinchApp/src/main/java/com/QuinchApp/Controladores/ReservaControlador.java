@@ -5,6 +5,7 @@ import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Reserva;
 import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Repositorios.UsuarioRepositorio;
+import com.QuinchApp.Servicios.PropiedadServicio;
 import com.QuinchApp.Servicios.ReservaServicio;
 import java.util.Date;
 import java.util.List;
@@ -28,21 +29,26 @@ public class ReservaControlador {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
     
-    @GetMapping("/registrar")
-    public String registrar(ModelMap modelo, HttpSession session) {
+    @Autowired
+    private PropiedadServicio propiedadServicio;
+    
+    @GetMapping("/registrar/{id}")
+    public String registrar(@PathVariable int id, ModelMap modelo, HttpSession session) {
         Usuario cliente = (Usuario) session.getAttribute("usuariosession");
+        modelo.put("propiedad", propiedadServicio.getOne(id));
         modelo.put("cliente", cliente);
         return "Formulario_Reservas.html";
     }
 
     @PostMapping("/registro")
-    public String regristro(@RequestParam("fechaInicio") Date fechaInicio, @RequestParam("fechaSalida") Date fechaSalida, @RequestParam("propiedad") Propiedad propiedad,
+    public String regristro(@RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaSalida") String fechaSalida, @RequestParam("propiedad") Propiedad propiedad,
             HttpSession session, ModelMap modelo) throws Exception {
         try {
             String nombreCliente = (String) session.getAttribute("nombreUsuario");
             Usuario cliente = usuarioRepositorio.buscarPorNombre(nombreCliente);
             reservaServicio.registrar(fechaInicio, fechaSalida, propiedad, cliente);
             modelo.put("exito", "La reserva fue registrada correctamente!");
+            return "dashboardCliente";
         } catch (Exception ex) {
             System.out.println(ex);
             modelo.put("error", ex.getMessage());
@@ -50,9 +56,8 @@ public class ReservaControlador {
             modelo.put("fechaSalida", fechaSalida);
             modelo.put("propiedad", propiedad);
             modelo.put("error", "Verifique que los datos hayan sido cargado correctamente");
-            return "formRegistrar";
+            return "Formulario_Reservas";
         }
-        return "formRegistrar";
     }
 
     @GetMapping("/modificarUno/{id}")
