@@ -237,4 +237,20 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
+    public Usuario bajaAlta(Integer id) {
+        Optional<Usuario> optinalProducto = usuarioRepositorio.findById(id);
+        Usuario usuario = new Usuario();
+        if (optinalProducto.isPresent()) {
+            usuario = optinalProducto.get();
+            if (usuario.isActivo() == false) {
+                usuario.setActivo(Boolean.TRUE);
+                usuarioRepositorio.save(usuario);
+            } else {
+                usuario.setActivo(Boolean.FALSE);
+                usuarioRepositorio.save(usuario);
+            }
+        }
+        return usuario;
+    }
+
 }
