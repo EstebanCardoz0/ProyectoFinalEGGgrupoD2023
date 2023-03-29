@@ -43,18 +43,17 @@ public class UsuarioServicio implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private PropietarioRepositorio propRepo;
-     @Autowired
+    @Autowired
     private ClienteRepositorio clienteRepo;
 
     @Transactional
-    public void registrar(String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo) throws Exception {
+    public void registrar(String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo, String tipo) throws Exception {
         validar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setEmail(email);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-        usuario.setRol(Rol.CLIENTE);
         usuario.setTelefono(telefono);
         Date fechaAlta = new Date();
         usuario.setFechaAlta(fechaAlta);
@@ -62,29 +61,15 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setActivo(activo);
         Imagen miImagen = imagenServicio.guardar(archivo);
         usuario.setFotoPerfil(miImagen);
-        Cliente cliente = new Cliente(usuario.getId(), nombre, nombreUsuario, email, usuario.getPassword(), telefono, usuario.getRol(), usuario.getFotoPerfil(), usuario.getFechaAlta(), activo);
-        clienteRepo.save(cliente);
-    }
-
-    @Transactional
-    public void registrarPropietario(String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo) throws Exception {
-        validar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
-        Usuario usuario = new Usuario();
-        validar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
-        usuario.setNombre(nombre);
-        usuario.setNombreUsuario(nombreUsuario);
-        usuario.setEmail(email);
-        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-        usuario.setRol(Rol.PROPIETARIO);
-        usuario.setTelefono(telefono);
-        Date fechaAlta = new Date();
-        usuario.setFechaAlta(fechaAlta);
-        boolean activo = Boolean.TRUE;
-        usuario.setActivo(activo);
-        Imagen miImagen = imagenServicio.guardar(archivo);
-        usuario.setFotoPerfil(miImagen);
-        Propietario propietario = new Propietario(usuario.getId(), nombre, nombreUsuario, email,  usuario.getPassword(), telefono, usuario.getRol(), usuario.getFotoPerfil(), usuario.getFechaAlta(), activo);
-        propRepo.save(propietario);
+        if (tipo.equalsIgnoreCase("cliente")) {
+            usuario.setRol(Rol.CLIENTE);
+            Cliente cliente = new Cliente(usuario.getId(), nombre, nombreUsuario, email, usuario.getPassword(), telefono, usuario.getRol(), usuario.getFotoPerfil(), usuario.getFechaAlta(), activo);
+            clienteRepo.save(cliente);
+        } else {
+            usuario.setRol(Rol.PROPIETARIO);
+            Propietario propietario = new Propietario(usuario.getId(), nombre, nombreUsuario, email, usuario.getPassword(), telefono, usuario.getRol(), usuario.getFotoPerfil(), usuario.getFechaAlta(), activo);
+            propRepo.save(propietario);
+        }
     }
 
     private void validarActualizar(String nombre, String nombreUsuario, String email, String password, long telefono, MultipartFile archivo, String password2) throws Exception {
@@ -146,7 +131,7 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void actualizarCliente(int id, String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo) throws Exception {
+    public void actualizar(int id, String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo, String tipo) throws Exception {
         validarActualizar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
         if (id < 0) {
             throw new Exception("Ingrese un id");
@@ -158,7 +143,6 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setNombreUsuario(nombreUsuario);
             usuario.setEmail(email);
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-            usuario.setRol(Rol.CLIENTE);
             usuario.setTelefono(telefono);
             int idImagen = 0;
             if (usuario.getFotoPerfil() != null) {
@@ -166,32 +150,17 @@ public class UsuarioServicio implements UserDetailsService {
             }
             Imagen miImagen = imagenServicio.actualizar(archivo, idImagen);
             usuario.setFotoPerfil(miImagen);
-            usuarioRepositorio.save(usuario);
-        }
-    }
-
-    @Transactional
-    public void actualizarPropietario(int id, String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo) throws Exception {
-        validarActualizar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
-        if (id < 0) {
-            throw new Exception("Ingrese un id");
-        }
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
-        if (respuesta.isPresent()) {
-            Usuario usuario = respuesta.get();
-            usuario.setNombre(nombre);
-            usuario.setNombreUsuario(nombreUsuario);
-            usuario.setEmail(email);
-            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-            usuario.setRol(Rol.PROPIETARIO);
-            usuario.setTelefono(telefono);
-            int idImagen = 0;
-            if (usuario.getFotoPerfil() != null) {
-                idImagen = usuario.getFotoPerfil().getIdImagen();
+            if (tipo.equalsIgnoreCase("cliente")) {
+                propRepo.deleteById(id);
+                usuario.setRol(Rol.CLIENTE);
+                Cliente cliente = new Cliente(usuario.getId(), nombre, nombreUsuario, email, usuario.getPassword(), telefono, usuario.getRol(), usuario.getFotoPerfil(), usuario.getFechaAlta(), usuario.isActivo());
+                clienteRepo.save(cliente);
+            } else {
+                clienteRepo.deleteById(id);
+                usuario.setRol(Rol.PROPIETARIO);
+                Propietario propietario = new Propietario(usuario.getId(), nombre, nombreUsuario, email, usuario.getPassword(), telefono, usuario.getRol(), usuario.getFotoPerfil(), usuario.getFechaAlta(), usuario.isActivo());
+                propRepo.save(propietario);
             }
-            Imagen miImagen = imagenServicio.actualizar(archivo, idImagen);
-            usuario.setFotoPerfil(miImagen);
-            usuarioRepositorio.save(usuario);
         }
     }
 
@@ -266,6 +235,22 @@ public class UsuarioServicio implements UserDetailsService {
         } else {
             return null;
         }
+    }
+
+    public Usuario bajaAlta(Integer id) {
+        Optional<Usuario> optinalProducto = usuarioRepositorio.findById(id);
+        Usuario usuario = new Usuario();
+        if (optinalProducto.isPresent()) {
+            usuario = optinalProducto.get();
+            if (usuario.isActivo() == false) {
+                usuario.setActivo(Boolean.TRUE);
+                usuarioRepositorio.save(usuario);
+            } else {
+                usuario.setActivo(Boolean.FALSE);
+                usuarioRepositorio.save(usuario);
+            }
+        }
+        return usuario;
     }
 
 }
