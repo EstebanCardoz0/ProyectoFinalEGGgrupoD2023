@@ -7,6 +7,7 @@ import com.QuinchApp.Servicios.PropiedadServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -80,8 +81,6 @@ public class PropiedadControlador {
         return "index.html";
     }
 
- 
-    
     @DeleteMapping("/borrarPropiedad/{id}")
     public String borrarPropiedad(@PathVariable int id) {
         try {
@@ -103,5 +102,27 @@ public class PropiedadControlador {
             return "Error";
         }
     }
+
+    @GetMapping("/detallePropiedad")
+    public String mostrarPropiedades(ModelMap modelo) {
+        List<Propiedad> quinchoList = propiedadServicio.buscarPropiedadPorTipo(PropiedadEnum.QUINCHO);
+        modelo.addAttribute("QUINCHO", quinchoList);
+         List<Propiedad> quintaList = propiedadServicio.buscarPropiedadPorTipo(PropiedadEnum.CASA_QUINTA);
+        modelo.addAttribute("CASA_QUINTA", quintaList);
+         List<Propiedad> salonesList = propiedadServicio.buscarPropiedadPorTipo(PropiedadEnum.SALON_DE_FIESTA);
+        modelo.addAttribute("SALON_DE_FIESTA", salonesList);
+         List<Propiedad> patiioaList = propiedadServicio.buscarPropiedadPorTipo(PropiedadEnum.PATIO);
+        modelo.addAttribute("PATIO", patiioaList);
+        return "detallePropiedad";
+    }
+    
+  
+//@GetMapping("/detallePropiedad/quinchos")
+//public String mostrarPropiedadesQuinchos(ModelMap modelo) {
+//    List<Propiedad> propiedadesQuinchos = propiedadServicio.buscarPropiedadPorTipo(PropiedadEnum.QUINCHO);
+//    modelo.addAttribute("propiedades", propiedadesQuinchos);
+//    
+//    return "detallePropiedad";
+//}
 
 }
