@@ -13,19 +13,19 @@
                 <form th:action="@{/reserva/registro}" method="POST">
                     <h1 class="h3 mb-3 fw-normal">Reserva</h1>
                     <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Propiedad: [[${propiedad.nombre}]]</label>
-                        <input type="hidden" class="form-control" name="propiedad" th:value="${propiedad.idPropiedad}">
+                        <label for="propiedad" class="form-label">Propiedad</label>
+                        <input type="number" class="form-control" name="propiedad" th:value="${idPropiedad}">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Nombre Cliente</label>
+                        <label for="cliente" class="form-label">Nombre Cliente</label>
                         <input type="text" class="form-control" name="cliente" th:if='${session.usuariosession != null}' th:value="${session.usuariosession.nombreUsuario}">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Fecha de Entrada</label>
+                        <label for="fechaInicio" class="form-label">Fecha de Entrada</label>
                         <input type="date" class="form-control" name="fechaInicio">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Fecha de Salida</label>
+                        <label for="fechaSalida" class="form-label">Fecha de Salida</label>
                         <input type="date" class="form-control" name="fechaSalida">
                     </div>
                     <button class="w-100 btn btn-lg btn-primary" type="submit">Reservar</button>
