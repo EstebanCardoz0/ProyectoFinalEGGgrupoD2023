@@ -1,6 +1,7 @@
 package com.QuinchApp.Repositorios;
 
 import com.QuinchApp.Entidades.Propiedad;
+import com.QuinchApp.Enums.PropiedadEnum;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +20,7 @@ public interface PropiedadRepositorio extends JpaRepository<Propiedad, Integer> 
     
     @Query("SELECT pr FROM Propiedad pr WHERE pr.idPropiedad = :idPropiedad")
     public Optional<Propiedad> buscarPorIdPropiedad(@Param("idPropiedad") int idPropiedad);
+    
+    @Query("SELECT pr FROM Propiedad pr WHERE pr.tipoDePropiedad = :tipoDePropiedad")
+    public List<Propiedad> buscarPropiedadPorTipo(@Param("tipoDePropiedad") PropiedadEnum tipoDePropiedad);
 }

@@ -54,6 +54,7 @@
                     <div class="col mb-5"  th:each="propiedad : ${propiedad}">
                         <div class="card h-100">
                             <!-- Product image-->
+                            <div class="card-body p-4">
                             <img class="card-img-top" th:src="@{/imagen/imgPropiedad/__${propiedad.idPropiedad}__}" alt="..."/>
                             <!-- Product details-->
                             <div class="card-body p-4">
@@ -66,6 +67,7 @@
                                 <p class="lead" th:text=" 'Descrpcion: ' + ${propiedad.Descripcion} "></p>
                                 <p class="lead" th:text=" 'Ubicacion: ' + ${propiedad.ubicacion} " >  </p>
                                 <p class="lead" th:text=" 'Capacidad: ' + ${propiedad.capacidad} " >  </p>
+                                <p class="lead" th:text=" 'Propiedad agregada: ' + ${propiedad.propiedadAgregada} "></p>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
