@@ -1,6 +1,9 @@
 package com.QuinchApp.Controladores;
 
 import com.QuinchApp.Entidades.Usuario;
+import com.QuinchApp.Enums.Rol;
+import com.QuinchApp.Servicios.ClienteServicio;
+import com.QuinchApp.Servicios.PropietarioServicio;
 import com.QuinchApp.Servicios.UsuarioServicio;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -22,6 +25,10 @@ public class UsuarioControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+    @Autowired
+    private ClienteServicio clienteServicio;
+    @Autowired
+    private PropietarioServicio propietarioServicio;
 
     @GetMapping("/registrar")
     public String registrar() {
@@ -52,20 +59,19 @@ public class UsuarioControlador {
 
     }
 
-    @GetMapping("/borrar/{id}")
-    public String borrarUsuario(@PathVariable Integer id, ModelMap modelo) throws Exception {
-        modelo.put("usuario", usuarioServicio.getOne(id));
-        return null;
-    }
-
-    @DeleteMapping("/borrar/{id}")
-    public String borrarUsuario(@PathVariable Integer id) throws Exception {
+    @GetMapping("/borrar/{id}/{rol}")
+    public String borrarUsuario(@PathVariable Integer id, @PathVariable String rol, ModelMap modelo) throws Exception {
         try {
-            usuarioServicio.borrar(id);
-            return "Exito";
+            if (rol.equalsIgnoreCase("CLIENTE")) {
+                clienteServicio.borrar(id);
+            } else {
+                propietarioServicio.borrar(id);
+            }
+            modelo.put("exito", "El usuario fue registrado correctamente!");
+            return "redirect:/usuario/listar";
         } catch (Exception exception) {
-            System.out.println(exception);
-            return "Error";
+            modelo.put("error", "Verifique que los datos hayan sido cargado correctamente y el email no este registrado");
+            return "redirect:/usuario/listar";
         }
     }
 
@@ -120,5 +126,11 @@ public class UsuarioControlador {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
         modelo.addAttribute("usuario", usuarios);
         return "listadoUsuario";
+    }
+
+    @RequestMapping("/altaBaja/{id}")
+    public String altaBaja(@PathVariable Integer id) {
+        usuarioServicio.bajaAlta(id);
+        return "redirect:/usuario/listar";
     }
 }
