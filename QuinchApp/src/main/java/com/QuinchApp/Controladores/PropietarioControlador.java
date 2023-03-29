@@ -1,6 +1,8 @@
 package com.QuinchApp.Controladores;
 
+import com.QuinchApp.Entidades.Propietario;
 import com.QuinchApp.Entidades.Usuario;
+import com.QuinchApp.Servicios.PropietarioServicio;
 import com.QuinchApp.Servicios.UsuarioServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/propietario")
 public class PropietarioControlador {
     
-//    @Autowired
-//    private UsuarioServicio usuarioServicio;
+    @Autowired
+   private PropietarioServicio propietarioServicio;
 //
 //    @GetMapping("/registrar")
 //    public String registrar() {
@@ -61,12 +63,12 @@ public class PropietarioControlador {
 //        }
 //    }
 //
-//    @GetMapping("/listar")
-//    public String listar(ModelMap modelo) {
-//        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
-//        modelo.addAttribute("usuario", usuarios);
-//        return "usuarioList";
-//    }
+    @GetMapping("/listar")
+    public String listar(ModelMap modelo) {
+        List<Propietario> propietarios = propietarioServicio.listarPropietario();
+        modelo.addAttribute("propietarios", propietarios);
+        return "propietarioList";
+    }
 //
 //    @DeleteMapping("/borrar/{id}")
 //    public String borrarUsuario(@PathVariable Integer id) throws Exception {
