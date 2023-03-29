@@ -2,6 +2,7 @@ package com.QuinchApp.Repositorios;
 
 import com.QuinchApp.Entidades.Propiedad;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,4 +16,7 @@ public interface PropiedadRepositorio extends JpaRepository<Propiedad, Integer> 
     
     @Query("SELECT pr FROM Propiedad pr WHERE pr.nombre = :nombre")
     public List<Propiedad> buscarPorPropietario(@Param("nombre") String nombre);
+    
+    @Query("SELECT pr FROM Propiedad pr WHERE pr.idPropiedad = :idPropiedad")
+    public Optional<Propiedad> buscarPorIdPropiedad(@Param("idPropiedad") int idPropiedad);
 }
