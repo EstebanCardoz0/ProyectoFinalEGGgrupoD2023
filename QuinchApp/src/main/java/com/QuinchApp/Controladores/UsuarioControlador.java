@@ -8,6 +8,7 @@ import com.QuinchApp.Servicios.UsuarioServicio;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -122,9 +123,10 @@ public class UsuarioControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/listar")
-    public String listarUsuario(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+    public String listarUsuario(ModelMap modelo, @Param("palabraClave") String palabraClave) {
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios(palabraClave);
         modelo.addAttribute("usuario", usuarios);
+        modelo.addAttribute("palabraClave", palabraClave);
         return "listadoUsuario";
     }
 
@@ -133,4 +135,5 @@ public class UsuarioControlador {
         usuarioServicio.bajaAlta(id);
         return "redirect:/usuario/listar";
     }
+
 }
