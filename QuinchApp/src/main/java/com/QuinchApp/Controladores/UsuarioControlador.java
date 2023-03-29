@@ -1,10 +1,14 @@
 package com.QuinchApp.Controladores;
 
 import com.QuinchApp.Entidades.Usuario;
+import com.QuinchApp.Enums.Rol;
+import com.QuinchApp.Servicios.ClienteServicio;
+import com.QuinchApp.Servicios.PropietarioServicio;
 import com.QuinchApp.Servicios.UsuarioServicio;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,6 +26,10 @@ public class UsuarioControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+    @Autowired
+    private ClienteServicio clienteServicio;
+    @Autowired
+    private PropietarioServicio propietarioServicio;
 
     @GetMapping("/registrar")
     public String registrar() {
@@ -34,11 +42,7 @@ public class UsuarioControlador {
             @RequestParam("archivo") MultipartFile archivo, @RequestParam("tipoUsuario") String tipo, ModelMap modelo) throws Exception {
         System.out.print(tipo);
         try {
-            if (tipo.equalsIgnoreCase("cliente")) {
-                usuarioServicio.registrar(nombre, nombreUsuario, email, password, password2, telefono, archivo);
-            } else {
-                usuarioServicio.registrarPropietario(nombre, nombreUsuario, email, password, password2, telefono, archivo);
-            }
+            usuarioServicio.registrar(nombre, nombreUsuario, email, password, password2, telefono, archivo, tipo);
             modelo.put("exito", "El usuario fue registrado correctamente!");
         } catch (Exception exception) {
             System.out.println(exception);
@@ -56,38 +60,19 @@ public class UsuarioControlador {
 
     }
 
-//    @PostMapping("/actualizar/{id}")
-//    public String actualizar(@PathVariable int id, @RequestParam("nombre") String nombre, @RequestParam("nombreUsuario") String nombreUsuario,
-//            @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("telefono") long telefono,
-//            @RequestParam("archivo") MultipartFile archivo) throws Exception {
-//        try {
-//            usuarioServicio.actualizar(id, nombre, nombreUsuario, email, password, telefono, archivo);
-//            return "exito";
-//        } catch (Exception exception) {
-//            System.out.println(exception);
-//            return "error";
-//        }
-//    }
-//    @GetMapping("/listar")
-//    public String listar(ModelMap modelo) {
-//        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
-//        modelo.addAttribute("usuario", usuarios);
-//        return "usuarioList";
-//    }
-    @GetMapping("/borrar/{id}")
-    public String borrarUsuario(@PathVariable Integer id, ModelMap modelo) throws Exception {
-     modelo.put("usuario", usuarioServicio.getOne(id));
-     return null;
-    }
-
-    @DeleteMapping("/borrar/{id}")
-    public String borrarUsuario(@PathVariable Integer id) throws Exception {
+    @GetMapping("/borrar/{id}/{rol}")
+    public String borrarUsuario(@PathVariable Integer id, @PathVariable String rol, ModelMap modelo) throws Exception {
         try {
-            usuarioServicio.borrar(id);
-            return "Exito";
+            if (rol.equalsIgnoreCase("CLIENTE")) {
+                clienteServicio.borrar(id);
+            } else {
+                propietarioServicio.borrar(id);
+            }
+            modelo.put("exito", "El usuario fue registrado correctamente!");
+            return "redirect:/usuario/listar";
         } catch (Exception exception) {
-            System.out.println(exception);
-            return "Error";
+            modelo.put("error", "Verifique que los datos hayan sido cargado correctamente y el email no este registrado");
+            return "redirect:/usuario/listar";
         }
     }
 
@@ -119,11 +104,7 @@ public class UsuarioControlador {
             @RequestParam("archivo") MultipartFile archivo, @RequestParam("tipoUsuario") String tipo, ModelMap modelo) {
         modelo.addAttribute("usuario", new Usuario());
         try {
-            if (tipo.equalsIgnoreCase("cliente")) {
-                usuarioServicio.actualizarCliente(id, nombre, nombreUsuario, email, password, password2, telefono, archivo);
-            } else {
-                usuarioServicio.actualizarPropietario(id, nombre, nombreUsuario, email, password, password2, telefono, archivo);
-            }
+            usuarioServicio.actualizar(id, nombre, nombreUsuario, email, password, password2, telefono, archivo, tipo);
             Usuario usuario = (Usuario) session.getAttribute("usuariosession");
             modelo.put("usuario", usuario);
             modelo.put("password", password);
@@ -142,9 +123,17 @@ public class UsuarioControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/listar")
-    public String listarUsuario(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+    public String listarUsuario(ModelMap modelo, @Param("palabraClave") String palabraClave) {
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios(palabraClave);
         modelo.addAttribute("usuario", usuarios);
+        modelo.addAttribute("palabraClave", palabraClave);
         return "listadoUsuario";
     }
+
+    @RequestMapping("/altaBaja/{id}")
+    public String altaBaja(@PathVariable Integer id) {
+        usuarioServicio.bajaAlta(id);
+        return "redirect:/usuario/listar";
+    }
+
 }
