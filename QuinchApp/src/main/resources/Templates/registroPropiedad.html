@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="valor" class="form-label">$</label>
+                            <label for="valor" class="form-label">$ Precio por Noche</label>
                             <input type="number" class="form-control" name="valor" required />
                             <div class="valid-feedback"></div>
                             <div class="invalid-feedback">
@@ -99,16 +99,15 @@
                         </div>
                         <div class="form-group">
                             <label for="propietario" class="form-label">Propietario</label>
-                            <input
-                                <input type="text" class="form-control is-valid" name="propietario" th:value="${propietario}"required/>
+                            <input type="text" class="form-control is-valid" name="propietario" th:value="${propietario}"required/>
                             <div class="valid-feedback"></div>
                             <div class="invalid-feedback">
                                 Es necesario ingresar el Propietario
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="file" class="form-control is-valid" name="imagen"th:value="${imagen}">
-                            <input type="file" class="form-control" name="imagen" th:value="${imagen}" required />
+                         <!--   <input type="file" class="form-control is-valid" name="imagen"th:value="${imagen}">-->
+                            <input type="file" class="form-control is-valid" name="imagen" th:value="${imagen}" multiple required /><br>
                             <div class="valid-feedback">Looks good!</div>
                         </div>
                         <div class="form-group">
