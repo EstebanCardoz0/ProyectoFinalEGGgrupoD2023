@@ -1,6 +1,7 @@
 package com.QuinchApp.Repositorios;
 
 import com.QuinchApp.Entidades.Usuario;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,5 +24,15 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
     public Usuario buscarPorId(@Param("id") Integer idUsuario);
 
     Usuario findByEmail(String email);
+
+    @Query("SELECT u FROM Usuario u WHERE "
+            + "LOWER(CONCAT(u.id, u.nombre, u.nombreUsuario, u.email, u.telefono, "
+            + "CASE u.rol "
+            + "WHEN 'CLIENTE' THEN 'cliente' "
+            + "WHEN 'PROPIETARIO' THEN 'propietario' "
+            + "ELSE '' "
+            + "END, u.fechaAlta, u.activo)) "
+            + "LIKE LOWER(CONCAT('%', :name, '%'))")
+    public List<Usuario> findAll(@Param("name") String palabraClave);
 
 }
