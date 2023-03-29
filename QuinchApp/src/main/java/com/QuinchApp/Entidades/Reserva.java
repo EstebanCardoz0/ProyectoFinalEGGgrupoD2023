@@ -31,14 +31,14 @@ public class Reserva {
     @OneToOne
     private Propiedad propiedad;
     @ManyToOne
-    private Cliente Cliente;
+    private Cliente cliente;
     private Boolean confirmada;
 
     public Reserva(Date fechaInicio,Date fechaSalida, Propiedad propiedad, Cliente Cliente) {
         this.fechaInicio = fechaInicio;
         this.fechaSalida = fechaSalida;
         this.propiedad = propiedad;
-        this.Cliente = Cliente;
+        this.cliente = cliente;
     }
 
 }

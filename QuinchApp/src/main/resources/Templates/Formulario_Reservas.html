@@ -1,72 +1,39 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html class="supernova"><head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link rel="alternate" type="application/json+oembed" href="https://www.jotform.com/oembed/?format=json&amp;url=https%3A%2F%2Fform.jotform.com%2F230847696798682" title="oEmbed Form">
-        <link rel="alternate" type="text/xml+oembed" href="https://www.jotform.com/oembed/?format=xml&amp;url=https%3A%2F%2Fform.jotform.com%2F230847696798682" title="oEmbed Form">
-        <meta property="og:url" content="https://form.jotform.com/230847696798682" >
-        <meta property="og:description" content="Please click the link to complete this form." >
-        <meta name="slack-app-id" content="AHNMASS8M">
-        <title>QuinchApp </title>
-        <link rel="icon" type="image/x-icon" th:href="@{/imagenes/quinchapp.ico}">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=1" />
-        <meta name="HandheldFriendly" content="true" />
-        <link href="https://cdn01.jotfor.ms/static/formCss.css?3.3.40425" rel="stylesheet" type="text/css" />
-        <style type="text/css">@media print{.form-section{display:inline!important}.form-pagebreak{display:none!important}.form-section-closed{height:auto!important}.page-section{position:initial!important}}</style>
-        <link type="text/css" rel="stylesheet" href="https://cdn02.jotfor.ms/css/styles/nova.css?3.3.40425" />
-        <link href="/css/styles_formReserva.css" rel="stylesheet" />
-        <link id="custom-font" type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:light,lightitalic,normal,italic,bold,bolditalic" />
-        <link type="text/css" rel="stylesheet" href="https://cdn03.jotfor.ms/themes/CSS/54ab0a7825d790e9458b4567.css?v=3.3.40425&themeRevisionID=5cf3a046dd9c5670432d9dc1"/>
-   </head>
-
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaft.or/extras/spring-security">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Reserva</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    </head>
     <body>
-        <form class="jotform-form" th:action="@{/reserva/registro}" method="POST" name="Formulario-reserva"accept-charset="utf-8" autocomplete="on">
-            <div role="main" class="form-all">
-                <ul class="form-section page-section">
-                    <li class="form-line" data-type="control_text" id="id_20">
-                        <div id="cid_20" class="form-input-wide">
-                            <div id="text_20" class="form-html" data-component="text" tabindex="0">
-                                <p style="text-align:center;"><strong><span style="font-family:tahoma, arial, helvetica, sans-serif;font-size:18pt;"> RESERVA</span></strong></p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="form-line" data-type="control_textbox" id="id_21"><label class="form-label form-label-top" id="label_21" for="input_21"> Nombre </label>
-                        <div id="cid_21" class="form-input-wide"> <input type="text" id="input_21" name="q21_clickTo" data-type="input-textbox" class="form-textbox" data-defaultvalue="" size="40" value="" data-component="textbox" aria-labelledby="label_21" /> </div>
-                    </li>
-                        <li class="form-line" data-type="control_textbox" id="id_21"><label class="form-label form-label-top" id="label_21" for="input_21"> Propietario </label>
-                        <div id="cid_21" class="form-input-wide"> <input type="text" id="input_21" name="q21_clickTo" data-type="input-textbox" class="form-textbox" data-defaultvalue="" size="40" value="" data-component="textbox" aria-labelledby="label_21" /> </div>
-                    </li>
-<!--                    <li class="form-line jf-required" data-type="control_textbox" id="id_3"><label class="form-label form-label-top" id="label_3" for="input_3"> Teléfono<span class="form-required">*</span> </label>
-                        <div id="cid_3" class="form-input-wide jf-required"> <input type="text" id="input_3" name="q3_telefono3" data-type="input-textbox" class="form-textbox validate[required]" data-defaultvalue="" size="40" value="" placeholder=" " data-component="textbox" aria-labelledby="label_3" required="" /> </div>
-                    </li>
-                    <li class="form-line jf-required" data-type="control_email" id="id_4"><label class="form-label form-label-top" id="label_4" for="input_4"> E-mail<span class="form-required">*</span> </label>
-                        <div id="cid_4" class="form-input-wide jf-required"> <input type="email" id="input_4" name="q4_email4" class="form-textbox validate[required, Email]" data-defaultvalue="" size="40" value="" placeholder="ejemplo: alberto@gmail.com" data-component="email" aria-labelledby="label_4" required="" /> </div>
-                    </li>
-                    <label for="llegada">Fecha de llegada</label></br>-->
-                    <input type="date" id="llegada" name="fecha-hora-llegada" class="cajas">
-                    </br>
-                    <label for="llegada">Fecha de Salida</label></br>
-                    <input type="date" id="llegada" name="fecha-hora-llegada" class="cajas">
-                    </br>
-<!--                    <li class="form-line" data-type="control_number" id="id_9"><label class="form-label form-label-left form-label-auto" id="label_9" for="input_9"> Adultos </label>
-                        <div id="cid_9" class="form-input"> <span class="form-sub-label-container" style="vertical-align:top"><input type="number" id="input_9" name="q9_adultos" data-type="input-number" class=" form-number-input form-textbox validate[Numeric]" data-defaultvalue="100" style="width:60px" size="5" value="100" placeholder="ex: 23" data-component="number" aria-labelledby="label_9 sublabel_input_9" step="any" /><label class="form-sub-label" for="input_9" id="sublabel_input_9" style="min-height:13px" aria-hidden="false">mayores de 14 años</label></span> </div>
-                    </li>
-                    <li class="form-line" data-type="control_number" id="id_26"><label class="form-label form-label-left form-label-auto" id="label_26" for="input_26"> Niños </label>
-                        <div id="cid_26" class="form-input"> <span class="form-sub-label-container" style="vertical-align:top"><input type="number" id="input_26" name="q26_ninos" data-type="input-number" class=" form-number-input form-textbox validate[Numeric]" data-defaultvalue="100" style="width:60px" size="5" value="100" placeholder="ex: 23" data-component="number" aria-labelledby="label_26 sublabel_input_26" step="any" /><label class="form-sub-label" for="input_26" id="sublabel_input_26" style="min-height:13px" aria-hidden="false">menores de 14 años</label></span> </div>
-                    </li>
-                    <li class="form-line" data-type="control_checkbox" id="id_19"><label class="form-label form-label-left form-label-auto" id="label_19" for="input_19"> Adicionales </label>
-                        <div id="cid_19" class="form-input">
-                            <div class="form-single-column" role="group" aria-labelledby="label_19" data-component="checkbox"><span class="form-checkbox-item" style="clear:left"><span class="dragger-item"></span><input type="checkbox" aria-describedby="label_19" class="form-checkbox" id="input_19_0" name="q19_complementos[]" value="Recogida del Aereopuerto" /><label id="label_input_19_0" for="input_19_0">Parrilla</label></span><span class="form-checkbox-item" style="clear:left"><span class="dragger-item"></span><input type="checkbox" aria-describedby="label_19" class="form-checkbox" id="input_19_1" name="q19_complementos[]" value="Recogida de la estación de tren" /><label id="label_input_19_1" for="input_19_1">Piscina</label></span><span class="form-checkbox-item" style="clear:left"><span class="dragger-item"></span><input type="checkbox" aria-describedby="label_19" class="form-checkbox" id="input_19_2" name="q19_complementos[]" value="Parquin" /><label id="label_input_19_2" for="input_19_2">Ping Pong</label></span><span class="form-checkbox-item" style="clear:left"><span class="dragger-item"></span><input type="checkbox" aria-describedby="label_19" class="form-checkbox" id="input_19_3" name="q19_complementos[]" value="desayuno" /><label id="label_input_19_3" for="input_19_3">Billar</label></span><span class="form-checkbox-item" style="clear:left"><span class="dragger-item"></span><input type="checkbox" aria-describedby="label_19" class="form-checkbox" id="input_19_4" name="q19_complementos[]" value="comida" /><label id="label_input_19_4" for="input_19_4">Aire Acondicionado</label></span><span class="form-checkbox-item" style="clear:left"><span class="dragger-item"></span><input type="checkbox" aria-describedby="label_19" class="form-checkbox" id="input_19_5" name="q19_complementos[]" value="cena" /><label id="label_input_19_5" for="input_19_5">Baño discapacitados</label></span></div>
-                        </div>
-                    </li>
-                    <li class="form-line" data-type="control_button" id="id_2">
-                        <div id="cid_2" class="form-input-wide">
-                            <div data-align="auto" class="form-buttons-wrapper form-buttons-auto   jsTest-button-wrapperField"><button id="input_2" type="submit" class="form-submit-button form-submit-button-simple_blue submit-button jf-form-buttons jsTest-submitField" data-component="button" data-content="">Solicitar reserva</button></div>
-                        </div>
-                    </li>-->
-                    <li style="display:none">Should be Empty: <input type="text" name="website" value="" /></li>
-                </ul>
-                <div th:replace = "/fragment/script_formReservas :: script"></div>
-            </div>
-        </form>
+        <div class="container d-flex justify-content-center align-items-center rounded" style="height: 100vh">
+            <main class="form-signin w-100 m-auto">
+                <form th:action="@{/reserva/registro}" method="POST">
+                    <h1 class="h3 mb-3 fw-normal">Reserva</h1>
+                    <div class="mb-3">
+                        <label for="propiedad" class="form-label">Propiedad</label>
+                        <input type="number" class="form-control" name="propiedad" th:value="${idPropiedad}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="cliente" class="form-label">Nombre Cliente</label>
+                        <input type="text" class="form-control" name="cliente" th:if='${session.usuariosession != null}' th:value="${session.usuariosession.nombreUsuario}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="fechaInicio" class="form-label">Fecha de Entrada</label>
+                        <input type="date" class="form-control" name="fechaInicio">
+                    </div>
+                    <div class="mb-3">
+                        <label for="fechaSalida" class="form-label">Fecha de Salida</label>
+                        <input type="date" class="form-control" name="fechaSalida">
+                    </div>
+                    <button class="w-100 btn btn-lg btn-primary" type="submit">Reservar</button>
+                    <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
+                </form>
+            </main>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
     </body>
 </html>
+

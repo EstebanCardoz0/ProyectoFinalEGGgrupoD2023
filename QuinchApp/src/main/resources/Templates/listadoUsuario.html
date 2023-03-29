@@ -22,6 +22,7 @@ and open the template in the editor.
                         <th>Telefono</th>
                         <th>Perfil</th>
                         <th>Fecha</th>
+                        <th>Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +33,9 @@ and open the template in the editor.
                         <td th:text="${usuario.telefono}"></td>
                         <td th:text="${usuario.rol}"></td>
                         <td th:text="${usuario.fechaAlta}"></td>
+                         <td>
+                            <a  th:href= "@{/usuario/borrar/__${usuario.id}__}" ></i> Eliminar</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>

@@ -3,9 +3,13 @@ package com.QuinchApp.Controladores;
 import com.QuinchApp.Entidades.Cliente;
 import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Reserva;
+import com.QuinchApp.Entidades.Usuario;
+import com.QuinchApp.Repositorios.UsuarioRepositorio;
+import com.QuinchApp.Servicios.PropiedadServicio;
 import com.QuinchApp.Servicios.ReservaServicio;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,28 +26,38 @@ public class ReservaControlador {
     @Autowired
     private ReservaServicio reservaServicio;
     
-    @GetMapping("/registrar")
-    public String registrar() {
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
+    
+    @Autowired
+    private PropiedadServicio propiedadServicio;
+    
+    @GetMapping("/registrar/{id}")
+    public String registrar(@PathVariable int id, ModelMap modelo, HttpSession session) {
+        Usuario cliente = (Usuario) session.getAttribute("usuariosession");
+        modelo.put("propiedad", propiedadServicio.getOne(id));
+        modelo.put("cliente", cliente);
         return "Formulario_Reservas.html";
     }
 
     @PostMapping("/registro")
-    public String regristro(@RequestParam("fechaInicio") Date fechaInicio, @RequestParam("fechaSalida") Date fechaSalida, @RequestParam("propiedad") Propiedad propiedad,
-            @RequestParam("cliente") Cliente cliente, ModelMap modelo) throws Exception {
+    public String regristro(@RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaSalida") String fechaSalida, @RequestParam("propiedad") int propiedad,
+            HttpSession session, ModelMap modelo) throws Exception {
         try {
-            reservaServicio.registrar(fechaInicio, fechaSalida, propiedad, cliente);
+            String nombreCliente = (String) session.getAttribute("nombreUsuario");
+//            Usuario cliente = usuarioRepositorio.buscarPorNombre(nombreCliente);
+            reservaServicio.registrar(fechaInicio, fechaSalida, propiedad, nombreCliente);
             modelo.put("exito", "La reserva fue registrada correctamente!");
+            return "dashboardCliente";
         } catch (Exception ex) {
             System.out.println(ex);
             modelo.put("error", ex.getMessage());
             modelo.put("fechaInicio", fechaInicio);
             modelo.put("fechaSalida", fechaSalida);
-            modelo.put("propiedad", propiedad);
-            modelo.put("cliente", cliente);
+            modelo.put("idPropiedad", propiedad);
             modelo.put("error", "Verifique que los datos hayan sido cargado correctamente");
-            return "formRegistrar";
+            return "Formulario_Reservas";
         }
-        return "formRegistrar";
     }
 
     @GetMapping("/modificarUno/{id}")

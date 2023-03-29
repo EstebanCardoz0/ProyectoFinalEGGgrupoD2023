@@ -99,6 +99,13 @@ public class PropiedadServicio {
         List<Propiedad> propiedades = propiedadRepositorio.findAll();
         return propiedades;
     }
+    
+    public List<Propiedad> buscarPropiedadPorTipo(PropiedadEnum tipo) {
+        List<Propiedad> propiedades = propiedadRepositorio.buscarPropiedadPorTipo(tipo);
+        System.out.println(propiedades);
+        return propiedades;
+    }
+    
 
     @Transactional
     public void borrar(int id) {
