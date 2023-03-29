@@ -1,8 +1,12 @@
 package com.QuinchApp.Servicios;
 
+import com.QuinchApp.Entidades.Cliente;
 import com.QuinchApp.Entidades.Imagen;
+import com.QuinchApp.Entidades.Propietario;
 import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Enums.Rol;
+import com.QuinchApp.Repositorios.ClienteRepositorio;
+import com.QuinchApp.Repositorios.PropietarioRepositorio;
 import com.QuinchApp.Repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +41,10 @@ public class UsuarioServicio implements UserDetailsService {
     @Autowired
     @Lazy
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PropietarioRepositorio propRepo;
+     @Autowired
+    private ClienteRepositorio clienteRepo;
 
     @Transactional
     public void registrar(String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo) throws Exception {
@@ -54,13 +62,15 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setActivo(activo);
         Imagen miImagen = imagenServicio.guardar(archivo);
         usuario.setFotoPerfil(miImagen);
-        usuarioRepositorio.save(usuario);
+        Cliente cliente = new Cliente(usuario.getId(), nombre, nombreUsuario, email, usuario.getPassword(), telefono, usuario.getRol(), usuario.getFotoPerfil(), usuario.getFechaAlta(), activo);
+        clienteRepo.save(cliente);
     }
 
     @Transactional
     public void registrarPropietario(String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo) throws Exception {
         validar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
         Usuario usuario = new Usuario();
+        validar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
         usuario.setNombre(nombre);
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setEmail(email);
@@ -73,9 +83,10 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setActivo(activo);
         Imagen miImagen = imagenServicio.guardar(archivo);
         usuario.setFotoPerfil(miImagen);
-        usuarioRepositorio.save(usuario);
+        Propietario propietario = new Propietario(usuario.getId(), nombre, nombreUsuario, email,  usuario.getPassword(), telefono, usuario.getRol(), usuario.getFotoPerfil(), usuario.getFechaAlta(), activo);
+        propRepo.save(propietario);
     }
-    
+
     private void validarActualizar(String nombre, String nombreUsuario, String email, String password, long telefono, MultipartFile archivo, String password2) throws Exception {
         if (nombre == null || nombre.isEmpty()) {
             throw new Exception("El nombre no puede estar estar vacío");
@@ -101,7 +112,7 @@ public class UsuarioServicio implements UserDetailsService {
         if (archivo == null) {
             throw new Exception("La imagen no puede estar vacía");
         }
-           }
+    }
 
     private void validar(String nombre, String nombreUsuario, String email, String password, long telefono, MultipartFile archivo, String password2) throws Exception {
         if (nombre == null || nombre.isEmpty()) {
