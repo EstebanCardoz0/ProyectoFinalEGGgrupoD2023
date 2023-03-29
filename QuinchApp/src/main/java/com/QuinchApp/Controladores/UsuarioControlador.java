@@ -74,6 +74,11 @@ public class UsuarioControlador {
 //        modelo.addAttribute("usuario", usuarios);
 //        return "usuarioList";
 //    }
+    @GetMapping("/borrar/{id}")
+    public String borrarUsuario(@PathVariable Integer id, ModelMap modelo) throws Exception {
+     modelo.put("usuario", usuarioServicio.getOne(id));
+     return null;
+    }
 
     @DeleteMapping("/borrar/{id}")
     public String borrarUsuario(@PathVariable Integer id) throws Exception {
