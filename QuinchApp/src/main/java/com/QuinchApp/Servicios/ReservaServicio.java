@@ -5,6 +5,7 @@ import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Reserva;
 import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Repositorios.ReservaRepositorio;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -19,12 +20,14 @@ public class ReservaServicio {
     private ReservaRepositorio reservaRepositorio;
 
     @Transactional
-    public void registrar(Date fechaInicio, Date fechaSalida, Propiedad propiedad, Usuario cliente) throws Exception {
+    public void registrar(String fechaInicio, String fechaSalida, Propiedad propiedad, Usuario cliente) throws Exception {
         Reserva reserva = new Reserva();
         boolean activo = Boolean.TRUE;
         reserva.setConfirmada(activo);
-        reserva.setFechaInicio(fechaInicio);
-        reserva.setFechaSalida(fechaSalida);
+        Date fechaDeInicio = new SimpleDateFormat("yyyy-MM-dd").parse(fechaInicio);
+        reserva.setFechaInicio(fechaDeInicio);
+        Date fechaDeSalida = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSalida);
+        reserva.setFechaSalida(fechaDeSalida);
         reserva.setCliente((Cliente) cliente);
         reservaRepositorio.save(reserva);
     }
