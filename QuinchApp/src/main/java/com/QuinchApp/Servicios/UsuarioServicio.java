@@ -165,9 +165,14 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public List<Usuario> listarUsuarios() {
-        List<Usuario> usuarios = usuarioRepositorio.findAll();
-        return usuarios;
+    public List<Usuario> listarUsuarios(String palabraClave) {
+        if (palabraClave != null) {
+            List<Usuario> usuarios =usuarioRepositorio.findAll(palabraClave);
+            return usuarios;
+        } else {
+            List<Usuario> usuarios = usuarioRepositorio.findAll();
+            return usuarios;
+        }
     }
 
     @Transactional
@@ -224,7 +229,7 @@ public class UsuarioServicio implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
-        if (usuario != null) {
+        if (usuario != null) {            
             List<GrantedAuthority> permisos = new ArrayList();
             GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
             permisos.add(p);
@@ -238,10 +243,10 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     public Usuario bajaAlta(Integer id) {
-        Optional<Usuario> optinalProducto = usuarioRepositorio.findById(id);
+        Optional<Usuario> optinalUsuario = usuarioRepositorio.findById(id);
         Usuario usuario = new Usuario();
-        if (optinalProducto.isPresent()) {
-            usuario = optinalProducto.get();
+        if (optinalUsuario.isPresent()) {
+            usuario = optinalUsuario.get();
             if (usuario.isActivo() == false) {
                 usuario.setActivo(Boolean.TRUE);
                 usuarioRepositorio.save(usuario);
