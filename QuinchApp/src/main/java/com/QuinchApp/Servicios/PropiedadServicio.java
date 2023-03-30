@@ -2,10 +2,13 @@ package com.QuinchApp.Servicios;
 
 import com.QuinchApp.Entidades.Imagen;
 import com.QuinchApp.Entidades.Propiedad;
+import com.QuinchApp.Entidades.Propietario;
 import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Enums.PropiedadEnum;
+import com.QuinchApp.Enums.Rol;
 import com.QuinchApp.Enums.ServicioEnum;
 import com.QuinchApp.Repositorios.PropiedadRepositorio;
+import com.QuinchApp.Repositorios.PropietarioRepositorio;
 import com.QuinchApp.Repositorios.UsuarioRepositorio;
 import java.awt.Desktop;
 import java.io.IOException;
@@ -27,14 +30,18 @@ public class PropiedadServicio {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
     @Autowired
+    private PropietarioRepositorio propietarioRepositorio;
+    @Autowired
+    private PropietarioServicio propietarioServicio;
+    @Autowired
     private ImagenServicio imagenServicio;
 
     @Transactional
     public void registrarPropiedad(String nombre, String ubicacion, String descripcion, double valor, int capacidad,
-            PropiedadEnum tipoDePropiedad, String usuario, MultipartFile imagen, ServicioEnum servicio) throws Exception {
-        validar(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad, usuario);
+            PropiedadEnum tipoDePropiedad, String propietario, MultipartFile imagen, ServicioEnum servicio) throws Exception {
+        validar(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad, propietario);
         Usuario miUsuario = new Usuario();
-        Optional<Usuario> usuarioPropietario = usuarioRepositorio.buscarPorNombreUsuario(usuario);
+        Optional<Usuario> usuarioPropietario = usuarioRepositorio.buscarPorNombreUsuario(propietario);
         if (usuarioPropietario.isPresent()) {
             miUsuario = usuarioPropietario.get();
         }
@@ -61,7 +68,18 @@ public class PropiedadServicio {
         imagenes.add(miImagen);
         propiedad.setImagenes(imagenes);
         propiedad.setServicios(servicios);
-        propiedadRepositorio.save(propiedad);
+        Propietario miPropietario = propietarioRepositorio.buscarPorNombreUsuario(propietario);
+        List<Propiedad> miPropiedad = new ArrayList();
+        if (miPropietario != null) {           
+           for(int i=0; i<miPropietario.getPropiedades().size(); i++ ){
+               miPropiedad.add(miPropietario.getPropiedades().get(i));
+           }
+            miPropiedad.add(propiedad);
+            miPropietario.setPropiedades(miPropiedad);
+            propiedadRepositorio.save(propiedad);
+        } else {
+            throw new Exception("no existe el propietario");
+        }
     }
 
     @Transactional
@@ -99,13 +117,12 @@ public class PropiedadServicio {
         List<Propiedad> propiedades = propiedadRepositorio.findAll();
         return propiedades;
     }
-    
+
     public List<Propiedad> buscarPropiedadPorTipo(PropiedadEnum tipo) {
         List<Propiedad> propiedades = propiedadRepositorio.buscarPropiedadPorTipo(tipo);
         System.out.println(propiedades);
         return propiedades;
     }
-    
 
     @Transactional
     public void borrar(int id) {
