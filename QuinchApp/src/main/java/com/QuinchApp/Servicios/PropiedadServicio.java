@@ -5,6 +5,7 @@ import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Propietario;
 import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Enums.PropiedadEnum;
+import com.QuinchApp.Enums.Rol;
 import com.QuinchApp.Enums.ServicioEnum;
 import com.QuinchApp.Repositorios.PropiedadRepositorio;
 import com.QuinchApp.Repositorios.PropietarioRepositorio;
@@ -30,6 +31,10 @@ public class PropiedadServicio {
     private PropietarioRepositorio propietarioRepo;
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
+    @Autowired
+    private PropietarioRepositorio propietarioRepositorio;
+    @Autowired
+    private PropietarioServicio propietarioServicio;
     @Autowired
     private ImagenServicio imagenServicio;
 
@@ -69,6 +74,7 @@ public class PropiedadServicio {
 ////    }
     @Transactional
     public void registrarPropiedad(String nombre, String ubicacion, String descripcion, double valor, int capacidad,
+<<<<<<< HEAD
             PropiedadEnum tipoDePropiedad, String usuario, MultipartFile imagen, ServicioEnum servicio) throws Exception {
         validar(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad, usuario);
 //    Optional<Usuario> usuarioPropietario = usuarioRepositorio.buscarPorNombreUsuario(usuario);
@@ -77,6 +83,14 @@ Propietario usuarioPropietario= propietarioRepo.buscarPorEmail(usuario);
     
         if (!usuarioPropietario.isActivo()) {
             throw new Exception("El usuario " + usuario + " no existe");
+=======
+            PropiedadEnum tipoDePropiedad, String propietario, MultipartFile imagen, ServicioEnum servicio) throws Exception {
+        validar(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad, propietario);
+        Usuario miUsuario = new Usuario();
+        Optional<Usuario> usuarioPropietario = usuarioRepositorio.buscarPorNombreUsuario(propietario);
+        if (usuarioPropietario.isPresent()) {
+            miUsuario = usuarioPropietario.get();
+>>>>>>> developer
         }
         Integer propietario = usuarioPropietario.getId();
         Propiedad propiedad = new Propiedad();
@@ -102,7 +116,18 @@ Propietario usuarioPropietario= propietarioRepo.buscarPorEmail(usuario);
         imagenes.add(miImagen);
         propiedad.setImagenes(imagenes);
         propiedad.setServicios(servicios);
-        propiedadRepositorio.save(propiedad);
+        Propietario miPropietario = propietarioRepositorio.buscarPorNombreUsuario(propietario);
+        List<Propiedad> miPropiedad = new ArrayList();
+        if (miPropietario != null) {           
+           for(int i=0; i<miPropietario.getPropiedades().size(); i++ ){
+               miPropiedad.add(miPropietario.getPropiedades().get(i));
+           }
+            miPropiedad.add(propiedad);
+            miPropietario.setPropiedades(miPropiedad);
+            propiedadRepositorio.save(propiedad);
+        } else {
+            throw new Exception("no existe el propietario");
+        }
     }
 
     @Transactional
