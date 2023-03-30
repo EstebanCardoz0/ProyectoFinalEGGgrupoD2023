@@ -47,7 +47,8 @@
                                     <a  th:href= "@{/usuario/borrar/__${usuario.id}__/__${usuario.rol}__}" ></i> Eliminar</a>                                  
                                 </td>
                                 <td> 
-                                    <a  th:href="@{'/usuario/altaBaja/' + ${usuario.id}}" th:text="${usuario.activo} == false ? 'ALTA' : 'BAJA'">  </a></td>
+                                    <a  th:href="@{'/usuario/altaBaja/' + ${usuario.id}}" th:text="${usuario.activo} == false ? 'ALTA' : 'BAJA'">  </a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
