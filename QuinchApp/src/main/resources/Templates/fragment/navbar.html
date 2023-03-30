@@ -9,47 +9,19 @@
                     <li class="nav-item">      
                         <a class="nav-link"  href="/propiedad/detallePropiedad">Propiedades</a>
                     </li>
-                       <li class="nav-item">      
+                    <li class="nav-item">      
                         <a class="nav-link"  href="/usuario/listar"  th:if='${session.usuariosession != null}' sec:authorize="hasRole('ADMIN')" >Listar Usuarios</a>
                     </li>
                 </ul>                
                 <ul class="navbar-nav ms-auto">
-                    <li>       
-                        <a class="btnR nav-link active" aria-current="page"  th:if="${session.usuariosession != null}" sec:authorize="hasRole('PROPIETARIO') or hasRole('CLIENTE')" href="/dashboardCliente">Administrar</a>
+                    <li class="nav-item"><a class="btnR nav-link active" aria-current="page" th:if="${session.usuariosession != null}" sec:authorize="hasRole('PROPIETARIO') or hasRole('CLIENTE')" href="/dashboardCliente">Administrar</a>
                     </li>
                     <li class="nav-item"><a class="btnR nav-link active" aria-current="page"  th:if="${session.usuariosession == null} ?: ''" href="/usuario/registrar">Registrarse</a></li>
                     <li class="nav-item"><a class="btnR nav-link active" aria-current="page"  th:if="${session.usuariosession == null} ?: ''" href="/login">Iniciar </a></li>
-                    <!--  <li class="nav-item"><a class="nav-link" th:if="${session.usuariosession == null}" ><div class="dropdown">
-                                <button  class="btn2 nav-link"  data-bs-toggle="dropdown" data-bs-auto-close="outside" >
-                                    Iniciar Sesion
-                                </button>
-                               <form class="dropdown-menu p-4" th:action="@{/verificacionLogin}" method="POST"  >
-                                    <div class="mb-3">
-                                        <label for="exampleDropdownFormEmail2" class="form-label">Email</label>
-                                        <input type="email" class="form-control" name="email" th:value="${email}"  placeholder="EMAIL" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleDropdownFormPassword2" class="form-label">Contraseña</label>
-                                        <input type="password" name="password" id="password" class="form-control"
-                                               th:value="${password}" placeholder="CONTRASEÑA"required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="dropdownCheck2">
-                                            <label class="form-check-label" for="dropdownCheck2">
-                                                Recordame
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <button type="submit" class="btn btn-primary">Sign in</button>
-                                </form>
-            </a>
-            </li>-->
-                    <li>        
-                        <a class="nav-link" th:if='${session.usuariosession != null}' sec:authorize="hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('PROPIETARIO')" th:text="${session.usuariosession.nombreUsuario}" href="/usuario/perfil"></a>
+                    <li class="nav-item">        
+                        <a  class="btnR nav-link active" aria-current="page" th:if='${session.usuariosession != null}' sec:authorize="hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('PROPIETARIO')" th:text="${session.usuariosession.nombreUsuario}" href="/usuario/perfil"></a>
                     </li>
-                    <li class="nav-item"><a class="nav-link"  th:if="${session.usuariosession != null}" sec:authorize="hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('PROPIETARIO')"  href="/logout">Cerrar sesion</a></li>
+                    <li class="nav-item"><a class="btnR nav-link active" aria-current="page" th:if="${session.usuariosession != null}" sec:authorize="hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('PROPIETARIO')"  href="/logout">Cerrar sesion</a></li>
                 </ul>
             </div>
     </nav>
