@@ -33,7 +33,8 @@
                                 </div>
                                 <!-- Product actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a></div>
+                                   <a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/{idPropiedad}(idPropiedad=${propiedad.idPropiedad})}">Solicitar Reservar</a>
+
                                 </div>
                             </div>
                         </div>         

@@ -6,6 +6,8 @@ import com.QuinchApp.Enums.ServicioEnum;
 import com.QuinchApp.Servicios.PropiedadServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -29,31 +31,58 @@ public class PropiedadControlador {
         return "registroPropiedad.html";
     }
 
-    @PostMapping("/registroPropiedad")
-    public String registroPropiedad(@RequestParam("nombre") String nombre, @RequestParam("ubicacion") String ubicacion,
-            @RequestParam("descripcion") String descripcion, @RequestParam("valor") double valor, @RequestParam("capacidad") int capacidad,
-            @RequestParam("tipoDePropiedad") PropiedadEnum tipoDePropiedad, @RequestParam("propietario") String Propietario,
-            @RequestParam("imagen") MultipartFile imagen, @RequestParam("servicio") ServicioEnum servicio, ModelMap modelo) {
-        try {
-            propiedadServicio.registrarPropiedad(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad,
-                    Propietario, imagen, servicio);
-            modelo.put("exito", "La propiedad fue registrada correctamente!");
-        } catch (Exception e) {
-            System.out.println(e);
-            modelo.put("nombre", nombre);
-            modelo.put("ubicacion", ubicacion);
-            modelo.put("descripcion", descripcion);
-            modelo.put("valor", valor);
-            modelo.put("capacidad", capacidad);
-            modelo.put("tipoDePropiedad", tipoDePropiedad);
-            modelo.put("propietario", Propietario);
-            modelo.put("imagen", imagen);
-            modelo.put("servicio", servicio);
-            modelo.put("error", "Verifique que los datos hayan sido cargado correctamente.");
-        }
-        return "registroPropiedad.html";
-    }
+//    @PostMapping("/registroPropiedad")
+//    public String registroPropiedad(@RequestParam("nombre") String nombre, @RequestParam("ubicacion") String ubicacion,
+//            @RequestParam("descripcion") String descripcion, @RequestParam("valor") double valor, @RequestParam("capacidad") int capacidad,
+//            @RequestParam("tipoDePropiedad") PropiedadEnum tipoDePropiedad, @RequestParam("propietario") String Propietario,
+//            @RequestParam("imagen") MultipartFile imagen, @RequestParam("servicio") ServicioEnum servicio, ModelMap modelo) {
+//        try {
+//            propiedadServicio.registrarPropiedad(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad,
+//                    Propietario, imagen, servicio);
+//            modelo.put("exito", "La propiedad fue registrada correctamente!");
+//        } catch (Exception e) {
+//            System.out.println(e);
+//            modelo.put("nombre", nombre);
+//            modelo.put("ubicacion", ubicacion);
+//            modelo.put("descripcion", descripcion);
+//            modelo.put("valor", valor);
+//            modelo.put("capacidad", capacidad);
+//            modelo.put("tipoDePropiedad", tipoDePropiedad);
+//            modelo.put("propietario", Propietario);
+//            modelo.put("imagen", imagen);
+//            modelo.put("servicio", servicio);
+//            modelo.put("error", "Verifique que los datos hayan sido cargado correctamente.");
+//        }
+//        return "registroPropiedad.html";
+//    }
 
+    @PostMapping("/registroPropiedad")
+public String registroPropiedad(@RequestParam("nombre") String nombre, @RequestParam("ubicacion") String ubicacion,
+        @RequestParam("descripcion") String descripcion, @RequestParam("valor") double valor, @RequestParam("capacidad") int capacidad,
+        @RequestParam("tipoDePropiedad") PropiedadEnum tipoDePropiedad, @RequestParam("imagen") MultipartFile imagen, @RequestParam("servicio") ServicioEnum servicio, ModelMap modelo, Authentication authentication) {
+    try {
+//      autenticacion que verifica cual es el usuario logueado y guarda el email
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String idPropietario = userDetails.getUsername();
+        propiedadServicio.registrarPropiedad(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad,
+                idPropietario, imagen, servicio);
+        modelo.put("exito", "La propiedad fue registrada correctamente!");
+    } catch (Exception e) {
+        System.out.println(e);
+        modelo.put("nombre", nombre);
+        modelo.put("ubicacion", ubicacion);
+        modelo.put("descripcion", descripcion);
+        modelo.put("valor", valor);
+        modelo.put("capacidad", capacidad);
+        modelo.put("tipoDePropiedad", tipoDePropiedad);
+        modelo.put("imagen", imagen);
+        modelo.put("servicio", servicio);
+        modelo.put("error", "Verifique que los datos hayan sido cargado correctamente.");
+    }
+    return "registroPropiedad.html";
+}
+
+    
     @PostMapping("/actualizarPropiedad/{id}")
     public String actualizarPropiedad(@PathVariable int id, @RequestParam("nombre") String nombre, @RequestParam("descripcion") String descripcion,
             @RequestParam("valor") double valor, @RequestParam("capacidad") int capacidad,
