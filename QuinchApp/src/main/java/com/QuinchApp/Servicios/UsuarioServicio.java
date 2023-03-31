@@ -64,10 +64,12 @@ public class UsuarioServicio implements UserDetailsService {
         if (tipo.equalsIgnoreCase("cliente")) {
             usuario.setRol(Rol.CLIENTE);
             Cliente cliente = new Cliente(usuario.getId(), nombre, nombreUsuario, email, usuario.getPassword(), telefono, usuario.getRol(), usuario.getFotoPerfil(), usuario.getFechaAlta(), activo);
+            System.out.println(cliente);
             clienteRepo.save(cliente);
         } else {
             usuario.setRol(Rol.PROPIETARIO);
             Propietario propietario = new Propietario(usuario.getId(), nombre, nombreUsuario, email, usuario.getPassword(), telefono, usuario.getRol(), usuario.getFotoPerfil(), usuario.getFechaAlta(), activo);
+            System.out.println(propietario);
             propRepo.save(propietario);
         }
     }
