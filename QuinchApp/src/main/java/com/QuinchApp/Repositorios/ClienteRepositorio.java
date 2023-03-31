@@ -18,5 +18,8 @@ public interface ClienteRepositorio extends JpaRepository<Cliente, Integer> {
     
     @Query("SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario")
     public Optional<Cliente> buscarPorNombreUsuario(@Param("nombreUsuario") String nombreUsuario);
+    
+    @Query("SELECT pr FROM Propiedad pr WHERE pr.id = :id")
+    public Optional<Cliente> buscarPorId(@Param("id") int id);
 
 }

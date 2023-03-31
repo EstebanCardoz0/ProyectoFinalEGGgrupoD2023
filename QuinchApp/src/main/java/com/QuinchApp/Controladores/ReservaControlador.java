@@ -40,13 +40,13 @@ public class ReservaControlador {
         return "Formulario_Reservas.html";
     }
 
-    @PostMapping("/registro")
+    @PostMapping("/registro/{id}")
     public String regristro(@RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaSalida") String fechaSalida, @RequestParam("propiedad") int propiedad,
             HttpSession session, ModelMap modelo) throws Exception {
         try {
-            String nombreCliente = (String) session.getAttribute("nombreUsuario");
+            int cliente = (int) session.getAttribute("id");;
 //            Usuario cliente = usuarioRepositorio.buscarPorNombre(nombreCliente);
-            reservaServicio.registrar(fechaInicio, fechaSalida, propiedad, nombreCliente);
+            reservaServicio.registrar(fechaInicio, fechaSalida, propiedad, cliente);
             modelo.put("exito", "La reserva fue registrada correctamente!");
             return "dashboardCliente";
         } catch (Exception ex) {
