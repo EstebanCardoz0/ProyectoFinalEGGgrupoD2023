@@ -23,4 +23,5 @@ public interface PropiedadRepositorio extends JpaRepository<Propiedad, Integer> 
     
     @Query("SELECT pr FROM Propiedad pr WHERE pr.tipoDePropiedad = :tipoDePropiedad")
     public List<Propiedad> buscarPropiedadPorTipo(@Param("tipoDePropiedad") PropiedadEnum tipoDePropiedad);
+    
 }

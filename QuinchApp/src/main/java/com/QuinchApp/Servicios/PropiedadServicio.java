@@ -28,6 +28,8 @@ public class PropiedadServicio {
     @Autowired
     private PropiedadRepositorio propiedadRepositorio;
     @Autowired
+    private PropietarioRepositorio propietarioRepo;
+    @Autowired
     private UsuarioRepositorio usuarioRepositorio;
     @Autowired
     private PropietarioRepositorio propietarioRepositorio;
@@ -36,14 +38,60 @@ public class PropiedadServicio {
     @Autowired
     private ImagenServicio imagenServicio;
 
+//@Transactional
+//    public void registrarPropiedad(String nombre, String ubicacion, String descripcion, double valor, int capacidad,
+//            PropiedadEnum tipoDePropiedad, String propietario, MultipartFile imagen, ServicioEnum servicio) throws Exception {
+//        validar(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad, propietario);
+//        Usuario miUsuario = new Usuario();
+//        Optional<Usuario> usuarioPropietario = usuarioRepositorio.buscarPorNombreUsuario(propietario);
+//        if (usuarioPropietario.isPresent()) {
+//            miUsuario = usuarioPropietario.get();
+//        }
+//        Propiedad propiedad = new Propiedad();
+//        propiedad.setNombre(nombre);
+//        propiedad.setUbicacion(ubicacion);
+//        propiedad.setDescripcion(descripcion);
+//        propiedad.setValor(valor);
+//        propiedad.setCapacidad(capacidad);
+//        propiedad.setTipoDePropiedad(tipoDePropiedad);
+//        propiedad.setPropietario(miUsuario);
+//        List<ServicioEnum> servicios = propiedad.getServicios();
+//        if (servicios == null) {
+//            servicios = new ArrayList();
+//            propiedad.setServicios(servicios);
+//        }
+//        servicios.add(servicio);
+//        Imagen miImagen = imagenServicio.guardar(imagen);
+//        List<Imagen> imagenes = propiedad.getImagenes();
+//        if (imagenes == null) {
+//            imagenes = new ArrayList();
+//            propiedad.setImagenes(imagenes);
+//        }
+//        imagenes.add(miImagen);
+//        propiedad.setImagenes(imagenes);
+//        propiedad.setServicios(servicios);
+//        Propietario miPropietario = propietarioRepositorio.buscarPorNombreUsuario(propietario);
+//        List<Propiedad> miPropiedad = new ArrayList();
+//        if (miPropietario != null) {           
+//           for(int i=0; i<miPropietario.getPropiedades().size(); i++ ){
+//               miPropiedad.add(miPropietario.getPropiedades().get(i));
+//           }
+//            miPropiedad.add(propiedad);
+//            miPropietario.setPropiedades(miPropiedad);
+//            propiedadRepositorio.save(propiedad);
+//        } else {
+//            throw new Exception("no existe el propietario");
+//        }
+//    }
     @Transactional
     public void registrarPropiedad(String nombre, String ubicacion, String descripcion, double valor, int capacidad,
-            PropiedadEnum tipoDePropiedad, String propietario, MultipartFile imagen, ServicioEnum servicio) throws Exception {
-        validar(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad, propietario);
-        Usuario miUsuario = new Usuario();
-        Optional<Usuario> usuarioPropietario = usuarioRepositorio.buscarPorNombreUsuario(propietario);
-        if (usuarioPropietario.isPresent()) {
-            miUsuario = usuarioPropietario.get();
+            PropiedadEnum tipoDePropiedad, String email, MultipartFile imagen, ServicioEnum servicio) throws Exception {
+        
+        validar(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad, email);
+        Propietario usuarioPropietario = propietarioRepo.buscarPorEmail(email);
+
+        if (!usuarioPropietario.isActivo()) {
+            throw new Exception("El usuario " + email + " no existe");
         }
         Propiedad propiedad = new Propiedad();
         propiedad.setNombre(nombre);
@@ -52,7 +100,7 @@ public class PropiedadServicio {
         propiedad.setValor(valor);
         propiedad.setCapacidad(capacidad);
         propiedad.setTipoDePropiedad(tipoDePropiedad);
-        propiedad.setPropietario(miUsuario);
+        propiedad.setPropietario(usuarioPropietario);
         List<ServicioEnum> servicios = propiedad.getServicios();
         if (servicios == null) {
             servicios = new ArrayList();
@@ -66,20 +114,20 @@ public class PropiedadServicio {
             propiedad.setImagenes(imagenes);
         }
         imagenes.add(miImagen);
+//        Propietario miPropietario = propietarioRepositorio.buscarPorEmail(email);
+//        List<Propiedad> miPropiedad = new ArrayList();
+//        if (miPropietario != null) {
+//            for (int i = 0; i < miPropietario.getPropiedades().size(); i++) {
+//                miPropiedad.add(miPropietario.getPropiedades().get(i));
+//            }
+//            miPropiedad.add(propiedad);
+//            miPropietario.setPropiedades(miPropiedad);
+//            propiedadRepositorio.save(propiedad);
+//        } else {
+//            throw new Exception("no existe el propietario");
+//        }
         propiedad.setImagenes(imagenes);
         propiedad.setServicios(servicios);
-        Propietario miPropietario = propietarioRepositorio.buscarPorNombreUsuario(propietario);
-        List<Propiedad> miPropiedad = new ArrayList();
-        if (miPropietario != null) {           
-           for(int i=0; i<miPropietario.getPropiedades().size(); i++ ){
-               miPropiedad.add(miPropietario.getPropiedades().get(i));
-           }
-            miPropiedad.add(propiedad);
-            miPropietario.setPropiedades(miPropiedad);
-            propiedadRepositorio.save(propiedad);
-        } else {
-            throw new Exception("no existe el propietario");
-        }
     }
 
     @Transactional
