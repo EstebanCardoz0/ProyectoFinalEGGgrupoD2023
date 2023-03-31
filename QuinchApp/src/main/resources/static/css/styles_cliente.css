@@ -638,6 +638,7 @@ progress {
     padding-left: var(--bs-gutter-x, 0.75rem);
     margin-right: auto;
     margin-left: auto;
+    
 }
 
 @media (min-width: 576px) {
@@ -11704,34 +11705,6 @@ body {
 .fila-roja {
     background-color: #FFCCCC;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .sidebar-toggle{
     animation: bounce 2s ease-in-out infinite;
     float:right;
@@ -11849,4 +11822,7 @@ body {
 
 #propietario-div {
   display:none;
+}
+.container-formreserva {
+    background-image: url(https://media.discordapp.net/attachments/1085707572260118569/1085707652039983184/fondo.jpg?width=840&height=473)
 }
