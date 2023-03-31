@@ -31,11 +31,11 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/verificacionLogin")
                 .usernameParameter("email")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/dashboardCliente")
+                .defaultSuccessUrl("/")
                 .permitAll()
                 .and().logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/login")
                 .permitAll().and().csrf().disable();
     }
 }

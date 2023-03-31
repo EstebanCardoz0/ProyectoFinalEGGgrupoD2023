@@ -12,12 +12,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-//import org.springframework.security.core.userdetails.UserDetailsService;
-//import org.springframework.web.context.request.RequestContextHolder;
-//import org.springframework.web.context.request.ServletRequestAttributes;
-
-
-
 
 @Service
 public class PropietarioServicio{
@@ -46,7 +40,6 @@ public class PropietarioServicio{
         propietario.setFotoPerfil(miImagen);
         propietario.setPropiedades(propiedades);//lista de propiedades
         propietarioRepositorio.save(propietario);
-
     }
 
     private void validar(String nombre, String nombreUsuario, String email, String password, long telefono, MultipartFile archivo, String password2) throws Exception {
@@ -113,6 +106,11 @@ public class PropietarioServicio{
         propietarioRepositorio.deleteById(id);
     }
     
+    @Transactional
+    public Propietario buscarPropietarioPorNombre(String nombre) {
+        return propietarioRepositorio.buscarPorNombre(nombre);
+    }
+    
 //     @Override
 //    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 //
@@ -137,4 +135,8 @@ public class PropietarioServicio{
 //            return null;
 //        }
 //}
+
+    public Propietario buscarPropietarioPorId(Integer id) {
+         return propietarioRepositorio.buscarPorId(id);
+    }
 }

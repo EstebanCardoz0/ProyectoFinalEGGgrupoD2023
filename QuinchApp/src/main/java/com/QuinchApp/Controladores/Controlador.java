@@ -1,7 +1,7 @@
 package com.QuinchApp.Controladores;
 
-import com.QuinchApp.Entidades.Usuario;
-import javax.servlet.http.HttpSession;
+import com.QuinchApp.Servicios.UsuarioServicio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,18 +12,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/")
 public class Controlador {
-    
-    @GetMapping("/index")
-    public String index(ModelMap modelo) {
-        return "index.html";
+
+    @Autowired
+    public UsuarioServicio usuarioServicio;
+
+    @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_PROPIETARIO')")
+    @GetMapping("/dashboardCliente")
+    public String dashboardCliente(ModelMap modelo) {
+        return "dashboardCliente.html";
     }
 
+<<<<<<< HEAD
 //    @GetMapping("/index")
 //    public String index(ModelMap modelo) {
 //        return "index.html";
 //    }
         @GetMapping("/dashboardCliente")
     public String dashboardCliente(ModelMap modelo) {
+=======
+    @GetMapping("/index")
+    public String index(ModelMap modelo) {
+>>>>>>> developer
         return "dashboardCliente.html";
     }
 
@@ -33,11 +42,10 @@ public class Controlador {
             modelo.put("email", email);
             modelo.put("password", password);
             modelo.put("error", "El usuario o la contraseña es incorrecto, vuelva a intentarlo");
+            return "redirect:/logout";
         }
         return "login";
     }
-    
-    
 
     @GetMapping("/registro")
     public String registro(@RequestParam(required = false) String error, ModelMap modelo) {

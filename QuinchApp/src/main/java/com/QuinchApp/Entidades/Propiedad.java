@@ -24,30 +24,26 @@ public class Propiedad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPropiedad;
-
     private String nombre;
     private String ubicacion;
     private String Descripcion;
     private double valor;
     private int capacidad;
     private boolean disponibilidad;
-
     @Enumerated(EnumType.STRING)
     private PropiedadEnum tipoDePropiedad;
     @OneToOne
-    private Usuario propietario;
+    private Propietario propietario;
     @OneToMany
     private List<Imagen> imagenes;
-    
     @ElementCollection   //solo con ElementCollection puedo utilizar List de Enums
-    @Enumerated(EnumType.STRING)      
+    @Enumerated(EnumType.STRING)
     private List<ServicioEnum> servicios;
-    //- Date calendario
 
     public Propiedad() {
     }
 
-    public Propiedad(Integer idPropiedad, String nombre, String ubicacion, String Descripcion, double valor, int capacidad, boolean disponibilidad, PropiedadEnum tipoDePropiedad, Usuario propietario, List<Imagen> imagenes, List<ServicioEnum> servicios) {
+    public Propiedad(Integer idPropiedad, String nombre, String ubicacion, String Descripcion, double valor, int capacidad, boolean disponibilidad, PropiedadEnum tipoDePropiedad, Propietario propietario, List<Imagen> imagenes, List<ServicioEnum> servicios) {
         this.idPropiedad = idPropiedad;
         this.nombre = nombre;
         this.ubicacion = ubicacion;
@@ -57,8 +53,16 @@ public class Propiedad {
         this.disponibilidad = disponibilidad;
         this.tipoDePropiedad = tipoDePropiedad;
         this.propietario = propietario;
-        this.imagenes = new ArrayList();
-        this.servicios = new ArrayList();
+        this.imagenes = imagenes != null ? imagenes : new ArrayList<>();
+        this.servicios = servicios != null ? servicios : new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Propiedad [idPropiedad=" + idPropiedad + ", nombre=" + nombre + ", ubicacion=" + ubicacion
+                + ", Descripcion=" + Descripcion + ", valor=" + valor + ", capacidad=" + capacidad
+                + ", disponibilidad=" + disponibilidad + ", tipoDePropiedad=" + tipoDePropiedad + "]";
     }
 
 }
+

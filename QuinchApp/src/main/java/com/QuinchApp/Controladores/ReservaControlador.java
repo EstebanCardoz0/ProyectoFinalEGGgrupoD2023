@@ -3,10 +3,16 @@ package com.QuinchApp.Controladores;
 import com.QuinchApp.Entidades.Cliente;
 import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Reserva;
-import com.QuinchApp.Servicios.ReservaServivio;
+import com.QuinchApp.Entidades.Usuario;
+import com.QuinchApp.Repositorios.UsuarioRepositorio;
+import com.QuinchApp.Servicios.PropiedadServicio;
+import com.QuinchApp.Servicios.ReservaServicio;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,34 +26,45 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ReservaControlador {
 
     @Autowired
-    private ReservaServivio reservaServivio;
-//    
-//    @GetMapping("/registrar")
-//    public String registrar() {
-//        return "formRegistrar";
-//    }
+    private ReservaServicio reservaServicio;
+    
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
+    
+    @Autowired
+    private PropiedadServicio propiedadServicio;
+    
+    @GetMapping("/registrar/{id}")
+    public String registrar(@PathVariable int id, ModelMap modelo, HttpSession session) {
+        Usuario cliente = (Usuario) session.getAttribute("usuariosession");
+        modelo.put("propiedad", propiedadServicio.getOne(id));
+        modelo.put("cliente", cliente);
+        return "Formulario_Reservas.html";
+    }
 
     @PostMapping("/registro")
-    public String regristro(@RequestParam("FechaSalida") Date FechaSalida, @RequestParam("propiedad") Propiedad propiedad,
-            @RequestParam("cliente") Cliente cliente, ModelMap modelo) throws Exception {
+    public String regristro(@RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaSalida") String fechaSalida, @RequestParam("propiedad" ) String propiedad, ModelMap modelo,  Authentication authentication ) throws Exception {
         try {
-            reservaServivio.registrar(FechaSalida, propiedad, cliente);
+//autenticacion que verifica cual es el usuario logueado y guarda el email
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String idCliente = userDetails.getUsername();
+            reservaServicio.registrar(fechaInicio, fechaSalida, propiedad, idCliente);
             modelo.put("exito", "La reserva fue registrada correctamente!");
+            return "dashboardCliente";
         } catch (Exception ex) {
             System.out.println(ex);
             modelo.put("error", ex.getMessage());
-            modelo.put("FechaSalida", FechaSalida);
-            modelo.put("propiedad", propiedad);
-            modelo.put("cliente", cliente);
+            modelo.put("fechaInicio", fechaInicio);
+            modelo.put("fechaSalida", fechaSalida);
+            modelo.put("idPropiedad", propiedad);
             modelo.put("error", "Verifique que los datos hayan sido cargado correctamente");
-            return "formRegistrar";
+            return "Formulario_Reservas";
         }
-        return "formRegistrar";
     }
 
     @GetMapping("/modificarUno/{id}")
     public String modificarUno(@PathVariable Integer id, ModelMap modelo) {
-        modelo.put("reservaLista", reservaServivio.getOne(id));
+        modelo.put("reservaLista", reservaServicio.getOne(id));
         return "formModificarReserva";
     }
 
@@ -55,7 +72,7 @@ public class ReservaControlador {
     public String modificar(@PathVariable Integer id, @RequestParam("FechaSalida") Date FechaSalida, @RequestParam("propiedad") Propiedad propiedad,
             @RequestParam("cliente") Cliente cliente, Boolean confirmada, ModelMap modelo) throws Exception {
         try {
-            reservaServivio.actualizar(Integer.SIZE, FechaSalida, propiedad, cliente, confirmada);
+            reservaServicio.actualizar(Integer.SIZE, FechaSalida, propiedad, cliente, confirmada);
             return "redirect:../listar";
         } catch (Exception e) {
             modelo.put("error", e.getMessage());
@@ -65,20 +82,20 @@ public class ReservaControlador {
 
     @GetMapping("/listar")
     public String listar(ModelMap modelo) {
-        List<Reserva> reserva = reservaServivio.listarResevas();
+        List<Reserva> reserva = reservaServicio.listarResevas();
         modelo.addAttribute("reserva", reserva);
         return "usuarioList";
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable Integer id) throws Exception {
-        reservaServivio.borrar(id);
+        reservaServicio.borrar(id);
         return "redirect:../listar";
     }
 
     @RequestMapping("/altaBaja/{id}")
     public String altaBaja(@PathVariable(name = "id") Integer id) {
-        reservaServivio.bajaAlta(id);
+        reservaServicio.bajaAlta(id);
         return "redirect:/reservas";
     }
 }

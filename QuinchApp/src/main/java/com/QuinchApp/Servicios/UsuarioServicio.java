@@ -1,10 +1,15 @@
 package com.QuinchApp.Servicios;
 
+import com.QuinchApp.Entidades.Cliente;
 import com.QuinchApp.Entidades.Imagen;
+import com.QuinchApp.Entidades.Propietario;
 import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Enums.Rol;
+import com.QuinchApp.Repositorios.ClienteRepositorio;
+import com.QuinchApp.Repositorios.PropietarioRepositorio;
 import com.QuinchApp.Repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +17,8 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -19,10 +26,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
@@ -31,16 +38,22 @@ public class UsuarioServicio implements UserDetailsService {
     private UsuarioRepositorio usuarioRepositorio;
     @Autowired
     private ImagenServicio imagenServicio;
+    @Autowired
+    @Lazy
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PropietarioRepositorio propRepo;
+    @Autowired
+    private ClienteRepositorio clienteRepo;
 
     @Transactional
-    public void registrar(String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo) throws Exception {
+    public void registrar(String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo, String tipo) throws Exception {
         validar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setEmail(email);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-        usuario.setRol(Rol.CLIENTE);
         usuario.setTelefono(telefono);
         Date fechaAlta = new Date();
         usuario.setFechaAlta(fechaAlta);
@@ -48,35 +61,54 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setActivo(activo);
         Imagen miImagen = imagenServicio.guardar(archivo);
         usuario.setFotoPerfil(miImagen);
-        usuarioRepositorio.save(usuario);
+        if (tipo.equalsIgnoreCase("cliente")) {
+            usuario.setRol(Rol.CLIENTE);
+            Cliente cliente = new Cliente(usuario.getId(), nombre, nombreUsuario, email, usuario.getPassword(), telefono, usuario.getRol(), usuario.getFotoPerfil(), usuario.getFechaAlta(), activo);
+            System.out.println(cliente);
+            clienteRepo.save(cliente);
+        } else {
+            usuario.setRol(Rol.PROPIETARIO);
+            Propietario propietario = new Propietario(usuario.getId(), nombre, nombreUsuario, email, usuario.getPassword(), telefono, usuario.getRol(), usuario.getFotoPerfil(), usuario.getFechaAlta(), activo);
+            System.out.println(propietario);
+            propRepo.save(propietario);
+        }
     }
-    @Transactional
-    public void registrarPropietario(String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo) throws Exception {
-        validar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
-        Usuario usuario = new Usuario();
-        usuario.setNombre(nombre);
-        usuario.setNombreUsuario(nombreUsuario);
-        usuario.setEmail(email);
-        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-        usuario.setRol(Rol.PROPIETARIO);
-        usuario.setTelefono(telefono);
-        Date fechaAlta = new Date();
-        usuario.setFechaAlta(fechaAlta);
-        boolean activo = Boolean.TRUE;
-        usuario.setActivo(activo);
-        Imagen miImagen = imagenServicio.guardar(archivo);
-        usuario.setFotoPerfil(miImagen);
-        usuarioRepositorio.save(usuario);
+
+    private void validarActualizar(String nombre, String nombreUsuario, String email, String password, long telefono, MultipartFile archivo, String password2) throws Exception {
+        if (nombre == null || nombre.isEmpty()) {
+            throw new Exception("El nombre no puede estar estar vacío");
+        }
+        if (nombreUsuario == null || nombreUsuario.isEmpty()) {
+            throw new Exception("El nombre de usuareio no puede estar estar vacío");
+        }
+        if (email == null || email.isEmpty()) {
+            throw new Exception("El email no puede estar vacio");
+        }
+        if (password.isEmpty()) {
+            throw new Exception("La contraseña no puede estar vacía");
+        }
+        if (password2.isEmpty()) {
+            throw new Exception("Debe repetir la contraseña");
+        }
+        if (!password.equals(password2)) {
+            throw new Exception("Las contraseñas ingresadas deben ser iguales");
+        }
+        if (telefono == 0L) {
+            throw new Exception("El telefono no puede estar vacío");
+        }
+        if (archivo == null) {
+            throw new Exception("La imagen no puede estar vacía");
+        }
     }
 
     private void validar(String nombre, String nombreUsuario, String email, String password, long telefono, MultipartFile archivo, String password2) throws Exception {
-        if (nombre.isEmpty() || nombre == null) {
+        if (nombre == null || nombre.isEmpty()) {
             throw new Exception("El nombre no puede estar estar vacío");
         }
-        if (nombreUsuario.isEmpty() || nombreUsuario == null) {
+        if (nombreUsuario == null || nombreUsuario.isEmpty()) {
             throw new Exception("El nombre de usuareio no puede estar estar vacío");
         }
-        if (email.isEmpty() || email == null) {
+        if (email == null || email.isEmpty()) {
             throw new Exception("El email no puede estar vacio");
         }
         if (password.isEmpty()) {
@@ -101,7 +133,8 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void actualizar(int id, String nombre, String nombreUsuario, String email, String password, long telefono, MultipartFile archivo) throws Exception {
+    public void actualizar(int id, String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo, String tipo) throws Exception {
+        validarActualizar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
         if (id < 0) {
             throw new Exception("Ingrese un id");
         }
@@ -111,7 +144,7 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setNombre(nombre);
             usuario.setNombreUsuario(nombreUsuario);
             usuario.setEmail(email);
-            usuario.setPassword(password);
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
             usuario.setTelefono(telefono);
             int idImagen = 0;
             if (usuario.getFotoPerfil() != null) {
@@ -119,14 +152,29 @@ public class UsuarioServicio implements UserDetailsService {
             }
             Imagen miImagen = imagenServicio.actualizar(archivo, idImagen);
             usuario.setFotoPerfil(miImagen);
-            usuarioRepositorio.save(usuario);
+            if (tipo.equalsIgnoreCase("cliente")) {
+                propRepo.deleteById(id);
+                usuario.setRol(Rol.CLIENTE);
+                Cliente cliente = new Cliente(usuario.getId(), nombre, nombreUsuario, email, usuario.getPassword(), telefono, usuario.getRol(), usuario.getFotoPerfil(), usuario.getFechaAlta(), usuario.isActivo());
+                clienteRepo.save(cliente);
+            } else {
+                clienteRepo.deleteById(id);
+                usuario.setRol(Rol.PROPIETARIO);
+                Propietario propietario = new Propietario(usuario.getId(), nombre, nombreUsuario, email, usuario.getPassword(), telefono, usuario.getRol(), usuario.getFotoPerfil(), usuario.getFechaAlta(), usuario.isActivo());
+                propRepo.save(propietario);
+            }
         }
     }
 
     @Transactional
-    public List<Usuario> listarUsuarios() {
-        List<Usuario> usuarios = usuarioRepositorio.findAll();
-        return usuarios;
+    public List<Usuario> listarUsuarios(String palabraClave) {
+        if (palabraClave != null) {
+            List<Usuario> usuarios = usuarioRepositorio.findAll(palabraClave);
+            return usuarios;
+        } else {
+            List<Usuario> usuarios = usuarioRepositorio.findAll();
+            return usuarios;
+        }
     }
 
     @Transactional
@@ -138,10 +186,52 @@ public class UsuarioServicio implements UserDetailsService {
     public void borrar(Integer id) {
         usuarioRepositorio.deleteById(id);
     }
+
+//    @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
+//        if (usuario != null) {
+//            List<GrantedAuthority> permisos = new ArrayList();
+//            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
+//            permisos.add(p);
+//            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+//            HttpSession session = attr.getRequest().getSession(true);
+//            session.setAttribute("usuariosession", usuario);
+//            return new User(usuario.getEmail(), usuario.getPassword(), permisos);
+//        } else {
+//            return null;
+//        }
+//    }
+//     public UsuarioServicio(UsuarioRepositorio usuarioRepositorio, PasswordEncoder passwordEncoder) {
+//        this.usuarioRepositorio = usuarioRepositorio;
+//        this.passwordEncoder = passwordEncoder;
+//    }
+//
+//    @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
+//        if (usuario != null) {
+//            List<GrantedAuthority> permisos = new ArrayList();
+//            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
+//            permisos.add(p);
+//            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+//            HttpSession session = attr.getRequest().getSession(true);
+//            session.setAttribute("usuariosession", usuario);
+//
+//            // Verificar la contraseña
+//            if (passwordEncoder.matches(usuario.getPassword(), usuario.getPassword())) {
+//                return new User(usuario.getEmail(), usuario.getPassword(), permisos);
+//            } else {
+//                throw new BadCredentialsException("Contraseña incorrecta");
+//            }
+//        } else {
+//            throw new UsernameNotFoundException("Usuario no encontrado");
+//        }
+//    }
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
-        if (usuario != null) {
+        if (usuario != null && usuario.isActivo()) { // Verificar si el usuario está activo
             List<GrantedAuthority> permisos = new ArrayList();
             GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
             permisos.add(p);
@@ -150,7 +240,24 @@ public class UsuarioServicio implements UserDetailsService {
             session.setAttribute("usuariosession", usuario);
             return new User(usuario.getEmail(), usuario.getPassword(), permisos);
         } else {
-            return null;
+            throw new UsernameNotFoundException("Usuario no encontrado o inactivo");
         }
     }
+
+    public Usuario bajaAlta(Integer id) {
+        Optional<Usuario> optinalUsuario = usuarioRepositorio.findById(id);
+        Usuario usuario = new Usuario();
+        if (optinalUsuario.isPresent()) {
+            usuario = optinalUsuario.get();
+            if (usuario.isActivo() == false) {
+                usuario.setActivo(Boolean.TRUE);
+                usuarioRepositorio.save(usuario);
+            } else {
+                usuario.setActivo(Boolean.FALSE);
+                usuarioRepositorio.save(usuario);
+            }
+        }
+        return usuario;
+    }
+
 }

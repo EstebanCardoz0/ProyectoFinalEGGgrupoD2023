@@ -3,7 +3,10 @@ package com.QuinchApp.Servicios;
 import com.QuinchApp.Entidades.Cliente;
 import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Reserva;
+import com.QuinchApp.Repositorios.ClienteRepositorio;
+import com.QuinchApp.Repositorios.PropiedadRepositorio;
 import com.QuinchApp.Repositorios.ReservaRepositorio;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -12,18 +15,36 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
-public class ReservaServivio {
+public class ReservaServicio {
 
     @Autowired
     private ReservaRepositorio reservaRepositorio;
 
+    @Autowired
+    private ClienteRepositorio clienteRepositorio;
+
+    @Autowired
+    private PropiedadRepositorio propiedadRepositorio;
+
     @Transactional
-    public void registrar(Date FechaSalida, Propiedad propiedad, Cliente Cliente) throws Exception {
+    public void registrar(String fechaInicio, String fechaSalida, String propiedad, String cliente) throws Exception {
+        Reserva reserva = new Reserva();
+        Cliente usuarioCliente = clienteRepositorio.buscarPorEmail(cliente);
+        if (usuarioCliente.isActivo()) {
+            reserva.setCliente(usuarioCliente);
+        }
+        Propiedad propiedadReserva = new Propiedad();
+        Propiedad propiedadHaReservar = propiedadRepositorio.buscarPorNombre(propiedad);
+        if (propiedadHaReservar != null) {
+            propiedadReserva = propiedadHaReservar;
+        }
         boolean activo = Boolean.TRUE;
-        Reserva reserva = new Reserva(FechaSalida, propiedad, Cliente);
         reserva.setConfirmada(activo);
-        Date fechInicioReserva = new Date();
-        reserva.setFechaInicio(fechInicioReserva);
+        Date fechaDeInicio = new SimpleDateFormat("yyyy-MM-dd").parse(fechaInicio);
+        reserva.setFechaInicio(fechaDeInicio);
+        Date fechaDeSalida = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSalida);
+        reserva.setFechaSalida(fechaDeSalida);
+        reserva.setPropiedad(propiedadReserva);
         reservaRepositorio.save(reserva);
     }
 

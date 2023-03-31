@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
     <head th:replace="/fragment/head_cliente :: head"> </head>
-    <header th:replace="/fragment/nuevo :: div"> </header>
+    <header th:replace="/fragment/navbar-Dashboard :: div"> </header>
     <body class="sb-nav-fixed">
+
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <br>
-                    <br>
-                    <h1 class="mt-4"><p>Bienvenido </p> <p th:text="${session.usuariosession.nombreUsuario}"></p> </h1>
+                    <h1 class="mt-4">Bienvenido Pepe Honguito</h1>
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-primary text-white mb-4">
                                 <div class="card-body">Reservas</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="/reserva/registrar">Ver mas...</a>
+                                    <a class="small text-white stretched-link" href="#">Ver mas...</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
@@ -28,7 +27,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-md-6" th:if="${#authorization.expression('hasRole(''ROLE_PROPIETARIO'')')}">
+                        <div class="col-xl-3 col-md-6" th:if="${session.usuariosession != null }"   ">
                             <div class="card bg-success text-white mb-4">
                                 <div class="card-body">Crear Propiedad</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
@@ -43,7 +42,7 @@
                             <div class="card mb-4">
                                 <div class="card-header">
                                     <i class="fas fa-chart-area me-1"></i>
-                                    Area Chart Example
+                                    PONER ACA UN CALENDARIO CON LAS FECHAS RESERVADAS
                                 </div>
                                 <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
                             </div>
@@ -61,10 +60,10 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            <h1> Historial de Reservas</h1>
+                            <h1> Tabla de Propiedades</h1>
 
                             <div class="dropdown">
-                                <button>Ver historial completo</button>
+                                <button>Propiedades</button>
                                 <div class="dropdown-content">
                                     <table>
                                         <tr>
@@ -103,8 +102,10 @@
                                     </table>
                                 </div>
                             </div>
-                            </main>
-                            <div th:replace = "/fragment/footer :: div"></div>
-                            <div th:replace = "/fragment/script-cliente :: script"></div>
-                            </body>
-                            </html>
+                        </div>
+                    </div>
+            </main>
+            <div th:replace = "/fragment/footer :: div"></div>
+            <div th:replace = "/fragment/script-cliente :: script"></div>
+    </body>
+</html>
