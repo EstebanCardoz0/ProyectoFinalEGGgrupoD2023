@@ -31,7 +31,7 @@ public class PropiedadControlador {
         return "registroPropiedad.html";
     }
 
-//    @PostMapping("/registroPropiedad")
+//@PostMapping("/registroPropiedad")
 //    public String registroPropiedad(@RequestParam("nombre") String nombre, @RequestParam("ubicacion") String ubicacion,
 //            @RequestParam("descripcion") String descripcion, @RequestParam("valor") double valor, @RequestParam("capacidad") int capacidad,
 //            @RequestParam("tipoDePropiedad") PropiedadEnum tipoDePropiedad, @RequestParam("propietario") String Propietario,
@@ -61,7 +61,7 @@ public String registroPropiedad(@RequestParam("nombre") String nombre, @RequestP
         @RequestParam("descripcion") String descripcion, @RequestParam("valor") double valor, @RequestParam("capacidad") int capacidad,
         @RequestParam("tipoDePropiedad") PropiedadEnum tipoDePropiedad, @RequestParam("imagen") MultipartFile imagen, @RequestParam("servicio") ServicioEnum servicio, ModelMap modelo, Authentication authentication) {
     try {
-//      autenticacion que verifica cual es el usuario logueado y guarda el email
+   //   autenticacion que verifica cual es el usuario logueado y guarda el email
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String idPropietario = userDetails.getUsername();
         propiedadServicio.registrarPropiedad(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad,
