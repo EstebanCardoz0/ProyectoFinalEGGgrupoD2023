@@ -7,127 +7,153 @@
             <!-- Core theme CSS (includes Bootstrap)-->
             <link href="/css/styles.css" rel="stylesheet" />
         </header>
-        <!-- Header-->
-
-        <!-- Related items section-->
         <section class="py-5 bg-light">
-            <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="fw-bolder mb-4">Casas Quinta </h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <div class="col mb-5"  th:each="propiedad : ${CASA_QUINTA}" >
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <div class="card-body p-4">
-                                <img class="card-img-top" th:src="@{/imagen/imgPropiedad/__${propiedad.idPropiedad}__}" alt="..."/>
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h5 class="fw-bolder" th:text="${propiedad.tipoDePropiedad}"></h5>
-                                        <!-- Product price-->
-                                        <span th:text=" '$' + ${propiedad.valor} " > $</span>
+            <div th:if="${not #lists.isEmpty(CASA_QUINTA)}">
+                <div class="container px-4 px-lg-5 mt-5">
+                    <h2 class="fw-bolder mb-4">Casas Quinta </h2>
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">                   
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <div class="col mb-5" th:each="propiedad : ${CASA_QUINTA}" >
+                                <div class="card h-100">
+                                    <!-- Product image-->
+                                    <div class="card-body p-4">
+                                        <img class="card-img-top" th:src="@{/imagen/imgPropiedad/__${propiedad.idPropiedad}__}" alt="..."/>
+                                        <!-- Product details-->
+                                        <div class="card-body p-4">
+                                            <div class="text-center">
+                                                <!-- Product name-->
+                                                <h5 class="fw-bolder" th:text="${propiedad.tipoDePropiedad}"></h5>
+                                                <!-- Product price-->
+                                                <span th:text=" '$' + ${propiedad.valor} " > $</span>
+                                            </div>
+                                            <p class="lead" th:text=" 'Descrpcion: ' + ${propiedad.Descripcion} "></p>
+                                            <p class="lead" th:text=" 'Ubicacion: ' + ${propiedad.ubicacion} " >  </p>
+                                            <p class="lead" th:text=" 'Capacidad: ' + ${propiedad.capacidad} " >  </p>
+                                        </div>
+                                        <!-- Product actions-->
+                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a></div>
+                                        </div>
                                     </div>
-                                    <p class="lead" th:text=" 'Descrpcion: ' + ${propiedad.Descripcion} "></p>
-                                    <p class="lead" th:text=" 'Ubicacion: ' + ${propiedad.ubicacion} " >  </p>
-                                    <p class="lead" th:text=" 'Capacidad: ' + ${propiedad.capacidad} " >  </p>
-                                </div>
-                                <!-- Product actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                   <a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/{idPropiedad}(idPropiedad=${propiedad.idPropiedad})}">Solicitar Reservar</a>
-
-                                </div>
+                                </div>         
+                                <p class="lead" th:text=" 'Descrpcion: ' + ${propiedad.Descripcion} "></p>
+                                <p class="lead" th:text=" 'Ubicacion: ' + ${propiedad.ubicacion} " >  </p>
+                                <p class="lead" th:text=" 'Capacidad: ' + ${propiedad.capacidad} " >  </p>
                             </div>
-                        </div>         
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/{idPropiedad}(idPropiedad=${propiedad.idPropiedad})}">Solicitar Reservar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-5 bg-light">
+            <div th:if="${not #lists.isEmpty(QUINCHO)}">
+                <div class="container px-4 px-lg-5 mt-5">
+                    <h2 class="fw-bolder mb-4">Quinchos</h2>
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">z
+                        <div class="col mb-5"  th:each="propiedad : ${QUINCHO}" >
+                            <div class="card h-100">
+                                <!-- Product image-->
+                                <div class="card-body p-4">
+                                    <img class="card-img-top" th:src="@{/imagen/imgPropiedad/__${propiedad.idPropiedad}__}" alt="..."/>
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder" th:text="${propiedad.tipoDePropiedad}"></h5>
+                                            <!-- Product price-->
+                                            <span th:text=" '$' + ${propiedad.valor} " > $</span>
+                                        </div>
+                                        <p class="lead" th:text=" 'Descrpcion: ' + ${propiedad.Descripcion} "></p>
+                                        <p class="lead" th:text=" 'Ubicacion: ' + ${propiedad.ubicacion} " >  </p>
+                                        <p class="lead" th:text=" 'Capacidad: ' + ${propiedad.capacidad} " >  </p>
+                                    </div>
+                                    <!-- Product actions-->
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center">
+                                            <a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}" th:if="${#authorization.expression('hasRole(''ROLE_CLIENTE'')')}">Solicitar Reservar</a>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center">
+                                            <a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}" th:if="${#authorization.expression('hasRole(''ROLE_PROPIETARIO'')')}">Solicitar Reservar</a>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center">
+                                            <a class="btn btn-outline-dark mt-auto" th:if="${session.usuariosession == null} ?: ''" th:href="@{/login}">Solicitar Reservar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>         
+                        </div>
                     </div>
                 </div>
         </section>
         <section class="py-5 bg-light">
-            <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="fw-bolder mb-4">Quinchos</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <div class="col mb-5"  th:each="propiedad : ${QUINCHO}" >
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <div class="card-body p-4">
-                                <img class="card-img-top" th:src="@{/imagen/imgPropiedad/__${propiedad.idPropiedad}__}" alt="..."/>
-                                <!-- Product details-->
+            <div th:if="${not #lists.isEmpty(PATIO)}">
+                <div class="container px-4 px-lg-5 mt-5">
+                    <h2 class="fw-bolder mb-4">Patios</h2>
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                        <div class="col mb-5"  th:each="propiedad : ${PATIO}" >
+                            <div class="card h-100">
+                                <!-- Product image-->
                                 <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h5 class="fw-bolder" th:text="${propiedad.tipoDePropiedad}"></h5>
-                                        <!-- Product price-->
-                                        <span th:text=" '$' + ${propiedad.valor} " > $</span>
+                                    <img class="card-img-top" th:src="@{/imagen/imgPropiedad/__${propiedad.idPropiedad}__}" alt="..."/>
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder" th:text="${propiedad.tipoDePropiedad}"></h5>
+                                            <!-- Product price-->
+                                            <span th:text=" '$' + ${propiedad.valor} " > $</span>
+                                        </div>
+                                        <p class="lead" th:text=" 'Descrpcion: ' + ${propiedad.Descripcion} "></p>
+                                        <p class="lead" th:text=" 'Ubicacion: ' + ${propiedad.ubicacion} " >  </p>
+                                        <p class="lead" th:text=" 'Capacidad: ' + ${propiedad.capacidad} " >  </p>
                                     </div>
-                                    <p class="lead" th:text=" 'Descrpcion: ' + ${propiedad.Descripcion} "></p>
-                                    <p class="lead" th:text=" 'Ubicacion: ' + ${propiedad.ubicacion} " >  </p>
-                                    <p class="lead" th:text=" 'Capacidad: ' + ${propiedad.capacidad} " >  </p>
+                                    <!-- Product actions-->
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a></div>
+                                    </div>
                                 </div>
-                                <!-- Product actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a></div>
-                                </div>
-                            </div>
-                        </div>         
+                            </div>         
+                        </div>
                     </div>
                 </div>
         </section>
         <section class="py-5 bg-light">
-            <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="fw-bolder mb-4">Patios</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <div class="col mb-5"  th:each="propiedad : ${PATIO}" >
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <div class="card-body p-4">
-                                <img class="card-img-top" th:src="@{/imagen/imgPropiedad/__${propiedad.idPropiedad}__}" alt="..."/>
-                                <!-- Product details-->
+            <div th:if="${not #lists.isEmpty(SALON_DE_FIESTA)}">
+                <div class="container px-4 px-lg-5 mt-5">
+                    <h2 class="fw-bolder mb-4">Salones de Fiestas</h2>
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                        <div class="col mb-5"  th:each="propiedad : ${SALON_DE_FIESTA}" >
+                            <div class="card h-100">
+                                <!-- Product image-->
                                 <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h5 class="fw-bolder" th:text="${propiedad.tipoDePropiedad}"></h5>
-                                        <!-- Product price-->
-                                        <span th:text=" '$' + ${propiedad.valor} " > $</span>
+                                    <img class="card-img-top" th:src="@{/imagen/imgPropiedad/__${propiedad.idPropiedad}__}" alt="..."/>
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder" th:text="${propiedad.tipoDePropiedad}"></h5>
+                                            <!-- Product price-->
+                                            <span th:text=" '$' + ${propiedad.valor} " > $</span>
+                                        </div>
+                                        <p class="lead" th:text=" 'Descrpcion: ' + ${propiedad.Descripcion} "></p>
+                                        <p class="lead" th:text=" 'Ubicacion: ' + ${propiedad.ubicacion} " >  </p>
+                                        <p class="lead" th:text=" 'Capacidad: ' + ${propiedad.capacidad} " >  </p>
                                     </div>
-                                    <p class="lead" th:text=" 'Descrpcion: ' + ${propiedad.Descripcion} "></p>
-                                    <p class="lead" th:text=" 'Ubicacion: ' + ${propiedad.ubicacion} " >  </p>
-                                    <p class="lead" th:text=" 'Capacidad: ' + ${propiedad.capacidad} " >  </p>
-                                </div>
-                                <!-- Product actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a></div>
-                                </div>
-                            </div>
-                        </div>         
-                    </div>
-                </div>
-        </section>
-        <section class="py-5 bg-light">
-            <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="fw-bolder mb-4">Salones de Fiestas</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <div class="col mb-5"  th:each="propiedad : ${SALON_DE_FIESTA}" >
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <div class="card-body p-4">
-                                <img class="card-img-top" th:src="@{/imagen/imgPropiedad/__${propiedad.idPropiedad}__}" alt="..."/>
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h5 class="fw-bolder" th:text="${propiedad.tipoDePropiedad}"></h5>
-                                        <!-- Product price-->
-                                        <span th:text=" '$' + ${propiedad.valor} " > $</span>
+                                    <!-- Product actions-->
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a></div>
                                     </div>
-                                    <p class="lead" th:text=" 'Descrpcion: ' + ${propiedad.Descripcion} "></p>
-                                    <p class="lead" th:text=" 'Ubicacion: ' + ${propiedad.ubicacion} " >  </p>
-                                    <p class="lead" th:text=" 'Capacidad: ' + ${propiedad.capacidad} " >  </p>
                                 </div>
-                                <!-- Product actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a></div>
-                                </div>
-                            </div>
-                        </div>         
+                            </div>         
+                        </div>
                     </div>
                 </div>
         </section>
