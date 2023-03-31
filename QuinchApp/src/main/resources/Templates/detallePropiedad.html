@@ -29,10 +29,23 @@
                                             <p class="lead" th:text=" 'Descrpcion: ' + ${propiedad.Descripcion} "></p>
                                             <p class="lead" th:text=" 'Ubicacion: ' + ${propiedad.ubicacion} " >  </p>
                                             <p class="lead" th:text=" 'Capacidad: ' + ${propiedad.capacidad} " >  </p>
+                                            <p class="lead" th:text=" 'Servicios ' + ${propiedad.servicios} " >  </p>
                                         </div>
                                         <!-- Product actions-->
                                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a></div>
+                                            <div class="text-center">
+                                                <a class="btn btn-outline-dark mt-auto" th:if="${session.usuariosession != null and #authorization.expression('hasRole(''ROLE_CLIENTE'')')}" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                            <div class="text-center">
+                                                <a class="btn btn-outline-dark mt-auto" th:if="${session.usuariosession != null and #authorization.expression('hasRole(''ROLE_PROPIETARIO'')')}" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent" th:if="${session.usuariosession == null}">
+                                            <div class="text-center">
+                                                <a class="btn btn-outline-dark mt-auto" th:href="@{/login}">Solicitar Reservar</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>         
@@ -42,7 +55,19 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/{idPropiedad}(idPropiedad=${propiedad.idPropiedad})}">Solicitar Reservar</a>
+                                <div class="text-center">
+                                    <a class="btn btn-outline-dark mt-auto" th:if="${session.usuariosession != null and #authorization.expression('hasRole(''ROLE_CLIENTE'')')}" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a>
+                                </div>
+                            </div>
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <a class="btn btn-outline-dark mt-auto" th:if="${session.usuariosession != null and #authorization.expression('hasRole(''ROLE_PROPIETARIO'')')}" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a>
+                                </div>
+                            </div>
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent" th:if="${session.usuariosession == null}">
+                                <div class="text-center">
+                                    <a class="btn btn-outline-dark mt-auto" th:href="@{/login}">Solicitar Reservar</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -74,17 +99,17 @@
                                     <!-- Product actions-->
                                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                         <div class="text-center">
-                                            <a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}" th:if="${#authorization.expression('hasRole(''ROLE_CLIENTE'')')}">Solicitar Reservar</a>
+                                            <a class="btn btn-outline-dark mt-auto" th:if="${session.usuariosession != null and #authorization.expression('hasRole(''ROLE_CLIENTE'')')}" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a>
                                         </div>
                                     </div>
                                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                         <div class="text-center">
-                                            <a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}" th:if="${#authorization.expression('hasRole(''ROLE_PROPIETARIO'')')}">Solicitar Reservar</a>
+                                            <a class="btn btn-outline-dark mt-auto" th:if="${session.usuariosession != null and #authorization.expression('hasRole(''ROLE_PROPIETARIO'')')}" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a>
                                         </div>
                                     </div>
-                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent" th:if="${session.usuariosession == null}">
                                         <div class="text-center">
-                                            <a class="btn btn-outline-dark mt-auto" th:if="${session.usuariosession == null} ?: ''" th:href="@{/login}">Solicitar Reservar</a>
+                                            <a class="btn btn-outline-dark mt-auto" th:href="@{/login}">Solicitar Reservar</a>
                                         </div>
                                     </div>
                                 </div>
@@ -117,7 +142,19 @@
                                     </div>
                                     <!-- Product actions-->
                                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a></div>
+                                        <div class="text-center">
+                                            <a class="btn btn-outline-dark mt-auto" th:if="${session.usuariosession != null and #authorization.expression('hasRole(''ROLE_CLIENTE'')')}" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center">
+                                            <a class="btn btn-outline-dark mt-auto" th:if="${session.usuariosession != null and #authorization.expression('hasRole(''ROLE_PROPIETARIO'')')}" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent" th:if="${session.usuariosession == null}">
+                                        <div class="text-center">
+                                            <a class="btn btn-outline-dark mt-auto" th:href="@{/login}">Solicitar Reservar</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>         
@@ -149,7 +186,19 @@
                                     </div>
                                     <!-- Product actions-->
                                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a></div>
+                                        <div class="text-center">
+                                            <a class="btn btn-outline-dark mt-auto" th:if="${session.usuariosession != null and #authorization.expression('hasRole(''ROLE_CLIENTE'')')}" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center">
+                                            <a class="btn btn-outline-dark mt-auto" th:if="${session.usuariosession != null and #authorization.expression('hasRole(''ROLE_PROPIETARIO'')')}" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent" th:if="${session.usuariosession == null}">
+                                        <div class="text-center">
+                                            <a class="btn btn-outline-dark mt-auto" th:href="@{/login}">Solicitar Reservar</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>         
