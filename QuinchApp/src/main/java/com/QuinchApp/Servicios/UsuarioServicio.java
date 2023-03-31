@@ -167,7 +167,7 @@ public class UsuarioServicio implements UserDetailsService {
     @Transactional
     public List<Usuario> listarUsuarios(String palabraClave) {
         if (palabraClave != null) {
-            List<Usuario> usuarios =usuarioRepositorio.findAll(palabraClave);
+            List<Usuario> usuarios = usuarioRepositorio.findAll(palabraClave);
             return usuarios;
         } else {
             List<Usuario> usuarios = usuarioRepositorio.findAll();
@@ -229,7 +229,7 @@ public class UsuarioServicio implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
-        if (usuario != null) {            
+        if (usuario != null && usuario.isActivo()) { // Verificar si el usuario está activo
             List<GrantedAuthority> permisos = new ArrayList();
             GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
             permisos.add(p);
@@ -238,7 +238,7 @@ public class UsuarioServicio implements UserDetailsService {
             session.setAttribute("usuariosession", usuario);
             return new User(usuario.getEmail(), usuario.getPassword(), permisos);
         } else {
-            return null;
+            throw new UsernameNotFoundException("Usuario no encontrado o inactivo");
         }
     }
 

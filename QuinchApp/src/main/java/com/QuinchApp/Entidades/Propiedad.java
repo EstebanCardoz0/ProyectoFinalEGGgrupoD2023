@@ -39,7 +39,6 @@ public class Propiedad {
     @ElementCollection   //solo con ElementCollection puedo utilizar List de Enums
     @Enumerated(EnumType.STRING)
     private List<ServicioEnum> servicios;
-    //- Date calendario
 
     public Propiedad() {
     }
@@ -54,7 +53,16 @@ public class Propiedad {
         this.disponibilidad = disponibilidad;
         this.tipoDePropiedad = tipoDePropiedad;
         this.propietario = propietario;
-        this.imagenes = new ArrayList();
-        this.servicios = new ArrayList();
+        this.imagenes = imagenes != null ? imagenes : new ArrayList<>();
+        this.servicios = servicios != null ? servicios : new ArrayList<>();
     }
+
+    @Override
+    public String toString() {
+        return "Propiedad [idPropiedad=" + idPropiedad + ", nombre=" + nombre + ", ubicacion=" + ubicacion
+                + ", Descripcion=" + Descripcion + ", valor=" + valor + ", capacidad=" + capacidad
+                + ", disponibilidad=" + disponibilidad + ", tipoDePropiedad=" + tipoDePropiedad + "]";
+    }
+
 }
+
