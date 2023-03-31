@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +42,7 @@ public class ReservaControlador {
         return "Formulario_Reservas.html";
     }
 
+<<<<<<< HEAD
     @PostMapping("/registro/{id}")
     public String regristro(@RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaSalida") String fechaSalida, @RequestParam("propiedad") int propiedad,
             HttpSession session, ModelMap modelo) throws Exception {
@@ -47,6 +50,15 @@ public class ReservaControlador {
             int cliente = (int) session.getAttribute("id");;
 //            Usuario cliente = usuarioRepositorio.buscarPorNombre(nombreCliente);
             reservaServicio.registrar(fechaInicio, fechaSalida, propiedad, cliente);
+=======
+    @PostMapping("/registro")
+    public String regristro(@RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaSalida") String fechaSalida, @RequestParam("propiedad" ) String propiedad, ModelMap modelo,  Authentication authentication ) throws Exception {
+        try {
+//autenticacion que verifica cual es el usuario logueado y guarda el email
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String idCliente = userDetails.getUsername();
+            reservaServicio.registrar(fechaInicio, fechaSalida, propiedad, idCliente);
+>>>>>>> developer
             modelo.put("exito", "La reserva fue registrada correctamente!");
             return "dashboardCliente";
         } catch (Exception ex) {

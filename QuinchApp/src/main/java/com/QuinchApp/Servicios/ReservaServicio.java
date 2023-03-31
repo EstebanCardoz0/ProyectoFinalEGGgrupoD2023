@@ -27,17 +27,25 @@ public class ReservaServicio {
     private PropiedadRepositorio propiedadRepositorio;
 
     @Transactional
+<<<<<<< HEAD
     public void registrar(String fechaInicio, String fechaSalida, int propiedad, int cliente) throws Exception {
         Reserva reserva = new Reserva();
         Cliente clienteReserva = new Cliente();
         Optional<Cliente> usuarioCliente = clienteRepositorio.buscarPorId(cliente);
         if (usuarioCliente.isPresent()) {
             clienteReserva = usuarioCliente.get();
+=======
+    public void registrar(String fechaInicio, String fechaSalida, String propiedad, String cliente) throws Exception {
+        Reserva reserva = new Reserva();
+        Cliente usuarioCliente = clienteRepositorio.buscarPorEmail(cliente);
+        if (usuarioCliente.isActivo()) {
+            reserva.setCliente(usuarioCliente);
+>>>>>>> developer
         }
         Propiedad propiedadReserva = new Propiedad();
-        Optional<Propiedad> propiedadHaReservar = propiedadRepositorio.buscarPorIdPropiedad(propiedad);
-        if (propiedadHaReservar.isPresent()) {
-            propiedadReserva = propiedadHaReservar.get();
+        Propiedad propiedadHaReservar = propiedadRepositorio.buscarPorNombre(propiedad);
+        if (propiedadHaReservar != null) {
+            propiedadReserva = propiedadHaReservar;
         }
         boolean activo = Boolean.TRUE;
         reserva.setConfirmada(activo);

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
     <head th:replace="/fragment/head_cliente :: head"> </head>
-    <header th:replace="/fragment/navbar-Dashboard :: div"> </header>
+    <header th:replace="/fragment/nuevo :: div"> </header>
     <body class="sb-nav-fixed">
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
+                    <br>
+                    <br>
                     <h1 class="mt-4"><p>Bienvenido </p> <p th:text="${session.usuariosession.nombreUsuario}"></p> </h1>
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
@@ -26,7 +28,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-md-6">
+                        <div class="col-xl-3 col-md-6" th:if="${#authorization.expression('hasRole(''ROLE_PROPIETARIO'')')}">
                             <div class="card bg-success text-white mb-4">
                                 <div class="card-body">Crear Propiedad</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
