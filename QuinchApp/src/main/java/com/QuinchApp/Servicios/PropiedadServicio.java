@@ -176,5 +176,4 @@ public class PropiedadServicio {
             throw new Exception("Indica el propietario de la propiedad");
         }
     }
-
 }
