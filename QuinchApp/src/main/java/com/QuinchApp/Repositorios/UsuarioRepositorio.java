@@ -30,6 +30,7 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
             + "CASE u.rol "
             + "WHEN 'CLIENTE' THEN 'cliente' "
             + "WHEN 'PROPIETARIO' THEN 'propietario' "
+            + "WHEN 'ADMIN' THEN 'admin' "
             + "ELSE '' "
             + "END, u.fechaAlta, u.activo)) "
             + "LIKE LOWER(CONCAT('%', :name, '%'))")

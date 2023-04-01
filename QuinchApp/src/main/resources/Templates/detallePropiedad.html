@@ -7,8 +7,8 @@
             <!-- Core theme CSS (includes Bootstrap)-->
             <link href="/css/styles.css" rel="stylesheet" />
         </header>
-        <section class="py-5 bg-light">
-            <div th:if="${not #lists.isEmpty(CASA_QUINTA)}">
+        <section class="py-5 bg-light" th:if="${not #lists.isEmpty(CASA_QUINTA)}">
+            <div >
                 <div class="container px-4 px-lg-5 mt-5">
                     <h2 class="fw-bolder mb-4">Casas Quinta </h2>
                     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">                   
@@ -75,11 +75,11 @@
                 </div>
             </div>
         </section>
-        <section class="py-5 bg-light">
-            <div th:if="${not #lists.isEmpty(QUINCHO)}">
+        <section class="py-5 bg-light" th:if="${not #lists.isEmpty(QUINCHO)}">
+            <div >
                 <div class="container px-4 px-lg-5 mt-5">
                     <h2 class="fw-bolder mb-4">Quinchos</h2>
-                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">z
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                         <div class="col mb-5"  th:each="propiedad : ${QUINCHO}" >
                             <div class="card h-100">
                                 <!-- Product image-->
@@ -120,8 +120,8 @@
                     </div>
                 </div>
         </section>
-        <section class="py-5 bg-light">
-            <div th:if="${not #lists.isEmpty(PATIO)}">
+        <section class="py-5 bg-light" th:if="${not #lists.isEmpty(PATIO)}">
+            <div >
                 <div class="container px-4 px-lg-5 mt-5">
                     <h2 class="fw-bolder mb-4">Patios</h2>
                     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -165,8 +165,8 @@
                     </div>
                 </div>
         </section>
-        <section class="py-5 bg-light">
-            <div th:if="${not #lists.isEmpty(SALON_DE_FIESTA)}">
+        <section class="py-5 bg-light" th:if="${not #lists.isEmpty(SALON_DE_FIESTA)}">
+            <div >
                 <div class="container px-4 px-lg-5 mt-5">
                     <h2 class="fw-bolder mb-4">Salones de Fiestas</h2>
                     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">

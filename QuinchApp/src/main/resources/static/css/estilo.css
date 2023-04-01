@@ -69,3 +69,11 @@ body{
 .someClass{
     display: none;
 }
+
+.container-formreserva {
+    background-image: linear-gradient(to right top, #c7784f, #d16e60, #d46876, #cf658d, #c268a5);   
+}
+
+.form-label{
+    font-weight: 600;
+}
