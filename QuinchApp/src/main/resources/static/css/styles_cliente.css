@@ -638,6 +638,7 @@ progress {
     padding-left: var(--bs-gutter-x, 0.75rem);
     margin-right: auto;
     margin-left: auto;
+
 }
 
 @media (min-width: 576px) {
@@ -11704,34 +11705,6 @@ body {
 .fila-roja {
     background-color: #FFCCCC;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .sidebar-toggle{
     animation: bounce 2s ease-in-out infinite;
     float:right;
@@ -11808,7 +11781,6 @@ body {
     color: grey;
 }
 
-
 .sidebar {
     position: fixed;
     top: 0;
@@ -11822,17 +11794,16 @@ body {
     transition: 1s all ease-in-out;
     transform: translate(100%);
     z-index: 2;
-
 }
 
 .show-sidebar{
     transform: translate(0);
 }
+
 @media screen and (min-width: 676px) {
     .sidebar {
         width: 400px;
     }
-
 }
 
 
@@ -11840,13 +11811,14 @@ body {
     .sidebar {
         width: 400px;
     }    
-
     .sidebar-toggle{
         padding-top: 16%;
-
     }
 }
 
 #propietario-div {
-  display:none;
+    display:none;
+}
+.container-formreserva {
+    background-image: linear-gradient(to right top, #c7784f, #d16e60, #d46876, #cf658d, #c268a5);
 }

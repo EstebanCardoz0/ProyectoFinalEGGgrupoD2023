@@ -25,7 +25,7 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
 
     Usuario findByEmail(String email);
 
-    @Query("SELECT u FROM Usuario u WHERE "
+@Query("SELECT u FROM Usuario u WHERE "
             + "LOWER(CONCAT(u.id, u.nombre, u.nombreUsuario, u.email, u.telefono, "
             + "CASE u.rol "
             + "WHEN 'CLIENTE' THEN 'cliente' "

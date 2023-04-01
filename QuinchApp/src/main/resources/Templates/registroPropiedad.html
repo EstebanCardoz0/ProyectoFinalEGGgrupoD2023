@@ -7,10 +7,11 @@
     <body>
         <div class="container-formreserva">
             <div class="container"sec:authorize="hasRole('PROPIETARIO')">
+
                 <div class="row justify-content-center align-items-center">
                     <div class="col-sm-8 col-md-4 col-md-offset-4"> 
                         <h1 style="margin-top: 100px" class="text-center">
-                            Ingrese la nueva propiedad
+                            Cargue aqui su propiedad
                         </h1>
                         <br />
                         <form
@@ -30,6 +31,7 @@
                                     Es necesario ingresar el Nombre de la Propiedad
                                 </div>
                             </div>
+                            <br>
                             <div class="form-group">
                                 <label for="ubicacion" class="form-label">Direccion</label>
                                 <input
@@ -44,6 +46,7 @@
                                     Es necesario ingresar la Direccion
                                 </div>
                             </div>
+                            <br>
                             <div class="form-group">
                                 <label for="descripcion" class="form-label">Descripcion</label>
                                 <input
@@ -57,14 +60,16 @@
                                     Es necesario ingresar la Descripcion
                                 </div>
                             </div>
+                            <br>
                             <div class="form-group">
-                                <label for="valor" class="form-label">$ Precio por Noche</label>
+                                <label for="valor" class="form-label">$ Precio por Estadia de 8 horas</label>
                                 <input type="number" class="form-control" name="valor" required />
                                 <div class="valid-feedback"></div>
                                 <div class="invalid-feedback">
                                     Es necesario ingresar el Importe
                                 </div>
                             </div>
+                            <br>
                             <div class="form-group">
                                 <label for="capacidad" class="form-label">Capacidad</label>
                                 <input
@@ -78,6 +83,7 @@
                                     Es necesario ingresar la Capacidad
                                 </div>
                             </div>
+                            <br>
                             <div class="form-group">
                                 <label for="tipoDePropiedad" class="form-label"
                                        >Tipo de Propiedad</label
@@ -94,17 +100,16 @@
                                     <option value="CASA_QUINTA">Casa Quinta</option>
                                     <option value="PATIO">Patio</option>
                                 </select>
-                                <div id="validationServer04Feedback">
-                                    Seleccione un tipo de propiedad valido.
-                                </div>
                             </div>
+                            <br>
                             <div class="form-group">
+                                <label for="images" class="form-label" >Cargue todas las imagenes de su propiedad</label>                                
                                 <input type="file" class="form-control is-valid" name="imagen" th:value="${imagen}" multiple required />
                                 <br>
                                 <button type="button" class="btn btn-primary" id="add-image-button">Agregar otra imagen</button>
-                                <div class="valid-feedback">Looks good!</div>
                             </div>
                             <div id="image-container"></div>
+                            <br>
                             <div class="form-group">
                                 <label for="servicio" class="form-label">Servicios</label>
                                 <div>
