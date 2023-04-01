@@ -114,18 +114,18 @@ public class PropiedadServicio {
             propiedad.setImagenes(imagenes);
         }
         imagenes.add(miImagen);
-//        Propietario miPropietario = propietarioRepositorio.buscarPorEmail(email);
-//        List<Propiedad> miPropiedad = new ArrayList();
-//        if (miPropietario != null) {
-//            for (int i = 0; i < miPropietario.getPropiedades().size(); i++) {
-//                miPropiedad.add(miPropietario.getPropiedades().get(i));
-//            }
-//            miPropiedad.add(propiedad);
-//            miPropietario.setPropiedades(miPropiedad);
-//            propiedadRepositorio.save(propiedad);
-//        } else {
-//            throw new Exception("no existe el propietario");
-//        }
+        Propietario miPropietario = propietarioRepositorio.buscarPorEmail(email);
+        List<Propiedad> miPropiedad = new ArrayList();
+        if (miPropietario != null) {
+            for (int i = 0; i < miPropietario.getPropiedades().size(); i++) {
+                miPropiedad.add(miPropietario.getPropiedades().get(i));
+            }
+            miPropiedad.add(propiedad);
+            miPropietario.setPropiedades(miPropiedad);
+            propiedadRepositorio.save(propiedad);
+        } else {
+            throw new Exception("no existe el propietario");
+        }
         propiedad.setImagenes(imagenes);
         propiedad.setServicios(servicios);
     }
