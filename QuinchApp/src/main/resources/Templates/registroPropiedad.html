@@ -99,29 +99,43 @@
                                 Seleccione un tipo de propiedad valido.
                             </div>
                         </div>
-
                         <div class="form-group">
-                         <!--   <input type="file" class="form-control is-valid" name="imagen"th:value="${imagen}">-->
-                            <input type="file" class="form-control is-valid" name="imagen" th:value="${imagen}" multiple required /><br>
+                            <input type="file" class="form-control is-valid" name="imagen" th:value="${imagen}" multiple required />
+                            <br>
+                            <button type="button" class="btn btn-primary" id="add-image-button">Agregar otra imagen</button>
                             <div class="valid-feedback">Looks good!</div>
                         </div>
+                        <div id="image-container"></div>
                         <div class="form-group">
                             <label for="servicio" class="form-label">Servicios</label>
-                            <select
-                                class="form-select"
-                                name="servicio"
-                                aria-describedby="validationServer04Feedback"
-                                required
-                                >
-                                <option selected disabled value="">Elije...</option>
-                                <option value="WIFI">Wi-Fi</option>
-                                <option value="PARRILLA">Parrilla</option>
-                                <option value="PISCINA">Piscina</option>
-                                <option value="PING_PONG">Ping Pong</option>
-                                <option value="BILLAR">Billar</option>
-                                <option value="AIRE_ACONDICIONADO">Aire Acondicionado</option>
-                                <option value="COCINA">Cocina</option>
-                            </select>
+                            <div>
+                                <input type="checkbox" name="servicio" value="WIFI" id="servicio-wifi">
+                                <label for="servicio-wifi">Wi-Fi</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="servicio" value="PARRILLA" id="servicio-parrilla">
+                                <label for="servicio-parrilla">Parrilla</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="servicio" value="PISCINA" id="servicio-piscina">
+                                <label for="servicio-piscina">Piscina</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="servicio" value="PING_PONG" id="servicio-pingpong">
+                                <label for="servicio-pingpong">Ping Pong</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="servicio" value="BILLAR" id="servicio-billar">
+                                <label for="servicio-billar">Billar</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="servicio" value="AIRE_ACONDICIONADO" id="servicio-aire">
+                                <label for="servicio-aire">Aire Acondicionado</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="servicio" value="COCINA" id="servicio-cocina">
+                                <label for="servicio-cocina">Cocina</label>
+                            </div>
                             <div id="validationServer04Feedback" class="invalid-feedback">
                                 Seleccione servicio valido.
                             </div>

@@ -60,9 +60,32 @@ closeBtn.addEventListener("click", function () {
     sidebar.classList.remove("show-sidebar");
     });
 </script>
+<<<<<<< HEAD
 =======
     closeBtn.addEventListener("click", function () {
     sidebar.classList.remove("show-sidebar");
+    });
+</script>
+>>>>>>> developer
+=======
+<script>
+    // Obtener el contenedor de imágenes
+    var imageContainer = document.getElementById('image-container');
+
+    var addButton = document.getElementById('add-image-button');
+
+    // Manejar el evento clic del botón "Agregar Imagen"
+    addButton.addEventListener('click', function() {
+        // Crear un nuevo campo de carga de imágenes
+        var newImageField = document.createElement('input');
+        newImageField.type = 'file';
+        newImageField.name = 'imagen';
+        newImageField.classList.add('form-control');
+        newImageField.classList.add('is-valid');
+        newImageField.required = true;
+
+        // Agregar el nuevo campo de carga de imágenes al contenedor
+        imageContainer.appendChild(newImageField);
     });
 </script>
 >>>>>>> developer
