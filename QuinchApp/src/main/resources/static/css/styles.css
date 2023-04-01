@@ -11394,6 +11394,10 @@ header.masthead .bg-circle-4 {
         font-size: 4rem;
     }
 }
+.container-formreserva {
+    background-image: linear-gradient(to right top, #c7784f, #d16e60, #d46876, #cf658d, #c268a5)!important;
+   
+}
 /*=======
   header.masthead {
     padding-top: calc(10rem + 55px);
