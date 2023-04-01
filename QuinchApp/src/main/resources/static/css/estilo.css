@@ -71,7 +71,7 @@ body{
 }
 
 .container-formreserva {
-    background-image: linear-gradient(to right top, #c7784f, #d16e60, #d46876, #cf658d, #c268a5);   
+    background-image: linear-gradient(to right top, #c7784f, #d16e60, #d46876, #cf658d, #c268a5) !important;   
 }
 
 .form-label{
