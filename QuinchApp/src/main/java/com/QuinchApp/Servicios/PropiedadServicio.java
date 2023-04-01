@@ -38,57 +38,13 @@ public class PropiedadServicio {
     @Autowired
     private ImagenServicio imagenServicio;
 
-//@Transactional
-//    public void registrarPropiedad(String nombre, String ubicacion, String descripcion, double valor, int capacidad,
-//            PropiedadEnum tipoDePropiedad, String propietario, MultipartFile imagen, ServicioEnum servicio) throws Exception {
-//        validar(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad, propietario);
-//        Usuario miUsuario = new Usuario();
-//        Optional<Usuario> usuarioPropietario = usuarioRepositorio.buscarPorNombreUsuario(propietario);
-//        if (usuarioPropietario.isPresent()) {
-//            miUsuario = usuarioPropietario.get();
-//        }
-//        Propiedad propiedad = new Propiedad();
-//        propiedad.setNombre(nombre);
-//        propiedad.setUbicacion(ubicacion);
-//        propiedad.setDescripcion(descripcion);
-//        propiedad.setValor(valor);
-//        propiedad.setCapacidad(capacidad);
-//        propiedad.setTipoDePropiedad(tipoDePropiedad);
-//        propiedad.setPropietario(miUsuario);
-//        List<ServicioEnum> servicios = propiedad.getServicios();
-//        if (servicios == null) {
-//            servicios = new ArrayList();
-//            propiedad.setServicios(servicios);
-//        }
-//        servicios.add(servicio);
-//        Imagen miImagen = imagenServicio.guardar(imagen);
-//        List<Imagen> imagenes = propiedad.getImagenes();
-//        if (imagenes == null) {
-//            imagenes = new ArrayList();
-//            propiedad.setImagenes(imagenes);
-//        }
-//        imagenes.add(miImagen);
-//        propiedad.setImagenes(imagenes);
-//        propiedad.setServicios(servicios);
-//        Propietario miPropietario = propietarioRepositorio.buscarPorNombreUsuario(propietario);
-//        List<Propiedad> miPropiedad = new ArrayList();
-//        if (miPropietario != null) {           
-//           for(int i=0; i<miPropietario.getPropiedades().size(); i++ ){
-//               miPropiedad.add(miPropietario.getPropiedades().get(i));
-//           }
-//            miPropiedad.add(propiedad);
-//            miPropietario.setPropiedades(miPropiedad);
-//            propiedadRepositorio.save(propiedad);
-//        } else {
-//            throw new Exception("no existe el propietario");
-//        }
-//    }
     @Transactional
     public void registrarPropiedad(String nombre, String ubicacion, String descripcion, double valor, int capacidad,
-            PropiedadEnum tipoDePropiedad, String email, MultipartFile imagen, ServicioEnum servicio) throws Exception {
-        
+            PropiedadEnum tipoDePropiedad, String email, List<MultipartFile> imagenes, List<ServicioEnum> servicios
+    ) throws Exception {
+
         validar(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad, email);
-        Propietario usuarioPropietario = propietarioRepo.buscarPorEmail(email);
+        Propietario usuarioPropietario = propietarioRepositorio.buscarPorEmail(email);
 
         if (!usuarioPropietario.isActivo()) {
             throw new Exception("El usuario " + email + " no existe");
@@ -101,19 +57,18 @@ public class PropiedadServicio {
         propiedad.setCapacidad(capacidad);
         propiedad.setTipoDePropiedad(tipoDePropiedad);
         propiedad.setPropietario(usuarioPropietario);
-        List<ServicioEnum> servicios = propiedad.getServicios();
-        if (servicios == null) {
-            servicios = new ArrayList();
-            propiedad.setServicios(servicios);
+        List<ServicioEnum> serviciosPropiedad = propiedad.getServicios();
+        if (serviciosPropiedad == null) {
+            serviciosPropiedad = new ArrayList();
+            propiedad.setServicios(serviciosPropiedad);
         }
-        servicios.add(servicio);
-        Imagen miImagen = imagenServicio.guardar(imagen);
-        List<Imagen> imagenes = propiedad.getImagenes();
-        if (imagenes == null) {
-            imagenes = new ArrayList();
-            propiedad.setImagenes(imagenes);
+        serviciosPropiedad.addAll(servicios);
+        List<Imagen> listaImagenes = new ArrayList<>();
+        for (MultipartFile imagen : imagenes) {
+            Imagen miImagen = imagenServicio.guardar(imagen);
+            listaImagenes.add(miImagen);
         }
-        imagenes.add(miImagen);
+        propiedad.setImagenes(listaImagenes);
         Propietario miPropietario = propietarioRepositorio.buscarPorEmail(email);
         List<Propiedad> miPropiedad = new ArrayList();
         if (miPropietario != null) {
@@ -126,7 +81,6 @@ public class PropiedadServicio {
         } else {
             throw new Exception("no existe el propietario");
         }
-        propiedad.setImagenes(imagenes);
         propiedad.setServicios(servicios);
     }
 
@@ -222,5 +176,4 @@ public class PropiedadServicio {
             throw new Exception("Indica el propietario de la propiedad");
         }
     }
-
 }
