@@ -11824,5 +11824,6 @@ body {
   display:none;
 }
 .container-formreserva {
-    background-image: url(https://media.discordapp.net/attachments/1085707572260118569/1085707652039983184/fondo.jpg?width=840&height=473)
+    background-image: linear-gradient(to right top, #c7784f, #d16e60, #d46876, #cf658d, #c268a5);
+   
 }
