@@ -2,19 +2,19 @@
     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent" 
          th:classappend="${session.usuariosession != null and #authorization.expression('hasRole(''ROLE_CLIENTE'')')} ? '' : 'd-none'">
         <div class="text-center">
-            <a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a>
+            <a class="btnSolicitarReserva btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a>
         </div>
     </div>
     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent" 
          th:classappend="${session.usuariosession != null and #authorization.expression('hasRole(''ROLE_PROPIETARIO'')')} ? '' : 'd-none'">
         <div class="text-center">
-            <a class="btn btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a>
+            <a class="btnSolicitarReserva btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${propiedad.idPropiedad}__}">Solicitar Reservar</a>
         </div>
     </div>
     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent" 
          th:classappend="${session.usuariosession == null} ? '' : 'd-none'">
         <div class="text-center">
-            <a class="btn btn-outline-dark mt-auto" th:href="@{/login}">Solicitar Reservar</a>
+            <a class="btnSolicitarReserva btn-outline-dark mt-auto" th:href="@{/login}">Solicitar Reservar</a>
         </div>
     </div>
 </div>

@@ -36,6 +36,7 @@ body{
     background-color: #2A0A1B !important;
     opacity: 0.9; 
     padding: 4%;
+    position: inherit;
 }
 
 .container1{
@@ -150,7 +151,7 @@ body{
 }
 
 .meal-icon {
-  height: 2.4rem;
+  height: 1.4rem;
   width: 2.4rem;
   color: #e67e22;
 }
@@ -161,11 +162,33 @@ body{
   object-fit: cover;
 }
 
-
-
 #cardsPropiedades{
     margin: 5%;    
 }
 
+.btnSolicitarReserva{
+    display: inline-block;
+    padding: 0.5em 1em;
+    background: #e67e22 !important;
+    color: #fff;
+    border-radius: 4em !important;
+    border:none;
+}
+
+  .btnSolicitarReserva:focus {
+    outline-color: transparent;
+    outline-style:solid;
+    box-shadow: 0 0 0 4px #5a01a7;
+    transition: 0.7s;
+}
 
 
+  .btnSolicitarReserva:hover {
+    outline-color: transparent;
+    transition: 0.7s;
+      text-decoration: none;
+}
+
+.button:active {
+    background-color: #ffbf00;
+}
