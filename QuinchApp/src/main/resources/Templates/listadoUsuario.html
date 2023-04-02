@@ -14,8 +14,8 @@
                             <div>  
                                 <form class="form-inline my-2 my-lg-0" th:action="@{/usuario/listar}">
                                     <input class="form-control mr-sm-2" type="text" placeholder="Buscar usuario" name="palabraClave" th:value="${palabraClave}" aria-label="Search" required>
-                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Buscar">Buscar</button> &nbsp;&nbsp;
-                                    <button class="btn btn-outline-secondary my-2 my-sm-0" type="button" value="Limpiar" onclick="limpiar()">Limpiar</button>
+                                    <button id="btn4" class="btnBuscar btn-material" type="submit" value="Buscar">Buscar</button>
+                                    <button id="btn4" class="btnLimpiar btn-material" type="button" value="Limpiar" onclick="limpiar()">Limpiar</button>
                                 </form>
                             </div>
                         </div>                        

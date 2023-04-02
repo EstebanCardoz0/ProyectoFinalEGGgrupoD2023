@@ -74,6 +74,7 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
+    
     private void validarActualizar(String nombre, String nombreUsuario, String email, String password, long telefono, MultipartFile archivo, String password2) throws Exception {
         if (nombre == null || nombre.isEmpty()) {
             throw new Exception("El nombre no puede estar estar vacío");
