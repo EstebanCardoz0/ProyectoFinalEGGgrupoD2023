@@ -127,7 +127,7 @@ public class UsuarioControlador {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios(palabraClave);
         modelo.addAttribute("usuario", usuarios);
         modelo.addAttribute("palabraClave", palabraClave);
-        return "listadoUsuario";
+        return "listadoUsuario.html";
     }
 
     @RequestMapping("/altaBaja/{id}")
