@@ -27,20 +27,11 @@ public class ReservaServicio {
     private PropiedadRepositorio propiedadRepositorio;
 
     @Transactional
-<<<<<<< HEAD
-    public void registrar(String fechaInicio, String fechaSalida, int propiedad, int cliente) throws Exception {
-        Reserva reserva = new Reserva();
-        Cliente clienteReserva = new Cliente();
-        Optional<Cliente> usuarioCliente = clienteRepositorio.buscarPorId(cliente);
-        if (usuarioCliente.isPresent()) {
-            clienteReserva = usuarioCliente.get();
-=======
     public void registrar(String fechaInicio, String fechaSalida, String propiedad, String cliente) throws Exception {
         Reserva reserva = new Reserva();
         Cliente usuarioCliente = clienteRepositorio.buscarPorEmail(cliente);
         if (usuarioCliente.isActivo()) {
             reserva.setCliente(usuarioCliente);
->>>>>>> developer
         }
         Propiedad propiedadReserva = new Propiedad();
         Propiedad propiedadHaReservar = propiedadRepositorio.buscarPorNombre(propiedad);
@@ -54,7 +45,6 @@ public class ReservaServicio {
         Date fechaDeSalida = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSalida);
         reserva.setFechaSalida(fechaDeSalida);
         reserva.setPropiedad(propiedadReserva);
-        reserva.setCliente(clienteReserva);
         reservaRepositorio.save(reserva);
     }
 
