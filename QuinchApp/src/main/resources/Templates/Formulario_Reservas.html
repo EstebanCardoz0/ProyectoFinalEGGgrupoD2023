@@ -14,11 +14,11 @@
                         <label for="propiedad" class="form-label">Propiedad</label>
                      <!--    <input type="text" class="form-control" name="propiedad" th:value="${param.propiedad}" readonly>
                         agregar campo oculto -->
-                        <input type="hidden" name="propiedad" th:value="${param.propiedad}">
+                        <input type="number" class="form-control" name="propiedad" th:value="${propiedad.idPropiedad}">
                     </div>
                     <div class="mb-3">
                         <label for="cliente" class="form-label">Nombre Cliente</label>
-                        <input type="text" class="form-control" name="cliente" th:if='${session.usuariosession != null}' th:value="${session.usuariosession.nombreUsuario}">
+                        <input type="number" class="form-control" name="cliente" th:if='${session.usuariosession != null}' th:value="${session.usuariosession.id}">
                     </div>
                     <div class="mb-3">
                         <label for="fechaInicio" class="form-label">Fecha de Entrada</label>
