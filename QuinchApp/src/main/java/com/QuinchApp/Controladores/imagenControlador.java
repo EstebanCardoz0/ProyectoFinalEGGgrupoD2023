@@ -48,16 +48,50 @@ public class imagenControlador {
 //        }
 //        return new ResponseEntity<>(respuestas, HttpStatus.OK);
 //    }
-
+////
     @GetMapping("/imgPropiedad/{id}")
     public ResponseEntity<byte[]> imagenPropiedad(@PathVariable Integer id) {
         Propiedad propiedad = propiedadServicio.getOne(id);
         List<Imagen> imagenes = propiedad.getImagenes();
-        Imagen imagen = imagenes.get(0);
+               Imagen imagen = imagenes.get(0);
         byte[] imagenPropiedad = imagen.getContenido();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
         headers.setContentLength(imagenPropiedad.length);
         return new ResponseEntity<byte[]>(imagenPropiedad, headers, HttpStatus.OK);
     }
+//    
+//    
+//       @GetMapping("/imgPropiedad/{id}")
+//public List<ResponseEntity<byte[]>> imagenPropiedad(@PathVariable Integer id) {
+//    Propiedad propiedad = propiedadServicio.getOne(id);
+//    List<Imagen> imagenes = propiedad.getImagenes();
+//    List<ResponseEntity<byte[]>> responseEntityList = new ArrayList<>();
+//    imagenes.stream().map((imagen) -> imagen.getContenido()).map((imagenPropiedad) -> {
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.IMAGE_JPEG);
+//        headers.setContentLength(imagenPropiedad.length);
+//        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(imagenPropiedad, headers, HttpStatus.OK);
+//            return responseEntity;
+//        }).forEachOrdered((responseEntity) -> {
+//            responseEntityList.add(responseEntity);
+//        });
+//    return responseEntityList;
+//}
+
+    
+    
+    
+//    @GetMapping("/imgPropiedad/{id}")
+//public ResponseEntity<List<byte[]>> imagenPropiedad(@PathVariable Integer id) {
+//    Propiedad propiedad = propiedadServicio.getOne(id);
+//    List<byte[]> bytesImagenes = new ArrayList<>();
+//    for (int i=0; i < propiedad.getImagenes().size(); i++) {
+//        bytesImagenes.add(propiedad.getImagenes().get(i).getContenido());
+//    }
+//    HttpHeaders headers = new HttpHeaders();
+//    headers.setContentType(MediaType.IMAGE_JPEG);
+//    return new ResponseEntity<List<byte[]>>(bytesImagenes, headers, HttpStatus.OK);
+//}
+
 }
