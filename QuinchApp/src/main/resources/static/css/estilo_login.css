@@ -1,4 +1,5 @@
 .gradient-custom-2 {
+<<<<<<< HEAD
 /* fallback for old browsers /
 background: #fccb90;
 
@@ -6,6 +7,15 @@ background: #fccb90;
 background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
 
 / W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+=======
+/* fallback for old browsers */
+background: #fccb90;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+>>>>>>> developer
 background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
 }
 
@@ -19,6 +29,7 @@ height: 100vh !important;
 border-top-right-radius: .3rem;
 border-bottom-right-radius: .3rem;
 }
+<<<<<<< HEAD
 .container py-5 h-100 {
 background-color: grey;
 width: 100%;
@@ -28,3 +39,7 @@ width: 100%;
     margin-left: auto;
 }
 }
+=======
+}
+
+>>>>>>> developer

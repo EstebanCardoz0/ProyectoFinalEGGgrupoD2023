@@ -34,7 +34,11 @@ public class ReservaServicio {
             reserva.setCliente(usuarioCliente);
         }
         Propiedad propiedadReserva = new Propiedad();
+<<<<<<< HEAD
          Optional<Propiedad> propiedadHaReservar = propiedadRepositorio.buscarPorIdPropiedad(propiedad);
+=======
+        Optional<Propiedad> propiedadHaReservar = propiedadRepositorio.buscarPorIdPropiedad(propiedad);
+>>>>>>> developer
         if (propiedadHaReservar.isPresent()) {
             propiedadReserva = propiedadHaReservar.get();
         }
