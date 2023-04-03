@@ -42,15 +42,16 @@ public class ReservaControlador {
         return "Formulario_Reservas.html";
     }
 
-    @PostMapping("/registro")
-    public String regristro(@RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaSalida") String fechaSalida, @RequestParam("propiedad" ) String propiedad, ModelMap modelo,  Authentication authentication ) throws Exception {
+    @PostMapping("/registro/{id}")
+public String regristro(@PathVariable int id, @RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaSalida") String fechaSalida, @RequestParam("propiedad" ) String propiedad, HttpSession session, ModelMap modelo, Authentication authentication) throws Exception {
         try {
-//autenticacion que verifica cual es el usuario logueado y guarda el email
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+ Usuario cliente = (Usuario) session.getAttribute("usuariosession");
+        modelo.put("propiedad", propiedadServicio.getOne(id));
+        modelo.put("cliente", cliente);        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String idCliente = userDetails.getUsername();
             reservaServicio.registrar(fechaInicio, fechaSalida, propiedad, idCliente);
             modelo.put("exito", "La reserva fue registrada correctamente!");
-            return "dashboardCliente";
+            return "Formulario_Reservas";
         } catch (Exception ex) {
             System.out.println(ex);
             modelo.put("error", ex.getMessage());
