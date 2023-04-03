@@ -43,7 +43,7 @@ public class ReservaControlador {
     }
 
     @PostMapping("/registro")
-    public String regristro(@RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaSalida") String fechaSalida, @RequestParam("propiedad") String propiedad, ModelMap modelo, Authentication authentication) throws Exception {
+    public String regristro(@RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaSalida") String fechaSalida, @RequestParam("propiedad") int propiedad, ModelMap modelo, Authentication authentication) throws Exception {
         try {
             //autenticacion que verifica cual es el usuario logueado y guarda el email
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
