@@ -22,12 +22,12 @@ public class PropietarioControlador {
     
     @Autowired
    private PropietarioServicio propietarioServicio;
-//
-//    @GetMapping("/registrar")
-//    public String registrar() {
-//        return "/perfil";
-//    }
-//
+
+    @GetMapping("/registrar")
+    public String registrar() {
+        return "/perfil";
+    }
+
 //    @PostMapping("/registro")
 //    public String registro(@RequestParam("nombre") String nombre, @RequestParam("nombreUsuario") String nombreUsuario,
 //            @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("password") String password2, @RequestParam("telefono") long telefono,
@@ -62,7 +62,7 @@ public class PropietarioControlador {
 //            return "Error";
 //        }
 //    }
-//
+
     @GetMapping("/listar")
     public String listar(ModelMap modelo) {
         List<Propietario> propietarios = propietarioServicio.listarPropietario();
