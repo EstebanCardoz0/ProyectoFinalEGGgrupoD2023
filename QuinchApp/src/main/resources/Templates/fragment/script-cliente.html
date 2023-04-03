@@ -9,19 +9,39 @@
 <script type="text/javascript">
     function limpiar(){
     window.location='/usuario/listar'; 
-    }
-    
+    }    
     const toggleBtn = document.querySelector(".sidebar-toggle");
-
     const sidebar = document.querySelector(".sidebar ");
-
     const closeBtn = document.querySelector(".close-btn");
-
     toggleBtn.addEventListener("click", function () {
     sidebar.classList.toggle("show-sidebar");
     });
-
     closeBtn.addEventListener("click", function () {
     sidebar.classList.remove("show-sidebar");
     });
+</script>
+<script>
+    // Obtener el contenedor de imágenes
+    var imageContainer = document.getElementById('image-container');
+    var addButton = document.getElementById('add-image-button');
+    // Manejar el evento clic del botón "Agregar Imagen"
+    addButton.addEventListener('click', function() {
+        // Crear un nuevo campo de carga de imágenes
+        var newImageField = document.createElement('input');
+        newImageField.type = 'file';
+        newImageField.name = 'imagen';
+        newImageField.classList.add('form-control');
+        newImageField.classList.add('is-valid');
+        newImageField.required = true;
+        // Agregar el nuevo campo de carga de imágenes al contenedor
+        imageContainer.appendChild(newImageField);
+    });
+</script>
+<script type="text/javascript">
+    var fecha = document.getElementById("Copyright");
+    copyright=new Date();
+    update=copyright.getFullYear();
+    document.getElementById('Copyright').innerHTML="Copyright © " + update + " " + " - Quinchapp";
+    
+    
 </script>
