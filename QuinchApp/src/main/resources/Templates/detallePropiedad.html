@@ -42,7 +42,7 @@
                                     <li class="meal-attribute">
                                     <ion-icon name='earth-sharp'  class="meal-icon"></ion-icon>
                                     <strong th:text=" 'Ubicacion: '"></strong>
-                                    <span th:text="  ${propiedad.ubicacion} "> </span>
+                                    <a href="#" onclick="window.open(`https://www.google.com/maps?q=${encodeURIComponent(propiedad.ubicacion.replaceAll(' ', '+'))}`); return false;" target="_blank" th:text="${propiedad.ubicacion}"></a>
                                     </li>
                                     <li class="meal-attribute">
                                     <ion-icon name='person-outline'  class="meal-icon"></ion-icon>      
