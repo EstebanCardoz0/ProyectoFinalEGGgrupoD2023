@@ -26,6 +26,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
+                                <th>Foto Perfil</th>
                                 <th>Nombre</th>
                                 <th>Nombre de Usuario</th>
                                 <th>Email</th>
@@ -37,7 +38,9 @@
                         </thead>
                         <tbody>
                             <tr th:each="usuario:${usuario}" th:class="${usuario.activo} == false ? 'fila-roja' : ''">
-                                <td th:text="${usuario.nombre}"></td>
+                               <th><img th:src="@{/imagen/perfil/_${usuario.id}_}" class="card-img-top" alt="archivo" > </th>
+                                 
+                                <td th:text="${usuario.nombre}" /></td>
                                 <td th:text="${usuario.nombreUsuario}"></td>
                                 <td th:text="${usuario.email}"></td>
                                 <td th:text="${usuario.telefono}"></td>
@@ -61,6 +64,8 @@
             </div>
         </div>
         <div th:replace = "/fragment/footer :: div"></div>
-        <div th:replace = "/fragment/script-cliente :: script"></div>                     
+        <div th:replace = "/fragment/script-cliente :: script"></div>  
+        
+        
     </body>
 </html>
