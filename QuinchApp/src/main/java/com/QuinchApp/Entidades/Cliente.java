@@ -20,7 +20,7 @@ public class Cliente extends Usuario {
     public Cliente(Integer id, String nombre, String nombreUsuario, String email, String password, long telefono, Rol rol, Imagen fotoPerfil, Date fechaAlta, boolean activo) {
         super(id, nombre, nombreUsuario, email, password, telefono, rol, fotoPerfil, fechaAlta, activo);
     }
-    
+
     public List<Reserva> getReservas() {
         return reserva;
     }
