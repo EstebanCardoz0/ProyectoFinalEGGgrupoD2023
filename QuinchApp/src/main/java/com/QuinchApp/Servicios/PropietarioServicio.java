@@ -111,6 +111,10 @@ public class PropietarioServicio{
         return propietarioRepositorio.buscarPorNombre(nombre);
     }
     
+    public Propietario getOne(int id) {
+        return propietarioRepositorio.getOne(id);
+    }
+    
 //     @Override
 //    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 //
