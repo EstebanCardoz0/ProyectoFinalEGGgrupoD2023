@@ -34,4 +34,9 @@ public class Propietario extends Usuario {
     public void setPropiedades(List<Propiedad> propiedades) {
         this.propiedades = propiedades;
     }
+
+    public Propietario(Integer id, String nombre, String nombreUsuario) {
+        super(id, nombre, nombreUsuario);
+    }
+    
 }

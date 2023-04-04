@@ -152,7 +152,9 @@
                     <h2 class="fw-bolder mb-4">CASA QUINTA</h2>
                     <div th:each="propiedad : ${CASA_QUINTA}" class="col-sm-6 col-lg-4" >
                         <div class="meal">
-                            <img th:src="@{'/imagen/imgPropiedad/' + ${propiedad.imagenes[0].idImagen}}" class="meal-img" alt="Japanese Gyozas" />
+
+                            <img th:src="@{/imagen/imgPropiedad/__${propiedad.idPropiedad}__}" class="meal-img" alt="Japanese Gyozas" />
+
                             <div class="meal-content">
                                 <div class="meal-tags">
                                     <span class="tag tag--vegetarian" th:text="${propiedad.tipoDePropiedad}"></span>
