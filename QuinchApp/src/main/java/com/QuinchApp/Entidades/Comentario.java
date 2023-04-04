@@ -32,8 +32,10 @@ public class Comentario {
     private Integer idComentario;
 
 //    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Cliente cliente;
+
     private String comentario;
     private Integer calificacion;
     @ManyToOne(cascade = CascadeType.ALL)
