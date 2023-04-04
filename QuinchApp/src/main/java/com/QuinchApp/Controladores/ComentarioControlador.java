@@ -6,8 +6,10 @@ package com.QuinchApp.Controladores;
 
 import com.QuinchApp.Entidades.Cliente;
 import com.QuinchApp.Entidades.Comentario;
+import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Servicios.ComentarioServicio;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,11 +31,10 @@ public class ComentarioControlador {
     private ComentarioServicio comentarioServicio;
     
     @PostMapping("/comentar")
-    public String comentar(@RequestParam("id") Integer id, @RequestParam("cliente") Cliente cliente,
-            @RequestParam("comentario") String coment, @RequestParam("calificacion") Integer calificacion) {
-        
-        Comentario comentario = new Comentario(id, cliente, coment, calificacion);
-        
+    public String comentar(@RequestParam("id") Integer id,@RequestParam("comentario") String coment, @RequestParam("calificacion") Integer calificacion, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        Integer idUsuario = usuario.getId();
+        comentarioServicio.crearComentario(id, idUsuario, coment, calificacion);
         return null;
     }
     
