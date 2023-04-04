@@ -3,6 +3,7 @@ package com.QuinchApp.Entidades;
 import com.QuinchApp.Enums.Rol;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import lombok.Data;
@@ -11,7 +12,7 @@ import lombok.Data;
 @Data
 public class Cliente extends Usuario {
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reserva> reserva;
 
     public Cliente() {
@@ -27,5 +28,21 @@ public class Cliente extends Usuario {
 
     public void setReservas(List<Reserva> reserva) {
         this.reserva = reserva;
+    }
+    
+@Override
+    public String toString() {
+        return "Cliente{" +
+                "id=" + getId() +
+                ", nombre='" + getNombre() + '\'' +
+                ", nombreUsuario='" + getNombreUsuario() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", password='" + getPassword() + '\'' +
+                ", telefono=" + getTelefono() +
+                ", rol=" + getRol() +
+                ", fotoPerfil=" + getFotoPerfil() +
+                ", fechaAlta=" + getFechaAlta() +
+                ", activo=" + isActivo() +
+                '}';
     }
 }
