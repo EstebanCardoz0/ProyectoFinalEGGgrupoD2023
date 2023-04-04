@@ -27,13 +27,13 @@ public class ReservaControlador {
 
     @Autowired
     private ReservaServicio reservaServicio;
-    
+
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
-    
+
     @Autowired
     private PropiedadServicio propiedadServicio;
-    
+
     @GetMapping("/registrar/{id}")
     public String registrar(@PathVariable int id, ModelMap modelo, HttpSession session) {
         Usuario cliente = (Usuario) session.getAttribute("usuariosession");
@@ -43,11 +43,11 @@ public class ReservaControlador {
     }
 
     @PostMapping("/registro")
-    public String regristro(@RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaSalida") String fechaSalida, @RequestParam("propiedad" ) String propiedad, ModelMap modelo,  Authentication authentication ) throws Exception {
+    public String regristro(@RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaSalida") String fechaSalida, @RequestParam("propiedad") int propiedad, ModelMap modelo, Authentication authentication) throws Exception {
         try {
-//autenticacion que verifica cual es el usuario logueado y guarda el email
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String idCliente = userDetails.getUsername();
+            //autenticacion que verifica cual es el usuario logueado y guarda el email
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String idCliente = userDetails.getUsername();
             reservaServicio.registrar(fechaInicio, fechaSalida, propiedad, idCliente);
             modelo.put("exito", "La reserva fue registrada correctamente!");
             return "dashboardCliente";

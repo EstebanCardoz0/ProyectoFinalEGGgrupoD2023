@@ -3,7 +3,7 @@
     xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head th:replace="/fragment/head_cliente :: head"> </head>
-    <header th:replace="/fragment/navbar-Dashboard :: div"> </header>
+    <header th:replace="/fragment/nuevo :: div"> </header>
     <body>
         <div class="col-sm-10 col-md-10">
             <div class="well">
@@ -14,8 +14,8 @@
                             <div>  
                                 <form class="form-inline my-2 my-lg-0" th:action="@{/usuario/listar}">
                                     <input class="form-control mr-sm-2" type="text" placeholder="Buscar usuario" name="palabraClave" th:value="${palabraClave}" aria-label="Search" required>
-                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Buscar">Buscar</button> &nbsp;&nbsp;
-                                    <button class="btn btn-outline-secondary my-2 my-sm-0" type="button" value="Limpiar" onclick="limpiar()">Limpiar</button>
+                                    <button id="btn4" class="btnBuscar btn-material" type="submit" value="Buscar">Buscar</button>
+                                    <button id="btn4" class="btnLimpiar btn-material" type="button" value="Limpiar" onclick="limpiar()">Limpiar</button>
                                 </form>
                             </div>
                         </div>                        
@@ -47,7 +47,8 @@
                                     <a  th:href= "@{/usuario/borrar/__${usuario.id}__/__${usuario.rol}__}" ></i> Eliminar</a>                                  
                                 </td>
                                 <td> 
-                                    <a  th:href="@{'/usuario/altaBaja/' + ${usuario.id}}" th:text="${usuario.activo} == false ? 'ALTA' : 'BAJA'">  </a></td>
+                                    <a  th:href="@{'/usuario/altaBaja/' + ${usuario.id}}" th:text="${usuario.activo} == false ? 'ALTA' : 'BAJA'">  </a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
