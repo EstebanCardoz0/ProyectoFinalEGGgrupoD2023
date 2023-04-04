@@ -24,8 +24,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class PropietarioControlador {
 
     @Autowired
-<<<<<<< federico
-   private PropietarioServicio propietarioServicio;
+    private PropietarioServicio propietarioServicio;
+
+    @Autowired
+    private PropiedadServicio propiedadServicio;
 
     @GetMapping("/registrar")
     public String registrar() {
@@ -53,13 +55,6 @@ public class PropietarioControlador {
 //        }
 //        return "registro";
 //    }
-=======
-    private PropietarioServicio propietarioServicio;
-
-    @Autowired
-    private PropiedadServicio propiedadServicio;
-
->>>>>>> developer
 //
 //    @PostMapping("/actualizar/{id}")
 //    public String actualizar(@PathVariable int id, @RequestParam("nombre") String nombre, @RequestParam("nombreUsuario") String nombreUsuario,
@@ -73,7 +68,6 @@ public class PropietarioControlador {
 //            return "Error";
 //        }
 //    }
-
     @GetMapping("/listar")
     public String listar(ModelMap modelo) {
         List<Propietario> propietarios = propietarioServicio.listarPropietario();
@@ -99,7 +93,7 @@ public class PropietarioControlador {
         }
         return "redirect:/dashboardCliente";
     }
-    
+
     @RequestMapping("/altaBaja/{id}")
     public String altaBaja(@PathVariable int id) {
         propiedadServicio.bajaAlta(id);
@@ -124,4 +118,3 @@ public class PropietarioControlador {
 //    public String terminos() {
 //        return "terminos";
 //    }
-

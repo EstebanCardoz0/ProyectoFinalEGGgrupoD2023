@@ -1,5 +1,6 @@
 package com.QuinchApp.Controladores;
 
+import com.QuinchApp.Entidades.Comentario;
 import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Enums.PropiedadEnum;
 import com.QuinchApp.Enums.ServicioEnum;
@@ -42,6 +43,9 @@ public class PropiedadControlador {
     public String verPropiedad(@PathVariable int id, ModelMap modelo) {
         Propiedad propiedad = propiedadServicio.getOne(id);
         modelo.addAttribute("propiedad", propiedad);
+        List<Comentario> comentarios = propiedad.getComentarios();
+        modelo.addAttribute("propiedad", propiedad);
+        modelo.addAttribute("comentarios", comentarios);
         return "vistaPropiedad.html";
     }
 

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.QuinchApp.Servicios;
 
 import com.QuinchApp.Entidades.Cliente;
@@ -11,6 +7,7 @@ import com.QuinchApp.Entidades.Propietario;
 import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Repositorios.ComentarioRepositorio;
 import com.QuinchApp.Repositorios.PropiedadRepositorio;
+import com.QuinchApp.Repositorios.PropietarioRepositorio;
 import com.QuinchApp.Repositorios.UsuarioRepositorio;
 import java.util.List;
 import java.util.Optional;
@@ -18,12 +15,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- *
- * @author Usuario
- */
 @Service
 public class ComentarioServicio {
 
@@ -33,36 +25,52 @@ public class ComentarioServicio {
     private UsuarioRepositorio usuarioRepositorio;
     @Autowired
     private PropiedadRepositorio propiedadRepositorio;
+     @Autowired
+    private PropietarioRepositorio propietarioRepositorio;
 
-    @Transactional
-    public void crearComentario(Integer id, Integer idUsuario, String coment, Integer calificacion) {
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
-        Cliente cliente = new Cliente();
-        if (respuesta.isPresent()) {
-            Usuario usuario = respuesta.get();
-            cliente = new Cliente(usuario.getId(), usuario.getNombre(), usuario.getNombreUsuario());
-        } else {
-            throw new UsernameNotFoundException("Usuario no encontrado");
+  @Transactional
+    public void crearComentario(Integer idPropiedad, Integer idCliente, String comentario, Integer calificacion) {
+        Optional<Propiedad> propiedadOpt = propiedadRepositorio.findById(idPropiedad);
+        if (!propiedadOpt.isPresent()) {
+            throw new IllegalArgumentException("No se encontró la propiedad con el ID proporcionado");
         }
+        Propiedad propiedad = propiedadOpt.get();
 
-        Optional<Propiedad> respuesta2 = propiedadRepositorio.findById(id);
-        Propietario propietario = new Propietario();
-        Propiedad propiedad = new Propiedad();
-        if (respuesta.isPresent()) {
-            Propiedad propiedad2 = respuesta2.get();
-            String nombrepropietario = propiedad.getPropietario().getNombre();
-            Integer idpropietario = propiedad.getPropietario().getId();
-            String nombreusuario = propiedad.getPropietario().getNombreUsuario();
-            propietario = new Propietario(idpropietario, nombrepropietario, nombreusuario);
-            propiedad = new Propiedad(propiedad2.getIdPropiedad(), propiedad2.getNombre(), propietario);
-        } else {
-            throw new UsernameNotFoundException("La propiedad no fue encontrada");
+        Optional<Usuario> clienteOpt = usuarioRepositorio.findById(idCliente);
+        if (!clienteOpt.isPresent() || !(clienteOpt.get() instanceof Cliente)) {
+            throw new IllegalArgumentException("No se encontró el cliente con el ID proporcionado");
         }
-        Comentario comentario = new Comentario(cliente, coment, calificacion, propiedad);
-
-        comentarioRepositorio.save(comentario);
-
+        Cliente cliente = (Cliente) clienteOpt.get();
+        Comentario nuevoComentario = new Comentario();
+        nuevoComentario.setPropiedad(propiedad);
+        nuevoComentario.setCliente(cliente);
+        nuevoComentario.setComentario(comentario);
+        nuevoComentario.setCalificacion(calificacion);
+        comentarioRepositorio.save(nuevoComentario);
+        propiedad.getComentarios().add(nuevoComentario);
+        propiedadRepositorio.save(propiedad);
+        cliente.getComentarios().add(nuevoComentario);
+        usuarioRepositorio.save(cliente);
     }
+    
+    
+    
+     private void validar(Integer id, Integer idUsuario, String coment, Integer calificacion) throws Exception {
+        if (id == null ) {
+            throw new Exception("El id de la propiedad no puede estar estar vacío");
+        }
+        if (idUsuario == null ) {
+            throw new Exception("El id de usuareio no puede estar estar vacío");
+        }
+        if (coment == null || coment.isEmpty()) {
+            throw new Exception("El coment no puede estar vacio");
+        }       
+        if (calificacion == null) {
+            throw new Exception("La calificacion no puede estar vacía");
+        }        
+    }
+    
+    
 
     public List<Comentario> listarComentarios() {
 
