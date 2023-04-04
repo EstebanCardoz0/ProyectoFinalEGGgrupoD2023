@@ -29,6 +29,32 @@ public class PropietarioControlador {
     @Autowired
     private PropiedadServicio propiedadServicio;
 
+    @GetMapping("/registrar")
+    public String registrar() {
+        return "/perfil";
+    }
+
+//    @PostMapping("/registro")
+//    public String registro(@RequestParam("nombre") String nombre, @RequestParam("nombreUsuario") String nombreUsuario,
+//            @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("password") String password2, @RequestParam("telefono") long telefono,
+//            @RequestParam("archivo") MultipartFile archivo, ModelMap modelo) throws Exception {
+//        try {
+//            usuarioServicio.registrar(nombre, nombreUsuario, email, password, password2, telefono, archivo);
+//            modelo.put("exito", "El usuario fue registrado correctamente!");
+//        } catch (Exception exception) {
+//            System.out.println(exception);
+//            modelo.put("nombre", nombre);
+//            modelo.put("nombreUsuario", nombreUsuario);
+//            modelo.put("telefono", telefono);
+//            modelo.put("email", email);
+//            modelo.put("password", password);
+//            modelo.put("password2", password2);
+//            modelo.put("archivo", archivo);
+//            modelo.put("error", "Verifique que los datos hayan sido cargado correctamente y el email no este registrado");
+//            return "registro";
+//        }
+//        return "registro";
+//    }
 //
 //    @PostMapping("/actualizar/{id}")
 //    public String actualizar(@PathVariable int id, @RequestParam("nombre") String nombre, @RequestParam("nombreUsuario") String nombreUsuario,
@@ -42,7 +68,6 @@ public class PropietarioControlador {
 //            return "Error";
 //        }
 //    }
-//
     @GetMapping("/listar")
     public String listar(ModelMap modelo) {
         List<Propietario> propietarios = propietarioServicio.listarPropietario();
@@ -68,7 +93,7 @@ public class PropietarioControlador {
         }
         return "redirect:/dashboardCliente";
     }
-    
+
     @RequestMapping("/altaBaja/{id}")
     public String altaBaja(@PathVariable int id) {
         propiedadServicio.bajaAlta(id);
@@ -93,4 +118,3 @@ public class PropietarioControlador {
 //    public String terminos() {
 //        return "terminos";
 //    }
-
