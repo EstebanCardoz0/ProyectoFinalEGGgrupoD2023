@@ -22,17 +22,9 @@ public class Controlador {
         return "dashboardCliente.html";
     }
 
-<<<<<<< HEAD
-//    @GetMapping("/index")
-//    public String index(ModelMap modelo) {
-//        return "index.html";
-//    }
-        @GetMapping("/dashboardCliente")
-    public String dashboardCliente(ModelMap modelo) {
-=======
     @GetMapping("/index")
     public String index(ModelMap modelo) {
->>>>>>> developer
+
         return "dashboardCliente.html";
     }
 
