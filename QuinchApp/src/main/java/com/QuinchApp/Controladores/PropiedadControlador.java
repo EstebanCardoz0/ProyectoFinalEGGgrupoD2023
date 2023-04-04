@@ -3,11 +3,11 @@ package com.QuinchApp.Controladores;
 import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Enums.PropiedadEnum;
 import com.QuinchApp.Enums.ServicioEnum;
-import com.QuinchApp.Repositorios.PropiedadRepositorio;
 import com.QuinchApp.Servicios.PropiedadServicio;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -27,9 +27,6 @@ public class PropiedadControlador {
 
     @Autowired
     private PropiedadServicio propiedadServicio;
-
-    @Autowired
-    private PropiedadRepositorio propiedadRepositorio;
 
     @GetMapping("/registroPropiedad")
     public String registrarPropiedad() {
@@ -73,9 +70,10 @@ public class PropiedadControlador {
         try {
             //   autenticacion que verifica cual es el usuario logueado y guarda el email
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            String idPropietario = userDetails.getUsername();
+            String email = userDetails.getUsername();
+            System.out.println("Email del usuario autenticado: " + email);
             propiedadServicio.registrarPropiedad(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad,
-                    idPropietario, imagenes, servicios);
+                    email, imagenes, servicios);
             modelo.put("exito", "La propiedad fue registrada correctamente!");
         } catch (Exception e) {
             System.out.println(e);
@@ -112,64 +110,33 @@ public class PropiedadControlador {
         return "actualizarPropiedad.html";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/listarPropiedades")
-    public String listarPropiedades(ModelMap modelo) {
-        List<Propiedad> propiedad = propiedadServicio.listarPropiedades();
+    public String listarPropiedades(ModelMap modelo, @Param("palabraClave") String palabraClave) {
+        List<Propiedad> propiedad = propiedadServicio.listarPropiedades(palabraClave);
         modelo.addAttribute("propiedad", propiedad);
-        return "index.html";
+        modelo.addAttribute("palabraClave", palabraClave);
+        return "listadoPropiedadesAdmin.html";
     }
 
-    @DeleteMapping("/borrarPropiedad/{id}")
+    @GetMapping("/borrarPropiedad/{id}")
     public String borrarPropiedad(@PathVariable int id) {
         try {
             propiedadServicio.borrar(id);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return "redirect:/propiedad/listarPropiedades";
+    }
+
+    @GetMapping("/verUbicacion/{id}")
+    public String verUbicacion(@PathVariable int id) {
+        try {
+            propiedadServicio.verUbicacion(id);
             return "Exito!";
         } catch (Exception e) {
             System.out.println(e);
             return "Error";
-        }
-    }
-
-//    @GetMapping("/propiedades/{id}/ubicacion")
-//    public String verUbicacionHtml(@PathVariable int id, Model model) {
-//        try {
-//            Optional<Propiedad> respuesta = propiedadRepositorio.findById(id);
-//            if (respuesta.isPresent()) {
-//                Propiedad propiedad = respuesta.get();
-//                String location = propiedad.getUbicacion();
-//                String mapLink = "https://www.google.com/maps?q=" + location.replace(" ", "+");
-//                model.addAttribute("mapLink", mapLink);
-//                return "mapLink";
-//            } else {
-//                model.addAttribute("error", "No se encontró la propiedad con ID " + id);
-//                return "error";
-//            }
-//        } catch (Exception e) {
-//            model.addAttribute("error", e.getMessage());
-//            return "error";
-//        }
-//    }
-//    @GetMapping("/verUbicacion/{id}")
-//    public String verUbicacion(@PathVariable int id) {
-//        try {
-//            propiedadServicio.verUbicacion(id);
-//            return "Exito!";
-//        } catch (Exception e) {
-//            System.out.println(e);
-//            return "Error";
-//        }
-//    }
-    @GetMapping("/propiedades/{id}/ubicacion")
-    public String verUbicacion(@PathVariable int id, Model model) {
-        try {
-            Propiedad propiedad = propiedadServicio.getOne(id);
-            String location = propiedad.getUbicacion();
-            String mapLink = "https://www.google.com/maps?q=" + location.replace(" ", "+");
-            model.addAttribute("mapLink", mapLink);
-            return "ubicacion-propiedad";
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return "error-page";
         }
     }
 
