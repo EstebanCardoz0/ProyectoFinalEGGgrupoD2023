@@ -94,13 +94,23 @@ public class PropiedadControlador {
         }
         return "registroPropiedad.html";
     }
-
-    @PostMapping("/actualizarPropiedad/{id}")
-    public String actualizarPropiedad(@PathVariable int id, @RequestParam("nombre") String nombre, @RequestParam("descripcion") String descripcion,
-            @RequestParam("valor") double valor, @RequestParam("capacidad") int capacidad,
-            @RequestParam("imagen") MultipartFile imagen, @RequestParam("servicio") ServicioEnum servicio, ModelMap modelo) {
+    
+    @GetMapping("/actualizarPropiedad/{id}")
+    public String modificarPropiedad(@PathVariable int id, ModelMap modelo) {
+        modelo.put("propiedad", propiedadServicio.getOne(id));
+        return "modificarPropiedad";
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROPIETARIO')")
+    @PostMapping("/actualizarPropiedad/{idPropiedad}")
+    public String actualizarPropiedad(@PathVariable("idPropiedad") int idPropiedad, @RequestParam("nombre") String nombre, @RequestParam("ubicacion") String ubicacion,
+            @RequestParam("descripcion") String descripcion, @RequestParam("valor") double valor, @RequestParam("capacidad") int capacidad,
+            @RequestParam("tipoDePropiedad") PropiedadEnum tipoDePropiedad, @RequestParam("imagen") List<MultipartFile> imagenes, @RequestParam("servicio") List<ServicioEnum> servicios, ModelMap modelo, Authentication authentication) {
         try {
-            propiedadServicio.actualizarPropiedad(id, nombre, descripcion, valor, capacidad, imagen, servicio);
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String email = userDetails.getUsername();
+            propiedadServicio.actualizarPropiedad(idPropiedad, nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad,
+                    imagenes, servicios);
             modelo.put("exito", "La propiedad fue actualizada correctamente!");
         } catch (Exception e) {
             System.out.println(e);
@@ -108,11 +118,11 @@ public class PropiedadControlador {
             modelo.put("descripcion", descripcion);
             modelo.put("valor", valor);
             modelo.put("capacidad", capacidad);
-            modelo.put("imagen", imagen);
-            modelo.put("servicio", servicio);
+            modelo.put("imagen", imagenes);
+            modelo.put("servicio", servicios);
             modelo.put("error", "Verifique que los datos hayan sido cargado correctamente.");
         }
-        return "actualizarPropiedad.html";
+        return "redirect:/dashboardCliente";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
@@ -132,17 +142,6 @@ public class PropiedadControlador {
             System.out.println(e);
         }
         return "redirect:/propiedad/listarPropiedades";
-    }
-
-    @GetMapping("/verUbicacion/{id}")
-    public String verUbicacion(@PathVariable int id) {
-        try {
-            propiedadServicio.verUbicacion(id);
-            return "Exito!";
-        } catch (Exception e) {
-            System.out.println(e);
-            return "Error";
-        }
     }
 
     @GetMapping("/detallePropiedad")
