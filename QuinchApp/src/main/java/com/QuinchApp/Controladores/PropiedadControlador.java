@@ -35,6 +35,11 @@ public class PropiedadControlador {
     public String index() {
         return "redirect: /detallePropiedad";
     }
+    
+    @GetMapping("/verPropiedad")
+    public String verPropiedad(){
+        return "vistaPropiedad.html";
+    }
 
 //    @PostMapping("/registroPropiedad")
 //public String registroPropiedad(@RequestParam("nombre") String nombre, @RequestParam("ubicacion") String ubicacion,
