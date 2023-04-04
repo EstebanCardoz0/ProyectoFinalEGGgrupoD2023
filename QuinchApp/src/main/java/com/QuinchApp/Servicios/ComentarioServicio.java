@@ -8,6 +8,7 @@ import com.QuinchApp.Entidades.Cliente;
 import com.QuinchApp.Entidades.Comentario;
 import com.QuinchApp.Repositorios.ComentarioRepositorio;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,20 +22,22 @@ public class ComentarioServicio {
     @Autowired
     private ComentarioRepositorio comentarioRepositorio;
 
+    @Transactional
     public void crearComentario(Comentario comentario) {
 
         comentarioRepositorio.save(comentario);
 
     }
-    
-    public void borrarComentario (int id){
-    
-    comentarioRepositorio.deleteById(id);
-    }
-    
-    public List <Comentario> listarComentarios(){
-    
+
+    public List<Comentario> listarComentarios() {
+
         return comentarioRepositorio.findAll();
+    }
+
+    @Transactional
+    public void borrarComentario(int id) {
+
+        comentarioRepositorio.deleteById(id);
     }
 
 }
