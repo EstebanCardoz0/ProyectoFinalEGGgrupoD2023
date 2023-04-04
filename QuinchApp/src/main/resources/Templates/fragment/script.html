@@ -38,6 +38,11 @@
     copyright=new Date();
     update=copyright.getFullYear();
     document.getElementById('Copyright').innerHTML="Copyright © " + update + " " + " - Quinchapp";
+    $('.carousel').carousel({
+  interval: 5000, // tiempo de transición entre imágenes
+  pause: "hover", // pausa la transición al pasar el mouse sobre el carrusel
+  wrap: true // permite que el carrusel "rebote" al llegar al final
+});
 
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
