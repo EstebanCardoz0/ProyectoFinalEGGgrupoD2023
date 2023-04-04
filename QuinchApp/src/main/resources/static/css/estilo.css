@@ -192,7 +192,6 @@ body{
 .button:active {
     background-color: #ffbf00;
 }
-
 .gradient-custom-2 {
 /* fallback for old browsers /
 background: #fccb90;
@@ -223,4 +222,3 @@ width: 100%;
     margin-left: auto;
 }
 }
-
