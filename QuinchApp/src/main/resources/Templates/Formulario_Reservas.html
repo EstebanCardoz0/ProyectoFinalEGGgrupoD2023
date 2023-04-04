@@ -1,3 +1,33 @@
+<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head th:replace="/fragment/head_cliente :: head"> </head>
+<body>
+    <div class="container-formReserva d-flex justify-content-center align-items-center rounded" style="height: 100vh">
+        <main class="form-signin w-100 m-auto">
+             <form th:action="@{/reserva/registro}" method="POST">
+                <h1 class="h3 mb-3 fw-normal">Reserva</h1>
+                <div class="mb-3">
+                    <label for="propiedad" class="form-label">Propiedad</label>
+                        <input type="text" class="form-control" name="propiedad" th:value="${param.propiedad}" readonly>
+                       agregar campo oculto 
+                  <input type="number" class="form-control" name="propiedad" th:value="${propiedad.idPropiedad}">
+                </div>
+                <div class="mb-3">
+                    <label for="cliente" class="form-label">Nombre Cliente</label>
+                    <input type="text" class="form-control" name="cliente" th:if='${session.usuariosession != null}' th:value="${session.usuariosession.nombreUsuario}">
+                </div>
+                <div class="mb-3">
+                    <label for="fechaInicio" class="form-label">Fecha del Evento</label>
+                    <input type="date" class="form-control" name="fechaInicio">
+                </div>
+
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Reservar</button>
+            </form>
+        </main>
+    </div>
+    <div th:replace = "/fragment/footer :: div"></div>
+    <div th:replace = "/fragment/script :: script"></div>
+</body>
+</html>-->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <head>
     <meta charset="utf-8">

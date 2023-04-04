@@ -29,6 +29,7 @@ public class Controlador {
     public String index(ModelMap modelo) {
         return "redirect:/propiedad/detallePropiedad";
     }
+    
 
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, String email, String password, ModelMap modelo) {

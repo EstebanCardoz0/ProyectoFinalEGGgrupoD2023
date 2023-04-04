@@ -1,26 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head th:replace="/fragment/head_cliente :: head"> </head>
-<header th:replace="/fragment/nuevo :: div"> </header>
-
-<body class="sb-nav-fixed">
-    <div id="layoutSidenav_content">
-        <main>
-            <div class="container-fluid px-4">
-                <br>
-                <br>
-                <h1 class="mt-4">
-                    <p>Bienvenido </p>
-                    <p th:text="${session.usuariosession.nombreUsuario}"></p>
-                </h1>
-                <div class="row">
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-primary text-white mb-4">
-                            <div class="card-body">Reservas</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="/reserva/registrar">Ver mas...</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+    <head th:replace="/fragment/head_cliente :: head"> </head>
+    <header th:replace="/fragment/nuevo :: div"> </header>
+    <body class="sb-nav-fixed">
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <br>
+                    <br>
+                    <h1 class="mt-4"><p>Bienvenido </p> <p th:text="${session.usuariosession.nombreUsuario}"></p> </h1>
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-primary text-white mb-4">
+                                <div class="card-body">Mis Reservas</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="/reserva/registrar">Ver mas...</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -32,14 +28,13 @@
                                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6"
-                        th:if="${#authorization.expression('hasRole(''ROLE_PROPIETARIO'')')}">
-                        <div class="card bg-warning text-white mb-4">
-                            <div class="card-body">Ver todas mis propiedades</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">Ver mas...</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        <div class="col-xl-3 col-md-6"  th:if="${#authorization.expression('hasRole(''ROLE_PROPIETARIO'')')}">
+                            <div class="card bg-warning text-white mb-4">
+                                <div class="card-body">Ver todas mis propiedades</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" th:href="@{propietario/verPropiedadesPr/__${session.usuariosession.id}__}">Ver mas...</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -122,10 +117,12 @@
                         </div>
                     </div>
                 </div>
-        </main>
-    </div>
-    <div th:replace="/fragment/footerControl :: div"></div>
-    <div th:replace="/fragment/script-cliente :: script"></div>
-</body>
-
+            </main>
+        </div>
+      <div th:replace="/fragment/footerControl :: div"></div>
+        <div th:replace = "/fragment/script-cliente :: script"></div>
+    </body>
 </html>
+
+
+
