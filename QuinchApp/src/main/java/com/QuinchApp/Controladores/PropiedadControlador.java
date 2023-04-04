@@ -37,9 +37,11 @@ public class PropiedadControlador {
     public String index() {
         return "redirect: /detallePropiedad";
     }
-    
+
     @GetMapping("/verPropiedad/{id}")
-    public String verPropiedad(){
+    public String verPropiedad(@PathVariable int id, ModelMap modelo) {
+        Propiedad propiedad = propiedadServicio.getOne(id);
+        modelo.addAttribute("propiedad", propiedad);
         return "vistaPropiedad.html";
     }
 
