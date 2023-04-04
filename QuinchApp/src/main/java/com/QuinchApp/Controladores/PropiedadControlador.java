@@ -38,7 +38,7 @@ public class PropiedadControlador {
         return "redirect: /detallePropiedad";
     }
     
-    @GetMapping("/verPropiedad")
+    @GetMapping("/verPropiedad/{id}")
     public String verPropiedad(){
         return "vistaPropiedad.html";
     }
