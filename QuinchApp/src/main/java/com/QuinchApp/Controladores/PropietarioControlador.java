@@ -85,5 +85,5 @@ public class PropietarioControlador {
 //    public String terminos() {
 //        return "terminos";
 //    }
-
+ 
 }
