@@ -46,6 +46,8 @@ public class Propiedad {
     @ElementCollection
     @Enumerated(EnumType.STRING)
     private List<ServicioEnum> servicios = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comentario> comentarios;
 
     public Propiedad() {
     }
@@ -85,5 +87,12 @@ public class Propiedad {
     public void removeImagen(Imagen imagen) {
         imagenes.remove(imagen);
     }
+
+    public Propiedad(Integer idPropiedad, String nombre, Propietario propietario) {
+        this.idPropiedad = idPropiedad;
+        this.nombre = nombre;
+        this.propietario = propietario;
+    }
+    
 
 }

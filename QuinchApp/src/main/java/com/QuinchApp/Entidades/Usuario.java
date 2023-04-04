@@ -54,5 +54,12 @@ public class Usuario {
         this.activo = activo;
     }
 
+    public Usuario(Integer id, String nombre, String nombreUsuario) {
+        this.id = id;
+        this.nombre = nombre;
+        this.nombreUsuario = nombreUsuario;
+    }
+    
+
 }
 

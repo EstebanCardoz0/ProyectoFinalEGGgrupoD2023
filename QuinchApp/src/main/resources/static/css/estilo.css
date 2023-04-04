@@ -36,8 +36,16 @@ body{
     background-color: #2A0A1B !important;
     opacity: 0.9; 
     padding: 4%;
-    position: absolute;
-    width: -webkit-fill-available;
+    position: absolute !important;
+    width: -webkit-fill-available !important;
+}
+
+#CopyrightControl{
+    background-color: #2A0A1B !important;
+    opacity: 0.9; 
+    padding: 4%;
+    position: inherit !important;
+    width: -webkit-fill-available !important;
 }
 
 .container1{
