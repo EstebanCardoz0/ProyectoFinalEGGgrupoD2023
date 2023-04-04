@@ -14,6 +14,8 @@ public class Cliente extends Usuario {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reserva> reserva;
+     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comentario> comentarios;
 
     public Cliente() {
     }
@@ -45,4 +47,9 @@ public class Cliente extends Usuario {
                 ", activo=" + isActivo() +
                 '}';
     }
+
+    public Cliente(Integer id, String nombre, String nombreUsuario) {
+        super(id, nombre, nombreUsuario);
+    }
+    
 }
