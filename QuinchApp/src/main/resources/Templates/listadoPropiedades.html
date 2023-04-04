@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="/fragment/head_cliente :: head"> </head>
+    <header th:replace="/fragment/nuevo :: div"> </header>
+    <body>
+        <div class="col-sm-10 col-md-10">
+            <div class="well">
+                <h1>Todas las propiedades</h1>
+                <div class="container text-center">
+                    <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group" role="group" aria-label="First group">
+                            <div>  
+                                <form class="form-inline my-2 my-lg-0" th:action="@{/usuario/listar}">
+                                    <input class="form-control mr-sm-2" type="text" placeholder="Buscar usuario" name="palabraClave" th:value="${palabraClave}" aria-label="Search" required>
+                                    <button id="btn4" class="btnBuscar btn-material" type="submit" value="Buscar">Buscar</button>
+                                    <button id="btn4" class="btnLimpiar btn-material" type="button" value="Limpiar" onclick="limpiar()">Limpiar</button>
+                                </form>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+                <br>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Nombre de Usuario</th>
+                                <th>Email</th>
+                                <th>Telefono</th>
+                                <th>Perfil</th>
+                                <th>Fecha</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="usuario:${usuario}" th:class="${usuario.activo} == false ? 'fila-roja' : ''">
+                                <td th:text="${usuario.nombre}"></td>
+                                <td th:text="${usuario.nombreUsuario}"></td>
+                                <td th:text="${usuario.email}"></td>
+                                <td th:text="${usuario.telefono}"></td>
+                                <td th:text="${usuario.rol}"></td>
+                                <td th:text="${usuario.fechaAlta}"></td>
+                                <td>
+                                    <a  th:href= "@{/usuario/borrar/__${usuario.id}__/__${usuario.rol}__}" ></i> Eliminar</a>                                  
+                                </td>
+                                <td> 
+                                    <a  th:href="@{'/usuario/altaBaja/' + ${usuario.id}}" th:text="${usuario.activo} == false ? 'ALTA' : 'BAJA'">  </a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div th:if="${error != null}" class="alert alert-danger" role="alert">
+                        <p class="MensajeError" th:text="${error}"></p>
+                    </div>
+                    <div th:if="${exito != null}" class="alert alert-success" role="alert">
+                        <p class="MensajeExito" th:text="${exito}"></p>
+                    </div>
+                </div>  
+            </div>
+        </div>
+        <div th:replace = "/fragment/footer :: div"></div>
+        <div th:replace = "/fragment/script-cliente :: script"></div>                     
+    </body>
+</html>

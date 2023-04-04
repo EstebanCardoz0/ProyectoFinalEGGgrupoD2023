@@ -69,4 +69,8 @@ public class ImagenServicio {
             throw new Exception("El archivo no puede estar vacio");
         }
     }
+
+    public Imagen getOne(int id) {
+        return imagenRepositorio.getOne(id);
+    }
 }

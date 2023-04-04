@@ -7,6 +7,7 @@ import com.QuinchApp.Repositorios.ClienteRepositorio;
 import com.QuinchApp.Repositorios.PropiedadRepositorio;
 import com.QuinchApp.Repositorios.ReservaRepositorio;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -26,31 +27,42 @@ public class ReservaServicio {
     @Autowired
     private PropiedadRepositorio propiedadRepositorio;
 
-    @Transactional
-    public void registrar(String fechaInicio, String fechaSalida, int propiedad, String cliente) throws Exception {
-        Reserva reserva = new Reserva();
-        Cliente usuarioCliente = clienteRepositorio.buscarPorEmail(cliente);
-        if (usuarioCliente.isActivo()) {
-            reserva.setCliente(usuarioCliente);
-        }
-        Propiedad propiedadReserva = new Propiedad();
-<<<<<<< HEAD
-         Optional<Propiedad> propiedadHaReservar = propiedadRepositorio.buscarPorIdPropiedad(propiedad);
-=======
-        Optional<Propiedad> propiedadHaReservar = propiedadRepositorio.buscarPorIdPropiedad(propiedad);
->>>>>>> developer
-        if (propiedadHaReservar.isPresent()) {
-            propiedadReserva = propiedadHaReservar.get();
-        }
-        boolean activo = Boolean.TRUE;
-        reserva.setConfirmada(activo);
-        Date fechaDeInicio = new SimpleDateFormat("yyyy-MM-dd").parse(fechaInicio);
-        reserva.setFechaInicio(fechaDeInicio);
-        Date fechaDeSalida = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSalida);
-        reserva.setFechaSalida(fechaDeSalida);
-        reserva.setPropiedad(propiedadReserva);
-        reservaRepositorio.save(reserva);
+  @Transactional
+public void registrar(String fechaInicio, String fechaSalida, int propiedad, String cliente) throws Exception {
+    Reserva reserva = new Reserva();
+    Cliente usuarioCliente = clienteRepositorio.buscarPorEmail(cliente);
+    if (usuarioCliente == null) {
+        throw new Exception("No existe el cliente");
     }
+    if (!usuarioCliente.isActivo()) {
+        throw new Exception("El cliente no está activo");
+    }
+    reserva.setCliente(usuarioCliente);
+
+    Propiedad propiedadReserva = propiedadRepositorio.buscarPorIdPropiedad(propiedad)
+        .orElseThrow(() -> new Exception("No existe la propiedad"));
+
+    boolean activo = Boolean.TRUE;
+    reserva.setConfirmada(activo);
+
+    Date fechaDeInicio = new SimpleDateFormat("yyyy-MM-dd").parse(fechaInicio);
+    reserva.setFechaInicio(fechaDeInicio);
+
+    Date fechaDeSalida = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSalida);
+    reserva.setFechaSalida(fechaDeSalida);
+
+    reserva.setPropiedad(propiedadReserva);
+
+    List<Reserva> reservasCliente = usuarioCliente.getReservas();
+    if (reservasCliente == null) {
+        reservasCliente = new ArrayList<>();
+        usuarioCliente.setReservas(reservasCliente);
+    }
+
+    reservasCliente.add(reserva);
+
+    reservaRepositorio.save(reserva);
+}
 
     @Transactional
     public void actualizar(Integer id, Date FechaSalida, Propiedad propiedad, Cliente Cliente, Boolean confirmada) throws Exception {
