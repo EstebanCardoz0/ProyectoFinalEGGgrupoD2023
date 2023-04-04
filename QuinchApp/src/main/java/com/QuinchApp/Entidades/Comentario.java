@@ -31,7 +31,7 @@ public class Comentario {
     private Integer idComentario;
     
 //    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private Cliente cliente;
+//    private Cliente cliente;
     private String comentario;
     private Integer calificacion;
 
