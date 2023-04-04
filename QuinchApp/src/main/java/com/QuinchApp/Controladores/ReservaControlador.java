@@ -27,13 +27,13 @@ public class ReservaControlador {
 
     @Autowired
     private ReservaServicio reservaServicio;
-    
+
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
-    
+
     @Autowired
     private PropiedadServicio propiedadServicio;
-    
+
     @GetMapping("/registrar/{id}")
     public String registrar(@PathVariable int id, ModelMap modelo, HttpSession session) {
         Usuario cliente = (Usuario) session.getAttribute("usuariosession");
@@ -43,23 +43,29 @@ public class ReservaControlador {
     }
 
     @PostMapping("/registro")
-    public String regristro(@RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaSalida") String fechaSalida, @RequestParam("propiedad" ) String propiedad, ModelMap modelo,  Authentication authentication ) throws Exception {
+    public String regristro(@RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaSalida") String fechaSalida, @RequestParam("propiedad") int propiedadId, ModelMap modelo, Authentication authentication) throws Exception {
         try {
-//autenticacion que verifica cual es el usuario logueado y guarda el email
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String idCliente = userDetails.getUsername();
-            reservaServicio.registrar(fechaInicio, fechaSalida, propiedad, idCliente);
-            modelo.put("exito", "La reserva fue registrada correctamente!");
-            return "dashboardCliente";
-        } catch (Exception ex) {
-            System.out.println(ex);
-            modelo.put("error", ex.getMessage());
-            modelo.put("fechaInicio", fechaInicio);
-            modelo.put("fechaSalida", fechaSalida);
-            modelo.put("idPropiedad", propiedad);
-            modelo.put("error", "Verifique que los datos hayan sido cargado correctamente");
+        String idCliente = userDetails.getUsername();        
+                    System.out.println("propiedadId: " + propiedadId);
+
+        Propiedad propiedad = propiedadServicio.getOne(propiedadId);
+        if (propiedad == null) {
+            modelo.put("error", "No se pudo obtener la propiedad correctamente.");
             return "Formulario_Reservas";
-        }
+        }        
+        reservaServicio.registrar(fechaInicio, fechaSalida, propiedad.getIdPropiedad(), idCliente);
+        modelo.put("exito", "La reserva fue registrada correctamente!");
+        return "dashboardCliente";
+    } catch (Exception ex) {
+        System.out.println(ex);
+        modelo.put("error", ex.getMessage());
+        modelo.put("fechaInicio", fechaInicio);
+        modelo.put("fechaSalida", fechaSalida);
+        modelo.put("idPropiedad", propiedadId);
+        modelo.put("error", "Verifique que los datos hayan sido cargado correctamente");
+        return "Formulario_Reservas";
+    }
     }
 
     @GetMapping("/modificarUno/{id}")

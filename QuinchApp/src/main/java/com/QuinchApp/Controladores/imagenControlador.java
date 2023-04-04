@@ -3,6 +3,7 @@ package com.QuinchApp.Controladores;
 import com.QuinchApp.Entidades.Imagen;
 import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Usuario;
+import com.QuinchApp.Servicios.ImagenServicio;
 import com.QuinchApp.Servicios.PropiedadServicio;
 import com.QuinchApp.Servicios.UsuarioServicio;
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class imagenControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+    @Autowired
+    private ImagenServicio imagenServicio;
     @Autowired
     private PropiedadServicio propiedadServicio;
 
@@ -51,14 +54,12 @@ public class imagenControlador {
 ////
     @GetMapping("/imgPropiedad/{id}")
     public ResponseEntity<byte[]> imagenPropiedad(@PathVariable Integer id) {
-        Propiedad propiedad = propiedadServicio.getOne(id);
-        List<Imagen> imagenes = propiedad.getImagenes();
-               Imagen imagen = imagenes.get(0);
-        byte[] imagenPropiedad = imagen.getContenido();
+        Imagen imagen = imagenServicio.getOne(id);
+        byte[] contenidoImagen = imagen.getContenido();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
-        headers.setContentLength(imagenPropiedad.length);
-        return new ResponseEntity<byte[]>(imagenPropiedad, headers, HttpStatus.OK);
+        headers.setContentLength(contenidoImagen.length);
+        return new ResponseEntity<byte[]>(contenidoImagen, headers, HttpStatus.OK);
     }
 //    
 //    
@@ -79,9 +80,6 @@ public class imagenControlador {
 //    return responseEntityList;
 //}
 
-    
-    
-    
 //    @GetMapping("/imgPropiedad/{id}")
 //public ResponseEntity<List<byte[]>> imagenPropiedad(@PathVariable Integer id) {
 //    Propiedad propiedad = propiedadServicio.getOne(id);
@@ -93,5 +91,4 @@ public class imagenControlador {
 //    headers.setContentType(MediaType.IMAGE_JPEG);
 //    return new ResponseEntity<List<byte[]>>(bytesImagenes, headers, HttpStatus.OK);
 //}
-
 }
