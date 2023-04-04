@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en">
+    <head > 
+        <link href="/css/estilo_propiedad.css" rel="stylesheet" />
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">  
+        <link rel="stylesheet" th:href="@{/css/estilo.css}">
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
+    </head>
+    <body>
+        <header th:replace="/fragment/navbar :: div"></header>
+
+
+        <section id="services" class="services section-bg">
+            <br><br><br>
+            <div class="container-fluid">
+
+                <div class="row row-sm">
+                    <div class="col-md-6 _boxzoom">
+                        <div class="zoom-thumb">
+                            <ul class="piclist">
+                                <li><img src="https://s.fotorama.io/1.jpg" alt=""></li>
+                                <li><img src="https://s.fotorama.io/2.jpg" alt=""></li>
+                                <li><img src="https://s.fotorama.io/3.jpg" alt=""></li>
+                                <li><img src="https://ucarecdn.com/382a5139-6712-4418-b25e-cc8ba69ab07f/-/stretch/off/-/resize/760x/" alt=""></li>
+                            </ul>
+                        </div>
+                        <div class="_product-images">
+                            <div class="picZoomer">
+                                <img class="my_img" src="https://s.fotorama.io/1.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="_product-detail-content">
+                            <p class="_p-name"> Quincho </p>
+                            <div class="_p-price-box">
+                                <div class="p-list">
+                                    <span> M.R.P. : <i class="fa fa-inr"></i> <del> 1399  </del>   </span>
+                                    <span class="price"> Rs. 699 </span>
+                                </div>
+                                <div class="_p-features">
+                                    <span> Descripción </span>
+                                    Solid color polyester/linen full blackout thick sunscreen floor curtain
+                                    Type: General Pleat
+                                    Applicable Window Type: Flat Window
+                                    Format: Rope
+                                    Opening and Closing Method: Left and Right Biparting Open
+                                    Processing Accessories Cost: Included
+                                    Installation Type: Built-in
+                                    Function: High Shading(70%-90%)
+                                    Material: Polyester / Cotton
+                                    Style: Classic
+                                    Pattern: Embroidered
+                                    Location: Window
+                                    Technics: Woven
+                                    Use: Home, Hotel, Hospital, Cafe, Office
+                                    Feature: Blackout, Insulated, Flame Retardant
+                                    Place of Origin: India
+                                    Name: Curtain
+                                    Usage: Window Decoration
+                                    Keywords: Ready Made Blackout Curtain                        
+                                </div>
+                                <form action="" method="post" accept-charset="utf-8">
+                                    <ul class="spe_ul"></ul>
+                                    <div class="_p-qty-and-cart">
+                                        <div class="_p-add-cart">
+                                            <button class="btn-theme btn btn-success" tabindex="0">
+                                                <i class="fa fa-shopping-cart"></i> Reservar
+                                            </button>
+                                            <input type="hidden" name="pid" value="18" />
+                                            <input type="hidden" name="price" value="850" />
+                                            <input type="hidden" name="url" value="" />    
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-5 col-md-6 col-12 pb-4">
+                        <h1>Comentarios</h1>
+                        <div class="comment mt-4 text-justify float-left">
+                            <img src="https://i.imgur.com/yTFUilP.jpg" alt="" class="rounded-circle" width="40" height="40">
+                            <h4>Jhon Doe</h4>
+                            <span>- 20 October, 2018</span>
+                            <br>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus numquam assumenda hic aliquam vero sequi velit molestias doloremque molestiae dicta?</p>
+                        </div>
+                        <div class="text-justify darker mt-4 float-right">
+                            <img src="https://i.imgur.com/CFpa3nK.jpg" alt="" class="rounded-circle" width="40" height="40">
+                            <h4>Rob Simpson</h4>
+                            <span>- 20 October, 2018</span>
+                            <br>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus numquam assumenda hic aliquam vero sequi velit molestias doloremque molestiae dicta?</p>
+                        </div>
+                        <div class="comment mt-4 text-justify">
+                            <img src="https://i.imgur.com/yTFUilP.jpg" alt="" class="rounded-circle" width="40" height="40">
+                            <h4>Jhon Doe</h4>
+                            <span>- 20 October, 2018</span>
+                            <br>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus numquam assumenda hic aliquam vero sequi velit molestias doloremque molestiae dicta?</p>
+                        </div>
+                        <div class="darker mt-4 text-justify">
+                            <img src="https://i.imgur.com/CFpa3nK.jpg" alt="" class="rounded-circle" width="40" height="40">
+                            <h4>Rob Simpson</h4>
+                            <span>- 20 October, 2018</span>
+                            <br>
+                            <p >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus numquam assumenda hic aliquam vero sequi velit molestias doloremque molestiae dicta?</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
+                        <form id="algin-form">
+                            <div class="form-group">
+                                <h4>Deja tu opinion!</h4>
+                                <label for="message">Comentario</label>
+                                <textarea name="msg" id=""msg cols="30" rows="5" class="form-control" style="background-color: transparent;"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Nombre</label>
+                                <input type="text" name="name" id="fullname" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="clasificacion">Calificacion</label>
+                                <p class="clasificacion">
+                                    <input id="radio1" type="radio" name="estrellas" value="5"><!--
+                                    --><label for="radio1">★</label><!--
+                                    --><input id="radio2" type="radio" name="estrellas" value="4"><!--
+                                    --><label for="radio2">★</label><!--
+                                    --><input id="radio3" type="radio" name="estrellas" value="3"><!--
+                                    --><label for="radio3">★</label><!--
+                                    --><input id="radio4" type="radio" name="estrellas" value="2"><!--
+                                    --><label for="radio4">★</label><!--
+                                    --><input id="radio5" type="radio" name="estrellas" value="1"><!--
+                                    --><label for="radio5">★</label>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" id="post" class="btn">Publicar comentario</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div th:replace = "/fragment/footer :: div"></div>
+        <div th:replace = "/fragment/script :: script"></div>
+    </body>
+</html>
