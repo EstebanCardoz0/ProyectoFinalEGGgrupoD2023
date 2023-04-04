@@ -36,7 +36,8 @@ body{
     background-color: #2A0A1B !important;
     opacity: 0.9; 
     padding: 4%;
-    position: inherit;
+    position: absolute;
+    width: -webkit-fill-available;
 }
 
 .container1{
