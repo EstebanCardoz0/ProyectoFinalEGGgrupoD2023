@@ -151,7 +151,6 @@
                 <div class="row" id="cardsPropiedades" th:if="${not #lists.isEmpty(CASA_QUINTA)}">
                     <h2 class="fw-bolder mb-4">CASA QUINTA</h2>
                     <div th:each="propiedad : ${CASA_QUINTA}" class="col-sm-6 col-lg-4" >
-<<<<<<< HEAD
                                 <div class="meal">
                                 <div class="meal-image">
                                     <img th:src="@{'/imagen/imgPropiedad/' + ${propiedad.imagenes[0].idImagen}}" class="d-block w-100" alt="Imagen de la propiedad" data-bs-toggle="modal" th:data-bs-target="'#carouselModal-' + ${propiedad.idPropiedad}" />
@@ -190,7 +189,6 @@
                                 </div>
                                 <div th:replace="/fragment/botonVerPropiedad :: div"></div>
                             </div>    
-=======
                         <div class="meal">
 
                             <img th:src="@{/imagen/imgPropiedad/__${propiedad.idPropiedad}__}" class="meal-img" alt="Japanese Gyozas" />
@@ -230,7 +228,6 @@
                             <div th:replace="/fragment/botonVerPropiedad :: div"></div>
                         </div>
                     </div>
->>>>>>> developer
                 </div>            
             </div>
             <div th:replace = "/fragment/footer :: div"></div>
