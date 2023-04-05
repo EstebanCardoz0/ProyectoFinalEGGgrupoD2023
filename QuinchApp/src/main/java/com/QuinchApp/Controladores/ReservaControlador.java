@@ -43,21 +43,28 @@ public class ReservaControlador {
     }
 
     @PostMapping("/registro")
-    public String regristro(@RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaSalida") String fechaSalida, @RequestParam("propiedad") int propiedad, ModelMap modelo, Authentication authentication) throws Exception {
+    public String regristro(@RequestParam("fechaDelEvento") String fechaDelEvento, @RequestParam("propiedad") int propiedadId, ModelMap modelo, Authentication authentication, HttpSession session) throws Exception {
         try {
-            //autenticacion que verifica cual es el usuario logueado y guarda el email
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String idCliente = userDetails.getUsername();
-            reservaServicio.registrar(fechaInicio, fechaSalida, propiedad, idCliente);
+            System.out.println("propiedadId: " + propiedadId);
+            Propiedad propiedad = propiedadServicio.getOne(propiedadId);
+            if (propiedad == null) {
+                modelo.put("error", "No se pudo obtener la propiedad correctamente.");
+                return "Formulario_Reservas";
+            }
+            reservaServicio.registrar(fechaDelEvento, propiedad.getIdPropiedad(), idCliente);
             modelo.put("exito", "La reserva fue registrada correctamente!");
             return "dashboardCliente";
         } catch (Exception ex) {
             System.out.println(ex);
+            Usuario cliente = (Usuario) session.getAttribute("usuariosession");
+            modelo.put("propiedad", propiedadServicio.getOne(propiedadId));
+            modelo.put("cliente", cliente);
             modelo.put("error", ex.getMessage());
-            modelo.put("fechaInicio", fechaInicio);
-            modelo.put("fechaSalida", fechaSalida);
-            modelo.put("idPropiedad", propiedad);
-            modelo.put("error", "Verifique que los datos hayan sido cargado correctamente");
+            modelo.put("fechaDelEvento", fechaDelEvento);
+            modelo.put("idPropiedad", propiedadId);
+            modelo.put("error", "La fecha no esta disponible, por favor elija otro dia.");
             return "Formulario_Reservas";
         }
     }
@@ -69,10 +76,10 @@ public class ReservaControlador {
     }
 
     @PostMapping("/modificar/{id}")
-    public String modificar(@PathVariable Integer id, @RequestParam("FechaSalida") Date FechaSalida, @RequestParam("propiedad") Propiedad propiedad,
+    public String modificar(@PathVariable Integer id, @RequestParam("fechaDelEvento") Date fechaDelEvento, @RequestParam("propiedad") Propiedad propiedad,
             @RequestParam("cliente") Cliente cliente, Boolean confirmada, ModelMap modelo) throws Exception {
         try {
-            reservaServicio.actualizar(Integer.SIZE, FechaSalida, propiedad, cliente, confirmada);
+            reservaServicio.actualizar(Integer.SIZE, fechaDelEvento, propiedad, cliente, confirmada);
             return "redirect:../listar";
         } catch (Exception e) {
             modelo.put("error", e.getMessage());

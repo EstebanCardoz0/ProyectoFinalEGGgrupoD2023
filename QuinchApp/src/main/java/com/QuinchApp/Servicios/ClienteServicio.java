@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.QuinchApp.Servicios;
 
 import com.QuinchApp.Entidades.Cliente;
@@ -19,10 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- *
- * @author Esteban
- */
 @Service
 public class ClienteServicio {
 
@@ -39,7 +30,6 @@ public class ClienteServicio {
         cliente.setNombre(nombre);
         cliente.setNombreUsuario(nombreCliente);
         cliente.setEmail(email);
-        //usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         cliente.setPassword(password);
         cliente.setRol(Rol.CLIENTE);
         cliente.setTelefono(telefono);
@@ -51,7 +41,7 @@ public class ClienteServicio {
         cliente.setFotoPerfil(miImagen);
         clienteRepositorio.save(cliente);
     }
-//preguntar como es el required para RESERVA
+
     @Transactional
     public void actualizar(Reserva reserva, int id, String nombre, String nombreCliente, String email, String password, long telefono, MultipartFile archivo) throws Exception {
         if (id < 0) {
