@@ -36,7 +36,16 @@ body{
     background-color: #2A0A1B !important;
     opacity: 0.9; 
     padding: 4%;
-    position: inherit;
+    position: absolute !important;
+    width: 100%
+}
+
+#CopyrightControl{
+    background-color: #2A0A1B !important;
+    opacity: 0.9; 
+    padding: 4%;
+    position: inherit !important;
+    width: 100%
 }
 
 .container1{
