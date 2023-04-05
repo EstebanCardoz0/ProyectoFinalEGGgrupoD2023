@@ -41,6 +41,7 @@ public class ReservaControlador {
         modelo.put("cliente", cliente);
         return "Formulario_Reservas.html";
     }
+    
 
     @PostMapping("/registro")
     public String regristro(@RequestParam("fechaDelEvento") String fechaDelEvento, @RequestParam("propiedad") int propiedadId, ModelMap modelo, Authentication authentication, HttpSession session) throws Exception {
