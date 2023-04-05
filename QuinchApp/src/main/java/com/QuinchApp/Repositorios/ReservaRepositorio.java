@@ -18,5 +18,14 @@ public interface ReservaRepositorio extends JpaRepository<Reserva, Integer> {
             + "LOWER(CONCAT(r.idReserva, r.propiedad.nombre, r.cliente.nombre ), r.fechaDelEvento, r.confirmada) "
             + "LIKE LOWER(CONCAT('%', :name, '%'))")
     public List<Reserva> findAll(@Param("name") String palabraClave);
+    
+    @Query("SELECT r FROM Reserva r WHERE r.cliente.id = :idCliente AND "
+        + "LOWER(CONCAT(r.idReserva, r.propiedad.nombre, r.cliente.nombre ), r.fechaDelEvento, r.confirmada) "
+        + "LIKE LOWER(CONCAT('%', :palabraClave, '%'))")
+public List<Reserva> findAllByClienteIdAndPalabraClave(@Param("idCliente") Long idCliente, @Param("palabraClave") String palabraClave);
+
+@Query("SELECT r FROM Reserva r WHERE r.cliente.id = :idCliente")
+public List<Reserva> findAllByClienteId(@Param("idCliente") Long idCliente);
+
 
 }
