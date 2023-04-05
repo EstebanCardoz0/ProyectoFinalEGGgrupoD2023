@@ -47,48 +47,6 @@
                                     <a th:href="@{'https://www.google.com/maps/search/?api=1&query=' + ${propiedad.ubicacion}}" target="_blank" th:text="${propiedad.ubicacion}"></a>
                                     </li>
                                     <li class="meal-attribute">
-                                    <ion-icon name='person-outline'  class="meal-icon"></ion-icon>      
-                                    <strong th:text=" 'Capacidad: '"></strong>
-                                    <span th:text="  ${propiedad.capacidad} "> </span>
-                                    </li>
-                                    <li class="meal-attribute">
-                                    <ion-icon class="meal-icon" name="restaurant-outline"></ion-icon>
-                                    <strong th:text=" 'Servicio: '"></strong> 
-                                    <span th:text="  ${propiedad.servicios} "> </span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div th:replace="/fragment/botonSolicitarReserva :: div"></div>
-                        </div>
-                    </div>
-                    <!--     <div id="pagination-container"></div>-->
-                </div>
-                <div class="row" id="cardsPropiedades" th:if="${not #lists.isEmpty(CASA_QUINTA)}">
-                    <h2 class="fw-bolder mb-4">CASA QUINTA</h2>
-                    <div th:each="propiedad : ${CASA_QUINTA}" class="col-sm-6 col-lg-4" >
-                        <div class="meal">
-                            <img th:src="@{/imagen/imgPropiedad/__${propiedad.idPropiedad}__}" class="meal-img" alt="Japanese Gyozas" />
-                            <div class="meal-content">
-                                <div class="meal-tags">
-                                    <span class="tag tag--vegetarian" th:text="${propiedad.tipoDePropiedad}"></span>
-                                </div>
-                                <p class="meal-title" th:text="${propiedad.nombre}"></p>
-                                <ul class="meal-attributes">
-                                    <li class="meal-attribute">
-                                    <ion-icon name='cash-outline' class="meal-icon" ></ion-icon>
-                                    <span th:text=" '$' + ${propiedad.valor} "><strong></strong> </span>
-                                    </li>
-                                    <li class="meal-attribute">
-                                    <ion-icon name='reader-outline' class="meal-icon" ></ion-icon>
-                                    <strong th:text=" 'Descrpcion: '"></strong>
-                                    <span th:text="  ${propiedad.Descripcion} "> </span>
-                                    </li>
-                                    <li class="meal-attribute">
-                                    <ion-icon name='earth-sharp'  class="meal-icon"></ion-icon>
-                                    <strong th:text=" 'Ubicacion: '"></strong>
-                                    <a th:href="@{'https://www.google.com/maps/search/?api=1&query=' + ${propiedad.ubicacion}}" target="_blank" th:text="${propiedad.ubicacion}"></a>
-                                    </li>
-                                    <li class="meal-attribute">
                                     <ion-icon name='person-outline' class="meal-icon"></ion-icon>
                                     <strong th:text=" 'Capacidad: '"></strong>
                                     <span th:text="  ${propiedad.capacidad} "> </span>
@@ -121,36 +79,6 @@
                                         </button>
                                     </div>
                                 </div>
-<<<<<<< HEAD
-                                <p class="meal-title" th:text="${propiedad.nombre}"></p>
-                                <ul class="meal-attributes">
-                                    <li class="meal-attribute">
-                                    <ion-icon name='cash-outline' class="meal-icon" ></ion-icon>
-                                    <span th:text=" '$' + ${propiedad.valor} "><strong></strong> </span>
-                                    </li>
-                                    <li class="meal-attribute">
-                                    <ion-icon name='reader-outline' class="meal-icon" ></ion-icon>
-                                    <strong th:text=" 'Descrpcion: '"></strong>
-                                    <span th:text="  ${propiedad.Descripcion} "> </span>
-                                    </li>
-                                    <li class="meal-attribute">
-                                    <ion-icon name='earth-sharp'  class="meal-icon"></ion-icon>
-                                    <strong th:text=" 'Ubicacion: '"></strong>
-                                    <a th:href="@{'https://www.google.com/maps/search/?api=1&query=' + ${propiedad.ubicacion}}" target="_blank" th:text="${propiedad.ubicacion}"></a>
-                                    </li>
-                                    <li class="meal-attribute">
-                                    <ion-icon name='person-outline'  class="meal-icon"></ion-icon>      
-                                    <strong th:text=" 'Capacidad: '"></strong>
-                                    <span th:text="  ${propiedad.capacidad} "> </span>
-                                    </li>
-                                    <li class="meal-attribute">
-                                    <ion-icon class="meal-icon" name="restaurant-outline"></ion-icon>
-                                    <strong th:text=" 'Servicio: '"></strong> 
-                                    <span th:text="  ${propiedad.servicios} "> </span>
-                                    </li>
-                                </ul>
-=======
->>>>>>> developer
                             </div>
                         </div>
                     </div>
@@ -191,37 +119,7 @@
                                         </li>
                                     </ul>
                                 </div>
-<<<<<<< HEAD
-                                <p class="meal-title" th:text="${propiedad.nombre}"></p>
-                                <ul class="meal-attributes">
-                                    <li class="meal-attribute">
-                                    <ion-icon name='cash-outline' class="meal-icon" ></ion-icon>
-                                    <span th:text=" '$' + ${propiedad.valor} "><strong></strong> </span>
-                                    </li>
-                                    <li class="meal-attribute">
-                                    <ion-icon name='reader-outline' class="meal-icon" ></ion-icon>
-                                    <strong th:text=" 'Descrpcion: '"></strong>
-                                    <span th:text="  ${propiedad.Descripcion} "> </span>
-                                    </li>
-                                    <li class="meal-attribute">
-                                    <ion-icon name='earth-sharp'  class="meal-icon"></ion-icon>
-                                    <strong th:text=" 'Ubicacion: '"></strong>
-                                    <a th:href="@{'https://www.google.com/maps/search/?api=1&query=' + ${propiedad.ubicacion}}" target="_blank" th:text="${propiedad.ubicacion}"></a>
-                                    </li>
-                                    <li class="meal-attribute">
-                                    <ion-icon name='person-outline'  class="meal-icon"></ion-icon>      
-                                    <strong th:text=" 'Capacidad: '"></strong>
-                                    <span th:text="  ${propiedad.capacidad} "> </span>
-                                    </li>
-                                    <li class="meal-attribute">
-                                    <ion-icon class="meal-icon" name="restaurant-outline"></ion-icon>
-                                    <strong th:text=" 'Servicio: '"></strong> 
-                                    <span th:text="  ${propiedad.servicios} "> </span>
-                                    </li>
-                                </ul>
-=======
                                 <div th:replace="/fragment/botonSolicitarReserva :: div"></div>
->>>>>>> developer
                             </div>
                         </div>
                     </div>
