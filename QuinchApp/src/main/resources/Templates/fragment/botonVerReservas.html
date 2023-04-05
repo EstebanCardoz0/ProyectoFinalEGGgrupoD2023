@@ -1,0 +1,14 @@
+<div>
+    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent" 
+         th:classappend="${session.usuariosession != null and #authorization.expression('hasRole(''ROLE_CLIENTE'')')} ? '' : 'd-none'">
+        <div class="text-center">
+            <a class="btnMisReservas btn-outline-dark mt-auto" th:href="@{/reserva/registrar/__${reserva.idReserva}__}">Solicitar Reservar</a>
+        </div>
+    </div>    
+<!--    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent" 
+         th:classappend="${session.usuariosession == null} ? '' : 'd-none'">
+        <div class="text-center">
+            <a class="btnSolicitarReserva btn-outline-dark mt-auto" th:href="@{/login}">Solicitar Reservar</a>
+        </div>
+    </div>
+</div>-->
