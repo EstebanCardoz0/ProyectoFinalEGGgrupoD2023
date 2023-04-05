@@ -10,7 +10,8 @@ public interface ImagenRepositorio extends JpaRepository<Imagen, Integer> {
 
     @Override
     public Optional<Imagen> findById(Integer id);
-    
-        Optional<Imagen> findByNombre(String nombre);
+
+    Optional<Imagen> findByNombre(String nombre);
+
 
 }

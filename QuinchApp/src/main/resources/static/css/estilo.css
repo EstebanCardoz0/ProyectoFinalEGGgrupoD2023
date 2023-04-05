@@ -229,5 +229,10 @@ width: 100%;
     padding-left: var(--bs-gutter-x, 0.75rem);
     margin-right: auto;
     margin-left: auto;
+}}
+
+.imagenLogo{
+    max-width: 40%;
 }
-}
+
+

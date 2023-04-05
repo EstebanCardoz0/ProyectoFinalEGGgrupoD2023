@@ -35,4 +35,7 @@ public class Comentario {
         this.propiedad = propiedad;
     }
 
+    public Cliente getCliente() {
+        return this.cliente;
+    }
 }

@@ -100,6 +100,16 @@ public class ReservaControlador {
         return "redirect:../listar";
     }
 
+    @GetMapping("/borrar/{id}")
+    public String borrar(@PathVariable Integer id, ModelMap modelo) throws Exception {
+        try {
+            reservaServicio.borrar(id);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return "redirect:/dashboardCliente";
+    }
+
     @RequestMapping("/altaBaja/{id}")
     public String altaBaja(@PathVariable(name = "id") Integer id) {
         reservaServicio.bajaAlta(id);

@@ -45,8 +45,8 @@ public class ReservaServicio {
         reserva.setConfirmada(activo);
         Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaDelEvento);
         List<Reserva> reservas = propiedadReserva.getReservas();
-        for(Reserva r : reservas) {
-            if(r.getFechaDelEvento().equals(fecha)) {
+        for (Reserva r : reservas) {
+            if (r.getFechaDelEvento().equals(fecha)) {
                 throw new Exception("error");
             }
         }
@@ -86,9 +86,13 @@ public class ReservaServicio {
         return reservaRepositorio.getOne(id);
     }
 
-    @Transactional
-    public void borrar(Integer id) {
-        reservaRepositorio.deleteById(id);
+    public void borrar(Integer id) throws Exception {
+        Optional<Reserva> reservaOptional = reservaRepositorio.findById(id);
+        if (reservaOptional.isPresent()) {
+            reservaRepositorio.deleteById(id);
+        } else {
+            throw new Exception("La reserva con ID " + id + " no existe.");
+        }
     }
 
     public Reserva bajaAlta(Integer id) {
@@ -106,4 +110,5 @@ public class ReservaServicio {
         }
         return reserva;
     }
+
 }

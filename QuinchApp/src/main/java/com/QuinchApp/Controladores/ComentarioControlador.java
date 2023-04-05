@@ -28,6 +28,7 @@ public class ComentarioControlador {
         comentarioServicio.crearComentario(idPropiedad, idUsuario, coment, calificacion);
         return "redirect:/propiedad/detallePropiedad";
     }
+    
 
     @DeleteMapping("/borrar/{id}")
     public String borrarComentario(@PathVariable Integer id) {
