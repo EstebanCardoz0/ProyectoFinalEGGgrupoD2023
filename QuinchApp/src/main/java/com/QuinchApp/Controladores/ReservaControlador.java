@@ -4,14 +4,17 @@ import com.QuinchApp.Entidades.Cliente;
 import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Reserva;
 import com.QuinchApp.Entidades.Usuario;
+import com.QuinchApp.Repositorios.ReservaRepositorio;
 import com.QuinchApp.Repositorios.UsuarioRepositorio;
 import com.QuinchApp.Servicios.PropiedadServicio;
 import com.QuinchApp.Servicios.ReservaServicio;
+import com.QuinchApp.Servicios.UsuarioServicio;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +32,12 @@ public class ReservaControlador {
 
     @Autowired
     private ReservaServicio reservaServicio;
+
+    @Autowired
+    private UsuarioServicio usuarioServicio;
+
+    @Autowired
+    private ReservaRepositorio reservaRepositorio;
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
@@ -109,13 +118,42 @@ public class ReservaControlador {
         return "redirect:/reservas";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_PROPIETARIO')")
+    @PreAuthorize("hasAnyRole('ROLE_PROPIETARIO', 'ROLE_CLIENTE')")
     @GetMapping("/listarReservas")
     public String listarResevas(ModelMap modelo, @Param("palabraClave") String palabraClave) {
         List<Reserva> reserva = reservaServicio.listarResevas(palabraClave);
         modelo.addAttribute("reserva", reserva);
         modelo.addAttribute("palabraClave", palabraClave);
         return "listadoReservaPropiedades";
+    }
+
+    @PreAuthorize("hasAnyRole( 'ROLE_CLIENTE')")
+    @GetMapping("/listarReservasCliente")
+    public String listarResevasCliente(ModelMap modelo, @Param("palabraClave") String palabraClave) {
+        List<Reserva> reserva = reservaServicio.listarResevas(palabraClave);
+        modelo.addAttribute("reserva", reserva);
+        modelo.addAttribute("palabraClave", palabraClave);
+        return "listado_Reservas_Propiedades";
+    }
+
+//    @PreAuthorize("hasAnyRole( 'ROLE_CLIENTE')")
+//    @GetMapping("/listarResevasCliente")
+//    public String listarResevasCliente(ModelMap modelo, @Param("palabraClave") String palabraClave, Authentication authentication) {
+//        Cliente cliente = (Cliente) authentication.getPrincipal();
+//        List<Reserva> reservas = reservaServicio.listarResevasPorCliente(cliente.getId().longValue(), palabraClave);
+//        modelo.addAttribute("reservas", reservas);
+//        modelo.addAttribute("palabraClave", palabraClave);
+//        return "listado_Reservas_Propiedades";
+//    }
+    @PreAuthorize("hasAnyRole( 'ROLE_CLIENTE')")
+    @GetMapping("/listarResevasCliente")
+    public String listarResevasCliente(ModelMap modelo, @Param("palabraClave") String palabraClave, Authentication authentication) {
+        String nombreUsuario = authentication.getName();
+        Cliente cliente = usuarioServicio.buscarPorNombreUsuario(nombreUsuario);
+        List<Reserva> reservas = reservaServicio.listarResevasPorCliente(Long.valueOf(cliente.getId()), palabraClave);
+        modelo.addAttribute("reserva", reservas);
+        modelo.addAttribute("palabraClave", palabraClave);
+        return "listado_Reservas_Propiedades";
     }
 
     @GetMapping("/borrar/{id}")
@@ -126,5 +164,14 @@ public class ReservaControlador {
             System.out.println(e);
         }
         return "redirect:/dashboardCliente";
+    }
+
+    @PostMapping("/reserva/modificar")
+    public String modificarReserva(@RequestParam Integer idReserva,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDelEvento) {
+        Reserva reserva = reservaRepositorio.findById(idReserva).orElseThrow();
+        reserva.setFechaDelEvento(fechaDelEvento);
+        reservaRepositorio.save(reserva);
+        return "listado_Reserva_Propiedades";
     }
 }

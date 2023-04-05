@@ -26,22 +26,47 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Nombre de Usuario</th>
-                                <th>Fecha Ingreso</th>
+                                <th>Numero de Reserva</th>
                                 <th>Propiedad</th>
+                                <th>Cliente</th>
+                                <th>Fecha</th>
+                                <th>Cancelar Reserva</th>
+                                <th>Modificar Fecha</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="cliente:${cliente}" th:class="${cliente.activo} == false ? 'fila-roja' : ''">
-                                <td th:text="${cliente.reserva.nombre}"></td>
-                                <td th:text="${cliente.reserva.fecha_inicio}"></td>
-                                <td th:text="${cliente.propiedad.nombre}"></td>
+                            <tr th:each="reserva:${reserva}" th:class="${reserva.confirmada} == false ? 'fila-roja' : ''">
+                                <td th:text="${reserva.idReserva}"></td>
+                                <td th:text="${reserva.propiedad.nombre}"></td>
+                                <td th:text="${reserva.cliente.nombre}"></td>
+                                <td th:text="${#dates.format(reserva.fechaDelEvento, 'dd/MM/yyyy')}"></td>
                                 <td>
+                                    <a th:href="@{/reserva/borrar/__${reserva.idReserva}__}">Cancelar</a>                               
                                 </td>
-                                <td> 
+                                <td>
+                                    <a href="/reserva/modificar" onclick="mostrarFormulario(${reserva.idReserva})">
+                                        Modificar Fecha
+                                    </a>
+                                    <div id="formulario-${
+                                             reserva.idReserva
+                                         }" style="display:none">
+                                        <form method="post" action="@{/reserva/modificar}">
+                                            <input type="hidden" name="idReserva" th:value="${reserva.idReserva}">
+                                            <div class="form-group">
+                                                <label for="fechaDelEvento-${reserva.idReserva}">Nueva Fecha:</label>
+                                                <input type="date" class="form-control" id="fechaDelEvento-${
+                                                           reserva.idReserva
+                                                       }" name="fechaDelEvento" required>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                            <button type="button" class="btn btn-default" onclick="ocultarFormulario(${reserva.idReserva})">Cancelar</button>
+                                        </form>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
+
                     <div th:if="${error != null}" class="alert alert-danger" role="alert">
                         <p class="MensajeError" th:text="${error}"></p>
                     </div>
@@ -52,6 +77,14 @@
             </div>
         </div>
         <div th:replace = "/fragment/footer :: div"></div>
-        <div th:replace = "/fragment/script-cliente :: script"></div>                     
+        <div th:replace = "/fragment/script-cliente :: script"></div>  
+
+        <script th:inline="javascript">
+            function mostrarFormulario(idReserva) {
+            var formulario = document.getElementById("formulario-" + idReserva);
+            formulario.style.display = formulario.style.display === "none" ? "block" : "none";
+            }
+        </script>
+
     </body>
 </html>

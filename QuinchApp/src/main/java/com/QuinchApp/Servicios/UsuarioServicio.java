@@ -217,4 +217,16 @@ public class UsuarioServicio implements UserDetailsService {
         return usuario;
     }
 
+    public Cliente buscarPorNombreUsuario(String nombreUsuario) {
+        Usuario usuario = usuarioRepositorio.buscarPorEmail(nombreUsuario);
+
+        if (usuario instanceof Cliente) {
+            return (Cliente) usuario;
+        } else {
+            // si el usuario no es un Cliente, puedes lanzar una excepción o devolver null según tu necesidad
+            throw new RuntimeException("El usuario no es un Cliente");
+            // return null;
+        }
+    }
+
 }
