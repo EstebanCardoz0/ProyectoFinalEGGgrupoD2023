@@ -92,6 +92,18 @@ public class ReservaServicio {
             return reservas;
         }
     }
+    
+    @Transactional
+    public List<Reserva> listarResevasPorCliente(Long idCliente, String palabraClave) {
+    if (palabraClave != null) {
+        List<Reserva> reservas = reservaRepositorio.findAllByClienteIdAndPalabraClave(idCliente, palabraClave);
+        return reservas;
+    } else {
+        List<Reserva> reservas = reservaRepositorio.findAllByClienteId(idCliente);
+        return reservas;
+    }
+}
+
 
     public Reserva getOne(Integer id) {
         return reservaRepositorio.getOne(id);
@@ -123,4 +135,17 @@ public class ReservaServicio {
         }
         return reserva;
     }
+    
+   @Transactional
+    public void modificarFechaReserva(Integer idReserva, Date fechaDelEvento) throws Exception {
+        Optional<Reserva> optionalReserva = reservaRepositorio.findById(idReserva);
+        if (optionalReserva.isPresent()) {
+            Reserva reserva = optionalReserva.get();
+            reserva.setFechaDelEvento(fechaDelEvento);
+            reservaRepositorio.save(reserva);
+        } else {
+            throw new Exception("No se encontró la reserva con el id " + idReserva);
+        }
+    }
+
 }
