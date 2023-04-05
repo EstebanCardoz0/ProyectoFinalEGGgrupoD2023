@@ -1,7 +1,6 @@
 package com.QuinchApp.Entidades;
 
 import com.QuinchApp.Enums.Rol;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -37,6 +36,7 @@ public class Propietario extends Usuario {
 
     public Propietario(Integer id, String nombre, String nombreUsuario) {
         super(id, nombre, nombreUsuario);
+        
     }
     
 }
