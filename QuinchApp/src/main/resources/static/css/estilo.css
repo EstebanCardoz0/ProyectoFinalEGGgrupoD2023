@@ -37,7 +37,7 @@ body{
     opacity: 0.9; 
     padding: 4%;
     position: absolute !important;
-    width: -webkit-fill-available !important;
+    width: 100%
 }
 
 #CopyrightControl{
@@ -45,7 +45,7 @@ body{
     opacity: 0.9; 
     padding: 4%;
     position: inherit !important;
-    width: -webkit-fill-available !important;
+    width: 100%
 }
 
 .container1{

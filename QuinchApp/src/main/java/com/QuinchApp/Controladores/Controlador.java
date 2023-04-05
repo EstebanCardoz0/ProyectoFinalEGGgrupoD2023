@@ -24,7 +24,6 @@ public class Controlador {
 
     @GetMapping("/")
     public String index(ModelMap modelo) {
-
         return "redirect:/propiedad/detallePropiedad";
     }
 
@@ -51,5 +50,4 @@ public class Controlador {
     public String quienesSomos() {
         return "quienes-somos";
     }
-
 }

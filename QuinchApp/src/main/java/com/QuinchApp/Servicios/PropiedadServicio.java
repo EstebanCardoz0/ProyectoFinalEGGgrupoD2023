@@ -3,17 +3,11 @@ package com.QuinchApp.Servicios;
 import com.QuinchApp.Entidades.Imagen;
 import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Propietario;
-import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Enums.PropiedadEnum;
-import com.QuinchApp.Enums.Rol;
 import com.QuinchApp.Enums.ServicioEnum;
 import com.QuinchApp.Repositorios.PropiedadRepositorio;
 import com.QuinchApp.Repositorios.PropietarioRepositorio;
 import com.QuinchApp.Repositorios.UsuarioRepositorio;
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,11 +22,7 @@ public class PropiedadServicio {
     @Autowired
     private PropiedadRepositorio propiedadRepositorio;
     @Autowired
-    private UsuarioRepositorio usuarioRepositorio;
-    @Autowired
     private PropietarioRepositorio propietarioRepositorio;
-    @Autowired
-    private PropietarioServicio propietarioServicio;
     @Autowired
     private ImagenServicio imagenServicio;
 
@@ -81,54 +71,54 @@ public class PropiedadServicio {
     }
 
     @Transactional
-public void actualizarPropiedad(int idPropiedad, String nombre, String ubicacion, String descripcion, double valor, int capacidad,
-        PropiedadEnum tipoDePropiedad, List<MultipartFile> imagenes, List<ServicioEnum> servicios) throws Exception {
-    if (idPropiedad < 0) {
-        throw new Exception("Ingrese un id");
-    }
-    Optional<Propiedad> respuesta = propiedadRepositorio.findById(idPropiedad);
-    if (respuesta.isPresent()) {
-        Propiedad propiedad = respuesta.get();
-        propiedad.setNombre(nombre);
-        propiedad.setUbicacion(ubicacion);
-        propiedad.setDescripcion(descripcion);
-        propiedad.setValor(valor);
-        propiedad.setCapacidad(capacidad);
-        propiedad.setDisponibilidad(Boolean.TRUE);
-        propiedad.setTipoDePropiedad(tipoDePropiedad);
-        List<ServicioEnum> serviciosPropiedad = propiedad.getServicios();
-        if (serviciosPropiedad == null) {
-            serviciosPropiedad = new ArrayList();
-            propiedad.setServicios(serviciosPropiedad);
+    public void actualizarPropiedad(int idPropiedad, String nombre, String ubicacion, String descripcion, double valor, int capacidad,
+            PropiedadEnum tipoDePropiedad, List<MultipartFile> imagenes, List<ServicioEnum> servicios) throws Exception {
+        if (idPropiedad < 0) {
+            throw new Exception("Ingrese un id");
         }
-        serviciosPropiedad.addAll(servicios);
-        propiedad.setServicios(servicios);
-        
-        // Actualizar la lista de imágenes
-        List<Imagen> imagenesPropiedad = propiedad.getImagenes();
-        if (imagenesPropiedad == null) {
-            imagenesPropiedad = new ArrayList<>();
-            propiedad.setImagenes(imagenesPropiedad);
-        } else {
-            // Eliminar las imágenes que ya no se necesitan
-            List<Imagen> imagenesAEliminar = new ArrayList<>();
-            for (Imagen imagen : imagenesPropiedad) {
-                if (!imagenes.contains(imagen.getContenido())) {
-                    imagenesAEliminar.add(imagen);
-                }
+        Optional<Propiedad> respuesta = propiedadRepositorio.findById(idPropiedad);
+        if (respuesta.isPresent()) {
+            Propiedad propiedad = respuesta.get();
+            propiedad.setNombre(nombre);
+            propiedad.setUbicacion(ubicacion);
+            propiedad.setDescripcion(descripcion);
+            propiedad.setValor(valor);
+            propiedad.setCapacidad(capacidad);
+            propiedad.setDisponibilidad(Boolean.TRUE);
+            propiedad.setTipoDePropiedad(tipoDePropiedad);
+            List<ServicioEnum> serviciosPropiedad = propiedad.getServicios();
+            if (serviciosPropiedad == null) {
+                serviciosPropiedad = new ArrayList();
+                propiedad.setServicios(serviciosPropiedad);
             }
-            imagenesPropiedad.removeAll(imagenesAEliminar);
+            serviciosPropiedad.addAll(servicios);
+            propiedad.setServicios(servicios);
+
+            // Actualizar la lista de imágenes
+            List<Imagen> imagenesPropiedad = propiedad.getImagenes();
+            if (imagenesPropiedad == null) {
+                imagenesPropiedad = new ArrayList<>();
+                propiedad.setImagenes(imagenesPropiedad);
+            } else {
+                // Eliminar las imágenes que ya no se necesitan
+                List<Imagen> imagenesAEliminar = new ArrayList<>();
+                for (Imagen imagen : imagenesPropiedad) {
+                    if (!imagenes.contains(imagen.getContenido())) {
+                        imagenesAEliminar.add(imagen);
+                    }
+                }
+                imagenesPropiedad.removeAll(imagenesAEliminar);
+            }
+
+            // Agregar las nuevas imágenes
+            for (MultipartFile archivo : imagenes) {
+                Imagen imagen = imagenServicio.actualizar(archivo, 0);
+                imagenesPropiedad.add(imagen);
+            }
+
+            propiedadRepositorio.save(propiedad);
         }
-        
-        // Agregar las nuevas imágenes
-        for (MultipartFile archivo : imagenes) {
-            Imagen imagen = imagenServicio.actualizar(archivo, 0);
-            imagenesPropiedad.add(imagen);
-        }
-        
-        propiedadRepositorio.save(propiedad);
     }
-}
 
     public List<Propiedad> listarPropiedades(String palabraClave) {
         if (palabraClave != null) {

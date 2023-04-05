@@ -27,10 +27,7 @@ public class Reserva {
     private Integer idReserva;
 
     @Temporal(TemporalType.DATE)
-    private Date fechaInicio;
-
-    @Temporal(TemporalType.DATE)
-    private Date fechaSalida;
+    private Date fechaDelEvento;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "propiedad_id")
@@ -41,17 +38,4 @@ public class Reserva {
 
     private Boolean confirmada;
     
-    @Override
-    public String toString() {
-        return "Reserva{" +
-                "idReserva=" + idReserva +
-                ", fechaInicio=" + fechaInicio +
-                ", fechaSalida=" + fechaSalida +
-                ", propiedad=" + propiedad +
-                ", cliente=" + cliente.getNombre() +
-                ", confirmada=" + confirmada +
-                '}';
-    }
-
-
 }
