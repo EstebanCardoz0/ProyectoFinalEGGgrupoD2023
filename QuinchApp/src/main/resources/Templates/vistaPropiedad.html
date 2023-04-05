@@ -89,21 +89,12 @@
                 </div>
             </div>
         </section>
+        
         <section>
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-5 col-md-6 col-12 pb-4" th:if="${not #lists.isEmpty(comentarios)}">
-                        <h1>Comentarios</h1>
-                        <div class="comment mt-4 text-justify float-left" th:each="comentario: ${comentarios}">
-                            <!--<img src="https://i.imgur.com/yTFUilP.jpg" alt="" class="rounded-circle" width="40" height="40">-->
-                            <h4 th:text="${comentario.cliente.nombre}"></h4>
-                            <span th:text="${comentario.calificacion}"></span>
-                            <br>
-                            <p th:text="${comentario.comentario}"></p>
-                        </div>  
-                    </div>          </div>
-                <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4"  th:classappend="${session.usuariosession != null and #authorization.expression('hasRole(''ROLE_CLIENTE'')')} ? '' : 'd-none'">
-                    <form th:action="@{/comentario/comentar}" method="POST">
+                    <div class="col-sm-4 col-md-6 col-12 pb-4" th:if="${not #lists.isEmpty(comentarios)}">
+                           <form th:action="@{/comentario/comentar}" method="POST">
                         <div class="form-group" style="display: none;">
                             <label>Id:</label>
                             <input type="text" name="idPropiedad" th:field="*{propiedad.idPropiedad}" class="form-control" readonly='readonly'/>
@@ -134,8 +125,23 @@
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="Publicar comentario">
                         </div>
                     </form>
+                    </div> 
+                        <div class="col-sm-4 col-md-6 col-12 pb-4" th:if="${not #lists.isEmpty(comentarios)}">
+                            <h1>Comentarios</h1>
+                        <div class="comment mt-4 text-justify float-left" th:each="comentario: ${comentarios}">
+                            <!--<img src="https://i.imgur.com/yTFUilP.jpg" alt="" class="rounded-circle" width="40" height="40">-->
+                            <h4 th:text="${comentario.cliente.nombre}"></h4>
+                            <span th:text="${comentario.calificacion}"></span>
+                            <br>
+                            <p th:text="${comentario.comentario}"></p>
+                        </div>  
+                    </div>    
+                
+                
+                
                 </div>
-            </div>
+                
+            
         </div>
     </section>
 
