@@ -44,8 +44,16 @@ body{
     background-color: #2A0A1B !important;
     opacity: 0.9; 
     padding: 4%;
-    position: inherit !important;
-    width: 100%
+     position: absolute;
+    width: 100%;   
+        
+
+  bottom: 0;
+
+  height: 60px;
+  color: white;
+  
+  
 }
 
 .container1{
