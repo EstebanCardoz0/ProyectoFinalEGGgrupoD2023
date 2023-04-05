@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,13 +28,11 @@ public class Comentario {
     @ManyToOne(cascade = CascadeType.ALL)
     private Propiedad propiedad;
 
-
-
     public Comentario(Cliente cliente, String comentario, Integer calificacion, Propiedad propiedad) {
         this.cliente = cliente;
         this.comentario = comentario;
         this.calificacion = calificacion;
         this.propiedad = propiedad;
     }
-    
+
 }

@@ -14,7 +14,7 @@ public class Cliente extends Usuario {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reserva> reserva;
-     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comentario> comentarios;
 
     public Cliente() {
@@ -31,25 +31,25 @@ public class Cliente extends Usuario {
     public void setReservas(List<Reserva> reserva) {
         this.reserva = reserva;
     }
-    
-@Override
+
+    @Override
     public String toString() {
-        return "Cliente{" +
-                "id=" + getId() +
-                ", nombre='" + getNombre() + '\'' +
-                ", nombreUsuario='" + getNombreUsuario() + '\'' +
-                ", email='" + getEmail() + '\'' +
-                ", password='" + getPassword() + '\'' +
-                ", telefono=" + getTelefono() +
-                ", rol=" + getRol() +
-                ", fotoPerfil=" + getFotoPerfil() +
-                ", fechaAlta=" + getFechaAlta() +
-                ", activo=" + isActivo() +
-                '}';
+        return "Cliente{"
+                + "id=" + getId()
+                + ", nombre='" + getNombre() + '\''
+                + ", nombreUsuario='" + getNombreUsuario() + '\''
+                + ", email='" + getEmail() + '\''
+                + ", password='" + getPassword() + '\''
+                + ", telefono=" + getTelefono()
+                + ", rol=" + getRol()
+                + ", fotoPerfil=" + getFotoPerfil()
+                + ", fechaAlta=" + getFechaAlta()
+                + ", activo=" + isActivo()
+                + '}';
     }
 
     public Cliente(Integer id, String nombre, String nombreUsuario) {
         super(id, nombre, nombreUsuario);
     }
-    
+
 }

@@ -12,9 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,31 +47,6 @@ public class PropiedadControlador {
         return "vistaPropiedad.html";
     }
 
-//    @PostMapping("/registroPropiedad")
-//public String registroPropiedad(@RequestParam("nombre") String nombre, @RequestParam("ubicacion") String ubicacion,
-//        @RequestParam("descripcion") String descripcion, @RequestParam("valor") double valor, @RequestParam("capacidad") int capacidad,
-//        @RequestParam("tipoDePropiedad") PropiedadEnum tipoDePropiedad, @RequestParam("imagen") MultipartFile imagen, @RequestParam("servicio") ServicioEnum servicio, ModelMap modelo, Authentication authentication) {
-//    try {
-//   //   autenticacion que verifica cual es el usuario logueado y guarda el email
-//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-//        String idPropietario = userDetails.getUsername();
-//        propiedadServicio.registrarPropiedad(nombre, ubicacion, descripcion, valor, capacidad, tipoDePropiedad,
-//                idPropietario, imagen, servicio);
-//        modelo.put("exito", "La propiedad fue registrada correctamente!");
-//    } catch (Exception e) {
-//        System.out.println(e);
-//        modelo.put("nombre", nombre);
-//        modelo.put("ubicacion", ubicacion);
-//        modelo.put("descripcion", descripcion);
-//        modelo.put("valor", valor);
-//        modelo.put("capacidad", capacidad);
-//        modelo.put("tipoDePropiedad", tipoDePropiedad);
-//        modelo.put("imagen", imagen);
-//        modelo.put("servicio", servicio);
-//        modelo.put("error", "Verifique que los datos hayan sido cargado correctamente.");
-//    }
-//    return "registroPropiedad.html";
-//}
     @PostMapping("/registroPropiedad")
     public String registroPropiedad(@RequestParam("nombre") String nombre, @RequestParam("ubicacion") String ubicacion,
             @RequestParam("descripcion") String descripcion, @RequestParam("valor") double valor, @RequestParam("capacidad") int capacidad,
@@ -100,13 +73,13 @@ public class PropiedadControlador {
         }
         return "registroPropiedad.html";
     }
-    
+
     @GetMapping("/actualizarPropiedad/{id}")
     public String modificarPropiedad(@PathVariable int id, ModelMap modelo) {
         modelo.put("propiedad", propiedadServicio.getOne(id));
         return "modificarPropiedad";
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROPIETARIO')")
     @PostMapping("/actualizarPropiedad/{idPropiedad}")
     public String actualizarPropiedad(@PathVariable("idPropiedad") int idPropiedad, @RequestParam("nombre") String nombre, @RequestParam("ubicacion") String ubicacion,
@@ -163,11 +136,4 @@ public class PropiedadControlador {
         return "detallePropiedad";
     }
 
-//@GetMapping("/detallePropiedad/quinchos")
-//public String mostrarPropiedadesQuinchos(ModelMap modelo) {
-//    List<Propiedad> propiedadesQuinchos = propiedadServicio.buscarPropiedadPorTipo(PropiedadEnum.QUINCHO);
-//    modelo.addAttribute("propiedades", propiedadesQuinchos);
-//    
-//    return "detallePropiedad";
-//}
 }
