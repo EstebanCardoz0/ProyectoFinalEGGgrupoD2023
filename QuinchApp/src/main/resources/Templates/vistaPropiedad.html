@@ -8,6 +8,11 @@
               crossorigin="anonymous">  
         <link rel="stylesheet" th:href="@{/css/estilo.css}">
         <link rel="stylesheet" th:href="@{/css/styles.css}">
+        <style>
+            #cantidadEstrellas{
+                font-size: 0;
+            }            
+        </style>            
     </head>
     <body>
         <header th:replace="/fragment/navbar :: div"></header>
@@ -89,82 +94,115 @@
                 </div>
             </div>
         </section>
-        
+
         <section>
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-4 col-md-6 col-12 pb-4" th:if="${not #lists.isEmpty(comentarios)}">
-                           <form th:action="@{/comentario/comentar}" method="POST">
-                        <div class="form-group" style="display: none;">
-                            <label>Id:</label>
-                            <input type="text" name="idPropiedad" th:field="*{propiedad.idPropiedad}" class="form-control" readonly='readonly'/>
-                            <label>IdPropietario:</label>
-                            <input type="text" name="idPropietario" th:field="*{propiedad.propietario.id}" class="form-control" readonly='readonly'/>
-                        </div>
-                        <div class="form-group">
-                            <h4>Deja tu opinion!</h4>
-                            <label for="comentario">Comentario</label>
-                            <textarea name="comentario" id="msg" cols="30" rows="5" class="form-control" style="background-color: transparent;"></textarea>
-                        </div>                           
-                        <div class="form-group">
-                            <label for="clasificacion">Calificacion</label>
-                            <p class="clasificacion">
-                                <input id="radio1" type="radio" name="calificacion" value="5" required>
-                                <label for="radio1">★</label>
-                                <input id="radio2" type="radio" name="calificacion" value="4" required>
-                                <label for="radio2">★</label>
-                                <input id="radio3" type="radio" name="calificacion" value="3" required>
-                                <label for="radio3">★</label>
-                                <input id="radio4" type="radio" name="calificacion" value="2" required>
-                                <label for="radio4">★</label>
-                                <input id="radio5" type="radio" name="calificacion" value="1" required>
-                                <label for="radio5">★</label>
-                            </p>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Publicar comentario">
-                        </div>
-                    </form>
+                    <div class="col-sm-4 col-md-6 col-12 pb-4" >
+                        <form th:action="@{/comentario/comentar}" method="POST">
+                            <div class="form-group" style="display: none;">
+                                <label>Id:</label>
+                                <input type="text" name="idPropiedad" th:field="*{propiedad.idPropiedad}" class="form-control" readonly='readonly'/>
+                                <label>IdPropietario:</label>
+                                <input type="text" name="idPropietario" th:field="*{propiedad.propietario.id}" class="form-control" readonly='readonly'/>
+                            </div>
+                            <div class="form-group">
+                                <h4>Deja tu opinion!</h4>
+                                <label for="comentario">Comentario</label>
+                                <textarea name="comentario" id="msg" cols="30" rows="5" class="form-control" style="background-color: transparent;"></textarea>
+                            </div>                           
+                            <div class="form-group">
+                                <label for="clasificacion">Calificacion</label>
+                                <p class="clasificacion">
+                                    <input id="radio1" type="radio" name="calificacion" value="5" required>
+                                    <label for="radio1">★</label>
+                                    <input id="radio2" type="radio" name="calificacion" value="4" required>
+                                    <label for="radio2">★</label>
+                                    <input id="radio3" type="radio" name="calificacion" value="3" required>
+                                    <label for="radio3">★</label>
+                                    <input id="radio4" type="radio" name="calificacion" value="2" required>
+                                    <label for="radio4">★</label>
+                                    <input id="radio5" type="radio" name="calificacion" value="1" required>
+                                    <label for="radio5">★</label>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Publicar comentario">
+                            </div>
+                        </form>
                     </div> 
-                        <div class="col-sm-4 col-md-6 col-12 pb-4" th:if="${not #lists.isEmpty(comentarios)}">
-                            <h1>Comentarios</h1>
+                    <div class="col-sm-4 col-md-6 col-12 pb-4" th:if="${not #lists.isEmpty(comentarios)}">
+                        <h1>Comentarios</h1>
                         <div class="comment mt-4 text-justify float-left" th:each="comentario: ${comentarios}">
                             <!--<img src="https://i.imgur.com/yTFUilP.jpg" alt="" class="rounded-circle" width="40" height="40">-->
                             <h4 th:text="${comentario.cliente.nombre}"></h4>
-                            <span th:text="${comentario.calificacion}"></span>
+                            <span id ="estrellas"> 
+                                <span id = "cantidadEstrellas" th:text="${comentario.calificacion}"></span>
+                            </span>                            
                             <br>
-                            <p th:text="${comentario.comentario}"></p>
+                            <p  th:text="${comentario.comentario}"></p>
                         </div>  
                     </div>    
-                
-                
-                
+
+
+
                 </div>
-                
-            
-        </div>
-    </section>
 
-    <div th:replace = "/fragment/footer :: div"></div>
-    <div th:replace = "/fragment/script :: script"></div>
-    <script>
-        function zoomImage(img) {
-        img.classList.toggle("zoomed");
 
-        if (img.classList.contains("zoomed")) {
-        document.body.addEventListener("mousemove", handleMouseMove);
-        } else {
-        document.body.removeEventListener("mousemove", handleMouseMove);
-        }
-        }
-        function handleMouseMove(e) {
-        const img = document.querySelector(".picZoomer img.zoomed");
-        if (!img) return;
-        const container = img.parentElement;
-        const x = e.clientX - container.offsetLeft;
-        const y = e.clientY - container.offsetTop;
-        img.style.transformOrigin = `${x}px ${y}px`;
-        }
-    </script>
-</body>
+            </div>
+        </section>
+
+        <div th:replace = "/fragment/footer :: div"></div>
+        <div th:replace = "/fragment/script :: script"></div>
+        <script>
+            function zoomImage(img) {
+            img.classList.toggle("zoomed");
+
+            if (img.classList.contains("zoomed")) {
+            document.body.addEventListener("mousemove", handleMouseMove);
+            } else {
+            document.body.removeEventListener("mousemove", handleMouseMove);
+            }
+            }
+            function handleMouseMove(e) {
+            const img = document.querySelector(".picZoomer img.zoomed");
+            if (!img) return;
+            const container = img.parentElement;
+            const x = e.clientX - container.offsetLeft;
+            const y = e.clientY - container.offsetTop;
+            img.style.transformOrigin = `${x}px ${y}px`;
+            }
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            // Obtener el contenedor de imágenes
+            var estrellasContenedor = document.getElementById('estrellas');
+
+            // Verificar si el contenedor está visible
+            if (estrellasContenedor.style.display !== 'none') {
+            // Ejecutar la función para agregar etiquetas
+            agregarEtiquetasLabel(5); // Agregar 5 etiquetas
+            }
+            });
+
+            function agregarEtiquetasLabel() {
+            // Obtener el contenedor de estrellas
+            var estrellasContenedor = document.getElementById('estrellas');
+
+            // Obtener la cantidad de etiquetas del span
+            var cantidad = document.getElementById('estrellas').textContent;
+
+            // Agregar la cantidad de etiquetas indicada al contenedor
+            for (var i = 0; i < cantidad; i++) {
+            // Crear una nueva etiqueta
+            var newLabel = document.createElement('label');
+            newLabel.htmlFor = 'radio' + (estrellasContenedor.childElementCount + 1);
+            newLabel.textContent = '★';
+            // Agregar la nueva etiqueta al contenedor
+            estrellasContenedor.appendChild(newLabel);
+            }
+            }
+        </script>
+    </body>
 </html>
