@@ -93,7 +93,7 @@ public class ReservaControlador {
     public String listar(ModelMap modelo) {
         List<Reserva> reserva = reservaServicio.listarResevas();
         modelo.addAttribute("reserva", reserva);
-        return "usuarioList";
+        return "listado_reservas_cliente";
     }
 
     @GetMapping("/eliminar/{id}")
