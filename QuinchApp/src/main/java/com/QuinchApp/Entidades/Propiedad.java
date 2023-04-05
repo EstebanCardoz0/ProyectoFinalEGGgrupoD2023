@@ -27,27 +27,39 @@ public class Propiedad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPropiedad;
+
     private String nombre;
+
     private String ubicacion;
+
     private String descripcion;
+
     private double valor;
+
     private int capacidad;
+
     private boolean disponibilidad;
+
     @Enumerated(EnumType.STRING)
     private PropiedadEnum tipoDePropiedad;
+
     @ManyToOne
     @JoinColumn(name = "propietario_id")
     private Propietario propietario;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "propiedad", orphanRemoval = true)
+
+    @OneToMany(mappedBy = "propiedad")
     private List<Reserva> reservas = new ArrayList<>();
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "propiedad_id")
     private List<Imagen> imagenes = new ArrayList<>();
+
     @ElementCollection
     @Enumerated(EnumType.STRING)
     private List<ServicioEnum> servicios = new ArrayList<>();
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comentario> comentarios;
+    private List<Comentario> comentarios = new ArrayList<>();
 
     public Propiedad() {
     }
@@ -93,6 +105,6 @@ public class Propiedad {
         this.nombre = nombre;
         this.propietario = propietario;
     }
-    
+
 
 }
