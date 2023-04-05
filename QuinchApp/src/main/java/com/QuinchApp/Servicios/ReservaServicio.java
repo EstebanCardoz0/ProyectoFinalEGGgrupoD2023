@@ -7,6 +7,7 @@ import com.QuinchApp.Repositorios.ClienteRepositorio;
 import com.QuinchApp.Repositorios.PropiedadRepositorio;
 import com.QuinchApp.Repositorios.ReservaRepositorio;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -27,29 +28,40 @@ public class ReservaServicio {
     private PropiedadRepositorio propiedadRepositorio;
 
     @Transactional
-    public void registrar(String fechaInicio, String fechaSalida, int propiedad, String cliente) throws Exception {
+    public void registrar(String fechaDelEvento, int propiedad, String cliente) throws Exception {
         Reserva reserva = new Reserva();
         Cliente usuarioCliente = clienteRepositorio.buscarPorEmail(cliente);
-        if (usuarioCliente.isActivo()) {
-            reserva.setCliente(usuarioCliente);
+        if (usuarioCliente == null) {
+            throw new Exception("No existe el cliente");
         }
-        Propiedad propiedadReserva = new Propiedad();
-        Optional<Propiedad> propiedadHaReservar = propiedadRepositorio.buscarPorIdPropiedad(propiedad);
-        if (propiedadHaReservar.isPresent()) {
-            propiedadReserva = propiedadHaReservar.get();
+        if (!usuarioCliente.isActivo()) {
+            throw new Exception("El cliente no está activo");
         }
+        reserva.setCliente(usuarioCliente);
+        Propiedad propiedadReserva = propiedadRepositorio.buscarPorIdPropiedad(propiedad)
+                .orElseThrow(() -> new Exception("No existe la propiedad"));
+        reserva.setPropiedad(propiedadReserva);
         boolean activo = Boolean.TRUE;
         reserva.setConfirmada(activo);
-        Date fechaDeInicio = new SimpleDateFormat("yyyy-MM-dd").parse(fechaInicio);
-        reserva.setFechaInicio(fechaDeInicio);
-        Date fechaDeSalida = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSalida);
-        reserva.setFechaSalida(fechaDeSalida);
-        reserva.setPropiedad(propiedadReserva);
+        Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaDelEvento);
+        List<Reserva> reservas = propiedadReserva.getReservas();
+        for(Reserva r : reservas) {
+            if(r.getFechaDelEvento().equals(fecha)) {
+                throw new Exception("error");
+            }
+        }
+        reserva.setFechaDelEvento(fecha);
+        List<Reserva> reservasCliente = usuarioCliente.getReservas();
+        if (reservasCliente == null) {
+            reservasCliente = new ArrayList<>();
+            usuarioCliente.setReservas(reservasCliente);
+        }
+        reservasCliente.add(reserva);
         reservaRepositorio.save(reserva);
     }
 
     @Transactional
-    public void actualizar(Integer id, Date FechaSalida, Propiedad propiedad, Cliente Cliente, Boolean confirmada) throws Exception {
+    public void actualizar(Integer id, Date fechaDelEvento, Propiedad propiedad, Cliente Cliente, Boolean confirmada) throws Exception {
         Optional<Reserva> respuesta = reservaRepositorio.findById(id);
         if (respuesta.isPresent()) {
             Reserva reserva = respuesta.get();
@@ -59,7 +71,7 @@ public class ReservaServicio {
             } else {
                 reserva.setConfirmada(Boolean.FALSE);
             }
-            reserva.setFechaSalida(FechaSalida);
+            reserva.setFechaDelEvento(fechaDelEvento);
             reserva.setPropiedad(propiedad);
             reservaRepositorio.save(reserva);
         }

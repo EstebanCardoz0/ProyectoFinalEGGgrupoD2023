@@ -1,56 +1,41 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Reserva</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    </head>
-    <body>
-        
-     
-  <style>
-    .background-radial-gradient {
-    background: #fccb90;
 
-/* Chrome 10-25, Safari 5.1-6 */
-background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
 
-/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-     
-    }
-
-    
-  </style>
-        <div class=" background-radial-gradient container d-flex justify-content-center align-items-center rounded text-center" style="height: 100vh;">
-            <main class="form-signin w-100 m-auto">
-                <form th:action="@{/reserva/registro}" method="POST">
-                    <h1 class="h1 mb-3 fw-normal">Reserva</h1>
-                    <div class="mb-3">
-                        <label for="propiedad" class="h4 form-label">Propiedad</label>
-                     <!--    <input type="text" class="form-control" name="propiedad" th:value="${param.propiedad}" readonly>
-                        agregar campo oculto -->
-                        <input type="number" class="form-control" name="propiedad" th:value="${propiedad.idPropiedad}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="cliente" class="h4 form-label">Nombre Cliente</label>
-                        <input type="number" class="form-control" name="cliente" th:if='${session.usuariosession != null}' th:value="${session.usuariosession.id}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="fechaInicio" class="h4 form-label">Fecha de Entrada</label>
-                        <input type="date" class="form-control" name="fechaInicio">
-                    </div>
-                    <div class="mb-3">
-                        <label for="fechaSalida" class="h4 form-label">Fecha de Salida</label>
-                        <input type="date" class="form-control" name="fechaSalida">
-                    </div>
-                    <button class="w-25 btn btn-lg btn-primary" type="submit">Reservar</button>
-                    <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
-                </form>
-            </main>
-        </div>
-        
-        
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reserva</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container d-flex justify-content-center align-items-center rounded" style="height: 100vh">
+        <main class="form-signin w-100 m-auto">
+            <form th:action="@{/reserva/registro}" method="POST">
+                <h1 class="h3 mb-3 fw-normal">Reserva</h1>
+                <div class="mb-3">
+                    <label for="propiedad" class="form-label">Propiedad: [[${propiedad.nombre}]]</label>           
+                    <input type="hidden" class="form-control" name="propiedad" th:value="${propiedad.idPropiedad}">
+                </div>
+                <div class="mb-3">
+                    <label for="cliente" class="form-label">Nombre Cliente: [[${session.usuariosession.nombre}]]</label>
+                    <input type="hidden" class="form-control" name="cliente" th:if='${session.usuariosession != null}' th:value="${session.usuariosession.id}">
+                </div>
+                <div class="mb-3">
+                    <label for="fechaDelEvento" class="form-label">Fecha del Evento</label>
+                    <input type="date" class="form-control" name="fechaDelEvento">
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Reservar</button>
+                <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
+                <div th:if="${error != null}" class="alert alert-danger" role="alert">
+                    <p class="MensajeError" th:text="${error}"></p>
+                </div>
+                <div th:if="${exito != null}" class="alert alert-success" role="alert">
+                    <p class="MensajeExito" th:text="${exito}"></p>
+                </div>
+            </form>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+</body>
 </html>
+

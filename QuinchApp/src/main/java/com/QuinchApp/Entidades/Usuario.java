@@ -3,6 +3,7 @@ package com.QuinchApp.Entidades;
 import com.QuinchApp.Enums.Rol;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -32,14 +33,33 @@ public class Usuario {
     private String email;
     private String password;
     private long telefono;
-//  private List <Reserva> reserva;    
     @Enumerated(EnumType.STRING)
     private Rol rol;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Imagen fotoPerfil;
     @Temporal(TemporalType.DATE)
     private Date fechaAlta;
     private boolean activo;
+
+
+    public Usuario(String nombre, String nombreUsuario, String email, String password, long telefono, Rol rol, Imagen fotoPerfil, Date fechaAlta, boolean activo) {
+        this.nombre = nombre;
+        this.nombreUsuario = nombreUsuario;
+        this.email = email;
+        this.password = password;
+        this.telefono = telefono;
+        this.rol = rol;
+        this.fotoPerfil = fotoPerfil;
+        this.fechaAlta = fechaAlta;
+        this.activo = activo;
+    }
+
+    public Usuario(Integer id, String nombre, String nombreUsuario) {
+        this.id = id;
+        this.nombre = nombre;
+        this.nombreUsuario = nombreUsuario;
+    }
+    
 
 }
 
