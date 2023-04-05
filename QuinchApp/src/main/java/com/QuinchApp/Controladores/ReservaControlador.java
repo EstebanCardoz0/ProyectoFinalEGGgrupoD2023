@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -104,5 +106,24 @@ public class ReservaControlador {
     public String altaBaja(@PathVariable(name = "id") Integer id) {
         reservaServicio.bajaAlta(id);
         return "redirect:/reservas";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_PROPIETARIO')")
+    @GetMapping("/listarReservas")
+    public String listarResevas(ModelMap modelo, @Param("palabraClave") String palabraClave) {
+        List<Reserva> reserva = reservaServicio.listarResevas(palabraClave);
+        modelo.addAttribute("reserva", reserva);
+        modelo.addAttribute("palabraClave", palabraClave);
+        return "listadoReservaPropiedades";
+    }
+
+    @GetMapping("/borrar/{id}")
+    public String borrar(@PathVariable Integer id, ModelMap modelo) throws Exception {
+        try {
+            reservaServicio.borrar(id);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return "redirect:/dashboardCliente";
     }
 }
