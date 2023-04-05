@@ -1,11 +1,14 @@
 package com.QuinchApp.Controladores;
 
 import com.QuinchApp.Entidades.Propiedad;
+import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Enums.PropiedadEnum;
 import com.QuinchApp.Enums.ServicioEnum;
 import com.QuinchApp.Servicios.PropiedadServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -117,6 +120,16 @@ public String registroPropiedad(@RequestParam("nombre") String nombre, @RequestP
         modelo.addAttribute("propiedad", propiedad);
         return "index.html";
     }
+    
+    
+   
+    //@GetMapping("/listar")
+    //public String listarUsuario(ModelMap modelo) {
+     // List<Propiedad> propiedad = propiedadServicio.listarPropiedades();
+       //    modelo.addAttribute("propiedad", propieda);
+        
+        //return "listadoPropiedad.html";
+    //}
 
     @DeleteMapping("/borrarPropiedad/{id}")
     public String borrarPropiedad(@PathVariable int id) {
