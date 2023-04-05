@@ -57,5 +57,15 @@ public class ComentarioServicio {
     public void borrarComentario(int id) {
         comentarioRepositorio.deleteById(id);
     }
-
+    
+      public List<Comentario> buscarComentariosPorIdCliente(Integer idCliente) {
+        return comentarioRepositorio.buscarComentariosPorIdCliente(idCliente);
+    }
+    
+    public List<Comentario> buscarComentariosPorIdClienteYPalabraClave(Integer idCliente, String palabraClave) {
+        if(palabraClave == null || palabraClave.isEmpty()) {
+            return buscarComentariosPorIdCliente(idCliente);
+        }
+        return comentarioRepositorio.findByCliente_IdClienteAndPalabraClave(idCliente, palabraClave);
+    }
 }

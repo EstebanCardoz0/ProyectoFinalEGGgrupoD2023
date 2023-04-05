@@ -94,78 +94,77 @@
                 <div class="row">
                     <div class="col-sm-5 col-md-6 col-12 pb-4" th:if="${not #lists.isEmpty(comentarios)}">
                         <h1>Comentarios</h1>
-                        
- <div th:each="comentario : ${comentarios}">
-    <span>
-        <img th:if="${imagenesCliente[comentario.cliente.id] != null}" 
-             th:src="@{'/imagen/perfil/' + ${comentario.cliente.id}}" 
-             alt="" class="rounded-circle" width="40" height="40">
-        <h5 th:text="${comentario.cliente.nombre}"></h5>
-    </span> 
-    <p th:text="${comentario.comentario}"></p>
-    <span>
-        <span th:each="i : ${#numbers.sequence(1, comentario.calificacion)}">★</span>
-    </span>
-    <hr>
-</div>
-                </div>
-                <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4"  th:classappend="${session.usuariosession != null and #authorization.expression('hasRole(''ROLE_CLIENTE'')')} ? '' : 'd-none'">
-                    <form th:action="@{/comentario/comentar}" method="POST">
-                        <div class="form-group" style="display: none;">
-                            <label>Id:</label>
-                            <input type="text" name="idPropiedad" th:field="*{propiedad.idPropiedad}" class="form-control" readonly='readonly'/>
-                            <label>IdPropietario:</label>
-                            <input type="text" name="idPropietario" th:field="*{propiedad.propietario.id}" class="form-control" readonly='readonly'/>
+                        <div th:each="comentario : ${comentarios}">
+                            <div style="display: inline-flex;">
+                                <img th:if="${imagenesCliente[comentario.cliente.id] != null}" 
+                                     th:src="@{'/imagen/perfil/' + ${comentario.cliente.id}}" 
+                                     alt="" class="rounded-circle" width="40" height="40" style="margin-right: 10px;">
+                                <h5 th:text="${comentario.cliente.nombre}"></h5>
+                            </div> 
+                            <p th:text="${comentario.comentario}"></p>
+                            <span>
+                                <span th:each="i : ${#numbers.sequence(1, comentario.calificacion)}">★</span>
+                            </span>
+                            <hr>
                         </div>
-                        <div class="form-group">
-                            <h4>Deja tu opinion!</h4>
-                            <label for="comentario">Comentario</label>
-                            <textarea name="comentario" id="msg" cols="30" rows="5" class="form-control" style="background-color: transparent;"></textarea>
-                        </div>                           
-                        <div class="form-group">
-                            <label for="clasificacion">Calificacion</label>
-                            <p class="clasificacion">
-                                <input id="radio1" type="radio" name="calificacion" value="5" required>
-                                <label for="radio1">★</label>
-                                <input id="radio2" type="radio" name="calificacion" value="4" required>
-                                <label for="radio2">★</label>
-                                <input id="radio3" type="radio" name="calificacion" value="3" required>
-                                <label for="radio3">★</label>
-                                <input id="radio4" type="radio" name="calificacion" value="2" required>
-                                <label for="radio4">★</label>
-                                <input id="radio5" type="radio" name="calificacion" value="1" required>
-                                <label for="radio5">★</label>
-                            </p>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Publicar comentario">
-                        </div>
-                    </form>
+                    </div>
+                    <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4"  th:classappend="${session.usuariosession != null and #authorization.expression('hasRole(''ROLE_CLIENTE'')')} ? '' : 'd-none'">
+                        <form th:action="@{/comentario/comentar}" method="POST">
+                            <div class="form-group" style="display: none;">
+                                <label>Id:</label>
+                                <input type="text" name="idPropiedad" th:field="*{propiedad.idPropiedad}" class="form-control" readonly='readonly'/>
+                                <label>IdPropietario:</label>
+                                <input type="text" name="idPropietario" th:field="*{propiedad.propietario.id}" class="form-control" readonly='readonly'/>
+                            </div>
+                            <div class="form-group">
+                                <h4>Deja tu opinion!</h4>
+                                <label for="comentario">Comentario</label>
+                                <textarea name="comentario" id="msg" cols="30" rows="5" class="form-control" style="background-color: transparent;"></textarea>
+                            </div>                           
+                            <div class="form-group">
+                                <label for="clasificacion">Calificacion</label>
+                                <p class="clasificacion">
+                                    <input id="radio1" type="radio" name="calificacion" value="5" required>
+                                    <label for="radio1">★</label>
+                                    <input id="radio2" type="radio" name="calificacion" value="4" required>
+                                    <label for="radio2">★</label>
+                                    <input id="radio3" type="radio" name="calificacion" value="3" required>
+                                    <label for="radio3">★</label>
+                                    <input id="radio4" type="radio" name="calificacion" value="2" required>
+                                    <label for="radio4">★</label>
+                                    <input id="radio5" type="radio" name="calificacion" value="1" required>
+                                    <label for="radio5">★</label>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Publicar comentario">
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <div th:replace = "/fragment/footer :: div"></div>
-    <div th:replace = "/fragment/script :: script"></div>
-    <script>
-        function zoomImage(img) {
-        img.classList.toggle("zoomed");
+        <div th:replace = "/fragment/footer :: div"></div>
+        <div th:replace = "/fragment/script :: script"></div>
+        <script>
+            function zoomImage(img) {
+            img.classList.toggle("zoomed");
 
-        if (img.classList.contains("zoomed")) {
-        document.body.addEventListener("mousemove", handleMouseMove);
-        } else {
-        document.body.removeEventListener("mousemove", handleMouseMove);
-        }
-        }
-        function handleMouseMove(e) {
-        const img = document.querySelector(".picZoomer img.zoomed");
-        if (!img) return;
-        const container = img.parentElement;
-        const x = e.clientX - container.offsetLeft;
-        const y = e.clientY - container.offsetTop;
-        img.style.transformOrigin = `${x}px ${y}px`;
-        }
-    </script>
-</body>
+            if (img.classList.contains("zoomed")) {
+            document.body.addEventListener("mousemove", handleMouseMove);
+            } else {
+            document.body.removeEventListener("mousemove", handleMouseMove);
+            }
+            }
+            function handleMouseMove(e) {
+            const img = document.querySelector(".picZoomer img.zoomed");
+            if (!img) return;
+            const container = img.parentElement;
+            const x = e.clientX - container.offsetLeft;
+            const y = e.clientY - container.offsetTop;
+            img.style.transformOrigin = `${x}px ${y}px`;
+            }
+        </script>
+    </body>
 </html>
