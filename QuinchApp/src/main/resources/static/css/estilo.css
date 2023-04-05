@@ -44,8 +44,16 @@ body{
     background-color: #2A0A1B !important;
     opacity: 0.9; 
     padding: 4%;
-    position: inherit !important;
-    width: 100%
+    position: absolute;
+    width: 100%;   
+
+
+    bottom: 0;
+
+    height: 60px;
+    color: white;
+
+
 }
 
 .container1{
@@ -93,82 +101,82 @@ body{
 }
 
 .meal {
-  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
-  border-radius: 11px;
-  overflow: hidden;
-  transition: all 0.4s;
+    box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
+    border-radius: 11px;
+    overflow: hidden;
+    transition: all 0.4s;
 }
 
 .meal:hover {
-  transform: translateY(-1.2rem);
-  box-shadow: 0 3.2rem 6.4rem rgba(0, 0, 0, 0.06);
+    transform: translateY(-1.2rem);
+    box-shadow: 0 3.2rem 6.4rem rgba(0, 0, 0, 0.06);
 }
 
 .meal-content {
-  padding: 3.2rem 4.8rem 1rem 4.8rem;
+    padding: 3.2rem 4.8rem 1rem 4.8rem;
 }
 
 .meal-tags {
-  margin-bottom: 1.2rem;
-  display: flex;
-  gap: 0.4rem;
+    margin-bottom: 1.2rem;
+    display: flex;
+    gap: 0.4rem;
 }
 
 .tag {
-  display: inline-block;
-  padding: 0.4rem 0.8rem;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  background-color: #51cf66;
-  color: #333;
-  border-radius: 100px;
-  font-weight: 600;
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    background-color: #51cf66;
+    color: #333;
+    border-radius: 100px;
+    font-weight: 600;
 }
 
 .tag--vegetarian {
-  background-color: #51cf66;
+    background-color: #51cf66;
 }
 
 .tag--vegan {
-  background-color: #94d82d;
+    background-color: #94d82d;
 }
 
 .tag--paleo {
-  background-color: #ffd43b;
+    background-color: #ffd43b;
 }
 
 .meal-title {
-  font-size: 1.8rem;
-  color: #333;
-  font-weight: 600;
-  margin-bottom: 3.2rem;
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 3.2rem;
 }
 
 .meal-attributes {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
 }
 
 .meal-attribute {
-  font-size: 1.2rem;
-  align-items: center;
-  gap: 1.6rem;
+    font-size: 1.2rem;
+    align-items: center;
+    gap: 1.6rem;
 }
 .meal-attribute span {
-  font-size: 1.2rem;
+    font-size: 1.2rem;
 }
 
 .meal-icon {
-  height: 1.4rem;
-  width: 2.4rem;
-  color: #e67e22;
+    height: 1.4rem;
+    width: 2.4rem;
+    color: #e67e22;
 }
 
 .meal-img {
-  width: 100%;
-  height: 224.15px;
-  object-fit: cover;
+    width: 100%;
+    height: 224.15px;
+    object-fit: cover;
 }
 
 #cardsPropiedades{
@@ -184,7 +192,7 @@ body{
     border:none;
 }
 
-  .btnSolicitarReserva:focus {
+.btnSolicitarReserva:focus {
     outline-color: transparent;
     outline-style:solid;
     box-shadow: 0 0 0 4px #5a01a7;
@@ -192,30 +200,30 @@ body{
 }
 
 
-  .btnSolicitarReserva:hover {
+.btnSolicitarReserva:hover {
     outline-color: transparent;
     transition: 0.7s;
-      text-decoration: none;
+    text-decoration: none;
 }
 
 .button:active {
     background-color: #ffbf00;
 }
 .gradient-custom-2 {
-/* fallback for old browsers /
-background: #fccb90;
-
-/ Chrome 10-25, Safari 5.1-6 /
-background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-
-/ W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    /* fallback for old browsers /
+    background: #fccb90;
+    
+    / Chrome 10-25, Safari 5.1-6 /
+    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    
+    / W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
 }
 
 @media (min-width: 768px) {
-.gradient-form {
-height: 100vh !important;
-}
+    .gradient-form {
+        height: 100vh !important;
+    }
 }
 @media (min-width: 769px) {
 .gradient-custom-2 {
@@ -236,3 +244,25 @@ width: 100%;
 }
 
 
+
+    .gradient-custom-2 {
+        border-top-right-radius: .3rem;
+        border-bottom-right-radius: .3rem;
+    }
+    .container py-5 h-100 {
+        background-color: grey;
+        width: 100%;
+        padding-right: var(--bs-gutter-x, 0.75rem);
+        padding-left: var(--bs-gutter-x, 0.75rem);
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .slogan {
+        font-size: 40px;
+        font-weight: bold;
+        color: #ffffff;
+        text-shadow: 1px 1px #3d3d29;
+        text-align: center;
+        margin-top: 50px;
+    }
+ 

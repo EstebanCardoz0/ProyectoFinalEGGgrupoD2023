@@ -8,6 +8,11 @@
               crossorigin="anonymous">  
         <link rel="stylesheet" th:href="@{/css/estilo.css}">
         <link rel="stylesheet" th:href="@{/css/styles.css}">
+        <style>
+            #cantidadEstrellas{
+                font-size: 0;
+            }            
+        </style>            
     </head>
     <body>
         <header th:replace="/fragment/navbar :: div"></header>
@@ -89,10 +94,11 @@
                 </div>
             </div>
         </section>
+
         <section>
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-5 col-md-6 col-12 pb-4" th:if="${not #lists.isEmpty(comentarios)}">
+                    <div class="col-sm-4 col-md-6 col-12 pb-4" th:if="${not #lists.isEmpty(comentarios)}">
                         <h1>Comentarios</h1>
                         <div th:each="comentario : ${comentarios}">
                             <div style="display: inline-flex;">
@@ -142,9 +148,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
         </section>
-
         <div th:replace = "/fragment/footer :: div"></div>
         <div th:replace = "/fragment/script :: script"></div>
         <script>
@@ -165,6 +169,60 @@
             const y = e.clientY - container.offsetTop;
             img.style.transformOrigin = `${x}px ${y}px`;
             }
+            =======
+
+            <div th:replace = "/fragment/footer :: div"></div>
+            <div th:replace = "/fragment/script :: script"></div>
+            <script>
+            function zoomImage(img) {
+            img.classList.toggle("zoomed");
+
+            if (img.classList.contains("zoomed")) {
+            document.body.addEventListener("mousemove", handleMouseMove);
+            } else {
+            document.body.removeEventListener("mousemove", handleMouseMove);
+            }
+            }
+            function handleMouseMove(e) {
+            const img = document.querySelector(".picZoomer img.zoomed");
+            if (!img) return;
+            const container = img.parentElement;
+            const x = e.clientX - container.offsetLeft;
+            const y = e.clientY - container.offsetTop;
+            img.style.transformOrigin = `${x}px ${y}px`;
+            }
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            // Obtener el contenedor de imágenes
+            var estrellasContenedor = document.getElementById('estrellas');
+
+            // Verificar si el contenedor está visible
+            if (estrellasContenedor.style.display !== 'none') {
+            // Ejecutar la función para agregar etiquetas
+            agregarEtiquetasLabel(5); // Agregar 5 etiquetas
+            }
+            });
+
+            function agregarEtiquetasLabel() {
+            // Obtener el contenedor de estrellas
+            var estrellasContenedor = document.getElementById('estrellas');
+
+            // Obtener la cantidad de etiquetas del span
+            var cantidad = document.getElementById('estrellas').textContent;
+
+            // Agregar la cantidad de etiquetas indicada al contenedor
+            for (var i = 0; i < cantidad; i++) {
+            // Crear una nueva etiqueta
+            var newLabel = document.createElement('label');
+            newLabel.htmlFor = 'radio' + (estrellasContenedor.childElementCount + 1);
+            newLabel.textContent = '★';
+            // Agregar la nueva etiqueta al contenedor
+            estrellasContenedor.appendChild(newLabel);
+            }
+            }
+            >>>>>>> developer
         </script>
     </body>
 </html>

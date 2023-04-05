@@ -12,10 +12,10 @@
                     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
                         <div class="btn-group" role="group" aria-label="First group">
                             <div>  
-                                <form class="form-inline my-2 my-lg-0" th:action="@{/comentario/misComentarios}">
-                                    <input class="form-control mr-sm-2" type="text" placeholder="Buscar propiedad" name="palabraClave" th:value="${palabraClave}" aria-label="Search" required>
+                                <form id="formBusqueda" class="form-inline my-2 my-lg-0" th:action="@{/comentario/misComentarios}">
+                                    <input id="palabraClave" class="form-control mr-sm-2" type="text" placeholder="Buscar propiedad" name="palabraClave" th:value="${palabraClave}" aria-label="Search" required>
                                     <button id="btn4" class="btnBuscar btn-material" type="submit" value="Buscar">Buscar</button>
-                                    <button id="btn4" class="btnLimpiar btn-material" type="button" value="Limpiar" onclick="limpiar()">Limpiar</button>
+                                    <button id="btn4" class="btnLimpiar btn-material" type="button" value="Limpiar" onclick="limpiarComentario()">Limpiar</button>
                                 </form>
                             </div>
                         </div>                        
@@ -28,7 +28,6 @@
                             <th>Propiedad</th>
                             <th>Comentario</th>
                             <th>Calificación</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,7 +38,7 @@
                                 <span th:each="i : ${#numbers.sequence(1, comentario.calificacion)}">★</span>
                             </td>
                             <td>
-                           <!--     <a href="#" th:href="@{/comentario/borrar/{id}(id=${comentario.idComentario})}" onclick="return confirm('¿Estás seguro de que deseas eliminar este comentario?')">Borrar</a>-->
+<!--<a th:href="@{/comentario/borrar/{id}(id=${comentario.idComentario})}" onclick="return confirm('¿Estás seguro de que deseas eliminar este comentario?')">Borrar</a>-->
                             </td>
                         </tr>
                     </tbody>
@@ -52,5 +51,6 @@
                 </div>
                 <div th:replace = "/fragment/footer :: div"></div>
                 <div th:replace = "/fragment/script-cliente :: script"></div>          
+
                 </body>
                 </html>

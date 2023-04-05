@@ -4,6 +4,7 @@ import com.QuinchApp.Entidades.Cliente;
 import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Reserva;
 import com.QuinchApp.Entidades.Usuario;
+import com.QuinchApp.Repositorios.ReservaRepositorio;
 import com.QuinchApp.Repositorios.UsuarioRepositorio;
 import com.QuinchApp.Servicios.PropiedadServicio;
 import com.QuinchApp.Servicios.ReservaServicio;
@@ -11,6 +12,9 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -27,6 +31,9 @@ public class ReservaControlador {
 
     @Autowired
     private ReservaServicio reservaServicio;
+
+    @Autowired
+    private ReservaRepositorio reservaRepositorio;
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
@@ -91,7 +98,7 @@ public class ReservaControlador {
     public String listar(ModelMap modelo) {
         List<Reserva> reserva = reservaServicio.listarResevas();
         modelo.addAttribute("reserva", reserva);
-        return "usuarioList";
+        return "listado_reservas_cliente";
     }
 
     @GetMapping("/eliminar/{id}")
@@ -99,6 +106,21 @@ public class ReservaControlador {
         reservaServicio.borrar(id);
         return "redirect:../listar";
     }
+
+    @RequestMapping("/altaBaja/{id}")
+    public String altaBaja(@PathVariable(name = "id") Integer id) {
+        reservaServicio.bajaAlta(id);
+        return "redirect:/reservas";
+    }
+
+   @GetMapping("/listarReservas")
+public String listarResevas(ModelMap modelo, @Param("palabraClave") String palabraClave) {
+    System.out.println("palabraClave: " + palabraClave);
+    List<Reserva> reserva = reservaServicio.listarResevas(palabraClave);
+    modelo.addAttribute("reserva", reserva);
+    modelo.addAttribute("palabraClave", palabraClave);
+    return "listadoReservaPropiedades";
+}
 
     @GetMapping("/borrar/{id}")
     public String borrar(@PathVariable Integer id, ModelMap modelo) throws Exception {
@@ -110,9 +132,12 @@ public class ReservaControlador {
         return "redirect:/dashboardCliente";
     }
 
-    @RequestMapping("/altaBaja/{id}")
-    public String altaBaja(@PathVariable(name = "id") Integer id) {
-        reservaServicio.bajaAlta(id);
-        return "redirect:/reservas";
-    }
+//    @PostMapping("/reserva/modificar")
+//    public String modificarReserva(@RequestParam Integer idReserva,
+//            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDelEvento) {
+//        Reserva reserva = reservaRepositorio.findById(idReserva).orElseThrow();
+//        reserva.setFechaDelEvento(fechaDelEvento);
+//        reservaRepositorio.save(reserva);
+//        return "listado_Reserva_Propiedades";
+//    }
 }

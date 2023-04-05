@@ -21,11 +21,15 @@ public class Comentario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idComentario;
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
     private Cliente cliente;
+
     private String comentario;
+
     private Integer calificacion;
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
     private Propiedad propiedad;
 
     public Comentario(Cliente cliente, String comentario, Integer calificacion, Propiedad propiedad) {

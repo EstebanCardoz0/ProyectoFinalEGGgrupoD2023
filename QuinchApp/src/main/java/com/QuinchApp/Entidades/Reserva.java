@@ -1,3 +1,4 @@
+
 package com.QuinchApp.Entidades;
 
 import java.util.Date;

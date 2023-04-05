@@ -100,6 +100,16 @@ public class PropiedadControlador {
         modelo.put("propiedad", propiedadServicio.getOne(id));
         return "modificarPropiedad";
     }
+    
+    
+   
+    //@GetMapping("/listar")
+    //public String listarUsuario(ModelMap modelo) {
+     // List<Propiedad> propiedad = propiedadServicio.listarPropiedades();
+       //    modelo.addAttribute("propiedad", propieda);
+        
+        //return "listadoPropiedad.html";
+    //}
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROPIETARIO')")
     @PostMapping("/actualizarPropiedad/{idPropiedad}")

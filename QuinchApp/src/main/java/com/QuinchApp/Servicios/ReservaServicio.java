@@ -82,10 +82,22 @@ public class ReservaServicio {
         return reserva;
     }
 
+    @Transactional
+    public List<Reserva> listarResevas(String palabraClave) {
+        if (palabraClave != null) {
+            List<Reserva> reservas = reservaRepositorio.findAll(palabraClave);
+            return reservas;
+        } else {
+            List<Reserva> reservas = reservaRepositorio.findAll();
+            return reservas;
+        }
+    }
+
     public Reserva getOne(Integer id) {
         return reservaRepositorio.getOne(id);
     }
 
+    @Transactional
     public void borrar(Integer id) throws Exception {
         Optional<Reserva> reservaOptional = reservaRepositorio.findById(id);
         if (reservaOptional.isPresent()) {
@@ -110,5 +122,4 @@ public class ReservaServicio {
         }
         return reserva;
     }
-
 }

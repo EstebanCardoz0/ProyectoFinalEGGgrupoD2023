@@ -5,12 +5,10 @@
         <header th:replace="/fragment/navbar :: div">          
         </header>        
         <header class="masthead text-center text-white">
-
             <div class="masthead-content">
                 <img class="imagenLogo" th:src="@{/imagenes/quinchapp.png}">
-                <div class="container px-5">
-                    <h1 class="masthead-heading mb-0">BUSCANDO ANDO</h1>
-                    <h2 class="masthead-subheading mb-0">TU ALQUILER AL ALCANCE DE LA MANO</h2>
+                <div class="container px-5">                      
+                    <h2 class="slogan">"...Encuentra el espacio perfecto para tu evento..."</h2>
                     <a class="btn btn-primary btn-xl rounded-pill mt-5" href="/quienes-somos">Quienes somos</a>
                 </div>
             </div>
@@ -200,21 +198,21 @@
                                 <p class="meal-title" th:text="${propiedad.nombre}"></p>
                                 <ul class="meal-attributes">
                                     <li class="meal-attribute">
-                                    <ion-icon name='cash-outline' class="meal-icon" ></ion-icon>
+                                    <ion-icon name='cash-outline' class="meal-icon"></ion-icon>
                                     <span th:text=" '$' + ${propiedad.valor} "><strong></strong> </span>
                                     </li>
                                     <li class="meal-attribute">
-                                    <ion-icon name='reader-outline' class="meal-icon" ></ion-icon>
+                                    <ion-icon name='reader-outline' class="meal-icon"></ion-icon>
                                     <strong th:text=" 'Descrpcion: '"></strong>
-                                    <span th:text="  ${propiedad.Descripcion} "> </span>
+                                    <span th:text="  ${propiedad.descripcion} "> </span>
                                     </li>
                                     <li class="meal-attribute">
-                                    <ion-icon name='earth-sharp'  class="meal-icon"></ion-icon>
+                                    <ion-icon name='earth-sharp' class="meal-icon"></ion-icon>
                                     <strong th:text=" 'Ubicacion: '"></strong>
                                     <a th:href="@{'https://www.google.com/maps/search/?api=1&query=' + ${propiedad.ubicacion}}" target="_blank" th:text="${propiedad.ubicacion}"></a>
                                     </li>
                                     <li class="meal-attribute">
-                                    <ion-icon name='person-outline'  class="meal-icon"></ion-icon>      
+                                    <ion-icon name='person-outline' class="meal-icon"></ion-icon>
                                     <strong th:text=" 'Capacidad: '"></strong>
                                     <span th:text="  ${propiedad.capacidad} "> </span>
                                     </li>
@@ -226,7 +224,7 @@
                                 </ul>
                             </div>
                             <div th:replace="/fragment/botonVerPropiedad :: div"></div>
-                        </div>
+                        </div>    
                     </div>
                 </div>            
             </div>
