@@ -9,7 +9,6 @@ import com.QuinchApp.Repositorios.ClienteRepositorio;
 import com.QuinchApp.Repositorios.PropietarioRepositorio;
 import com.QuinchApp.Repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +17,6 @@ import javax.transaction.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -74,7 +72,6 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
-    
     private void validarActualizar(String nombre, String nombreUsuario, String email, String password, long telefono, MultipartFile archivo, String password2) throws Exception {
         if (nombre == null || nombre.isEmpty()) {
             throw new Exception("El nombre no puede estar estar vacío");
@@ -188,47 +185,6 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.deleteById(id);
     }
 
-//    @Override
-//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-//        Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
-//        if (usuario != null) {
-//            List<GrantedAuthority> permisos = new ArrayList();
-//            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
-//            permisos.add(p);
-//            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-//            HttpSession session = attr.getRequest().getSession(true);
-//            session.setAttribute("usuariosession", usuario);
-//            return new User(usuario.getEmail(), usuario.getPassword(), permisos);
-//        } else {
-//            return null;
-//        }
-//    }
-//     public UsuarioServicio(UsuarioRepositorio usuarioRepositorio, PasswordEncoder passwordEncoder) {
-//        this.usuarioRepositorio = usuarioRepositorio;
-//        this.passwordEncoder = passwordEncoder;
-//    }
-//
-//    @Override
-//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-//        Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
-//        if (usuario != null) {
-//            List<GrantedAuthority> permisos = new ArrayList();
-//            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
-//            permisos.add(p);
-//            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-//            HttpSession session = attr.getRequest().getSession(true);
-//            session.setAttribute("usuariosession", usuario);
-//
-//            // Verificar la contraseña
-//            if (passwordEncoder.matches(usuario.getPassword(), usuario.getPassword())) {
-//                return new User(usuario.getEmail(), usuario.getPassword(), permisos);
-//            } else {
-//                throw new BadCredentialsException("Contraseña incorrecta");
-//            }
-//        } else {
-//            throw new UsernameNotFoundException("Usuario no encontrado");
-//        }
-//    }
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);

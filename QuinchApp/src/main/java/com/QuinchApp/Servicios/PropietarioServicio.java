@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class PropietarioServicio{
+public class PropietarioServicio {
 
     @Autowired
     private PropietarioRepositorio propietarioRepositorio;
@@ -105,42 +105,17 @@ public class PropietarioServicio{
     public void borrar(Integer id) {
         propietarioRepositorio.deleteById(id);
     }
-    
+
     @Transactional
     public Propietario buscarPropietarioPorNombre(String nombre) {
         return propietarioRepositorio.buscarPorNombre(nombre);
     }
-    
+
     public Propietario getOne(int id) {
         return propietarioRepositorio.getOne(id);
     }
-    
-//     @Override
-//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-//
-//        Propietario propietario = propietarioRepositorio.buscarPorEmail(email);
-//
-//        if (propietario != null) {
-//
-//            List<GrantedAuthority> permisos = new ArrayList();
-//
-//            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + propietario.getRol().toString());
-//
-//            permisos.add(p);
-//
-//            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-//
-//            HttpSession session = attr.getRequest().getSession(true);
-//
-//            session.setAttribute("usuariosession", propietario);
-//
-//            return new Propietario(propietario.getEmail(), propietario.getPassword(), permisos);
-//        } else {
-//            return null;
-//        }
-//}
 
     public Propietario buscarPropietarioPorId(Integer id) {
-         return propietarioRepositorio.buscarPorId(id);
+        return propietarioRepositorio.buscarPorId(id);
     }
 }
