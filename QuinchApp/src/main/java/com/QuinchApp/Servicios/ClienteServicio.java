@@ -56,13 +56,13 @@ public class ClienteServicio {
             usuario.setPassword(password);
             usuario.setTelefono(telefono);
 
-            List<Reserva> reser = usuario.getReserva();
+            List<Reserva> reser = usuario.getReservas();
             if (reser == null) {
                 reser = new ArrayList();
-                usuario.setReserva(reser);
+                usuario.setReservas(reser);
             }
             reser.add(reserva);
-            usuario.setReserva(reser);
+            usuario.setReservas(reser);
             int idImagen = 0;
             if (usuario.getFotoPerfil() != null) {
                 idImagen = usuario.getFotoPerfil().getIdImagen();
