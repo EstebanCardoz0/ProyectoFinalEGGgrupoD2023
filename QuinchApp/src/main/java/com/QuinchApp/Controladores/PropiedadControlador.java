@@ -6,7 +6,6 @@ import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Enums.PropiedadEnum;
 import com.QuinchApp.Enums.ServicioEnum;
-import com.QuinchApp.Repositorios.ImagenRepositorio;
 import com.QuinchApp.Servicios.ImagenServicio;
 import com.QuinchApp.Servicios.PropiedadServicio;
 import com.QuinchApp.Servicios.UsuarioServicio;
@@ -35,7 +34,7 @@ public class PropiedadControlador {
     private PropiedadServicio propiedadServicio;
     @Autowired
     private ImagenServicio imagenServicio;
-     @Autowired
+    @Autowired
     private UsuarioServicio usuarioServicio;
 
     @GetMapping("/registroPropiedad")
@@ -56,7 +55,7 @@ public class PropiedadControlador {
         Map<Integer, byte[]> imagenesCliente = new HashMap<>();
         for (Comentario comentario : comentarios) {
             int idCliente = comentario.getCliente().getId();
-            Usuario miUsuario= usuarioServicio.getOne(idCliente);            
+            Usuario miUsuario = usuarioServicio.getOne(idCliente);
             Imagen imagen = miUsuario.getFotoPerfil();
             if (imagen != null) {
                 imagenesCliente.put(idCliente, imagen.getContenido());
@@ -100,16 +99,6 @@ public class PropiedadControlador {
         modelo.put("propiedad", propiedadServicio.getOne(id));
         return "modificarPropiedad";
     }
-    
-    
-   
-    //@GetMapping("/listar")
-    //public String listarUsuario(ModelMap modelo) {
-     // List<Propiedad> propiedad = propiedadServicio.listarPropiedades();
-       //    modelo.addAttribute("propiedad", propieda);
-        
-        //return "listadoPropiedad.html";
-    //}
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROPIETARIO')")
     @PostMapping("/actualizarPropiedad/{idPropiedad}")
@@ -146,6 +135,7 @@ public class PropiedadControlador {
 
     @GetMapping("/borrarPropiedad/{id}")
     public String borrarPropiedad(@PathVariable int id) {
+        System.err.println("propiedad id" + id);
         try {
             propiedadServicio.borrar(id);
         } catch (Exception e) {

@@ -2,6 +2,7 @@ package com.QuinchApp.Servicios;
 
 import com.QuinchApp.Entidades.Cliente;
 import com.QuinchApp.Entidades.Propiedad;
+import com.QuinchApp.Entidades.Propietario;
 import com.QuinchApp.Entidades.Reserva;
 import com.QuinchApp.Repositorios.ClienteRepositorio;
 import com.QuinchApp.Repositorios.PropiedadRepositorio;
@@ -93,6 +94,27 @@ public class ReservaServicio {
         }
     }
 
+    @Transactional
+    public List<Reserva> listarResevasPorCliente(Integer idCliente, String palabraClave) {
+        if (palabraClave != null) {
+            List<Reserva> reservas = reservaRepositorio.findAllByClienteIdAndPalabraClave(idCliente, palabraClave);
+            return reservas;
+        } else {
+            List<Reserva> reservas = reservaRepositorio.findAllByClienteId(idCliente);
+            return reservas;
+        }
+    }
+
+    public List<Propiedad> listarReservasPorPropietario(Integer idPropietario, String palabraClave) {
+        List<Propiedad> reservas;
+        if (palabraClave != null && !palabraClave.isEmpty()) {
+            reservas = propiedadRepositorio.findAllByPropietarioIdAndPalabraClave(idPropietario, palabraClave);
+        } else {
+            reservas = reservaRepositorio.obtenerPropiedadesReservadasPorPropietario(idPropietario);
+        }
+        return reservas;
+    }
+
     public Reserva getOne(Integer id) {
         return reservaRepositorio.getOne(id);
     }
@@ -122,4 +144,17 @@ public class ReservaServicio {
         }
         return reserva;
     }
+
+    @Transactional
+    public void modificarFechaReserva(Integer idReserva, Date fechaDelEvento) throws Exception {
+        Optional<Reserva> optionalReserva = reservaRepositorio.findById(idReserva);
+        if (optionalReserva.isPresent()) {
+            Reserva reserva = optionalReserva.get();
+            reserva.setFechaDelEvento(fechaDelEvento);
+            reservaRepositorio.save(reserva);
+        } else {
+            throw new Exception("No se encontró la reserva con el id " + idReserva);
+        }
+    }
+
 }

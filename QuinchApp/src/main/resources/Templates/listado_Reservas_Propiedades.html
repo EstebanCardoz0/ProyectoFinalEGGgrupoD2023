@@ -31,7 +31,7 @@
                                 <th>Cliente</th>
                                 <th>Fecha</th>
                                 <th>Cancelar Reserva</th>
-                                <th>Modificar Fecha</th>
+                             <!--   <th>Modificar Fecha</th>-->
                             </tr>
                         </thead>
                         <tbody>
@@ -43,23 +43,30 @@
                                 <td>
                                     <a th:href="@{/reserva/borrar/__${reserva.idReserva}__}">Cancelar</a>                               
                                 </td>
-                                <td>
-                                    <a href="#" onclick="mostrarFormulario(${reserva.idReserva})">
+                              <!--  <td>
+                                    <a href="/reserva/modificar" onclick="mostrarFormulario(${reserva.idReserva})">
                                         Modificar Fecha
                                     </a>
                                     <div id="formulario-${
-                                            reserva.idReserva
-                                        }" style="display:none">
+                                             reserva.idReserva
+                                         }" style="display:none">
                                         <form method="post" action="@{/reserva/modificar}">
                                             <input type="hidden" name="idReserva" th:value="${reserva.idReserva}">
-                                            <input type="date" name="fechaDelEvento" required>
-                                            <button type="submit">Guardar</button>
+                                            <div class="form-group">
+                                                <label for="fechaDelEvento-${reserva.idReserva}">Nueva Fecha:</label>
+                                                <input type="date" class="form-control" id="fechaDelEvento-${
+                                                           reserva.idReserva
+                                                       }" name="fechaDelEvento" required>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                            <button type="button" class="btn btn-default" onclick="ocultarFormulario(${reserva.idReserva})">Cancelar</button>
                                         </form>
                                     </div>
-                                </td>
+                                </td>-->
                             </tr>
                         </tbody>
                     </table>
+
                     <div th:if="${error != null}" class="alert alert-danger" role="alert">
                         <p class="MensajeError" th:text="${error}"></p>
                     </div>
@@ -70,6 +77,14 @@
             </div>
         </div>
         <div th:replace = "/fragment/footer :: div"></div>
-        <div th:replace = "/fragment/script-cliente :: script"></div>                     
+        <div th:replace = "/fragment/script-cliente :: script"></div>  
+
+        <script th:inline="javascript">
+            function mostrarFormulario(idReserva) {
+            var formulario = document.getElementById("formulario-" + idReserva);
+            formulario.style.display = formulario.style.display === "none" ? "block" : "none";
+            }
+        </script>
+
     </body>
 </html>
