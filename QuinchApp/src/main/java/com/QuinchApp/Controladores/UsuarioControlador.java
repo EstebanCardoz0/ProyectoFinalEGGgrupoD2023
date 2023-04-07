@@ -99,14 +99,19 @@ public class UsuarioControlador {
     @PostMapping("/perfilModificar/{id}")
     public String actualizar(HttpSession session, @PathVariable int id, @RequestParam("nombre") String nombre, @RequestParam("nombreUsuario") String nombreUsuario,
             @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("password2") String password2, @RequestParam("telefono") long telefono,
-            @RequestParam("archivo") MultipartFile archivo, @RequestParam("tipoUsuario") String tipo, ModelMap modelo) {
+            @RequestParam(value = "archivo", required = false) MultipartFile archivo, @RequestParam("tipoUsuario") String tipo, ModelMap modelo) {
         modelo.addAttribute("usuario", new Usuario());
         try {
-            usuarioServicio.actualizar(id, nombre, nombreUsuario, email, password, password2, telefono, archivo, tipo);
+            if (archivo != null && !archivo.isEmpty()) {
+                usuarioServicio.actualizar(id, nombre, nombreUsuario, email, password, password2, telefono, archivo, tipo);
+            } else {
+                usuarioServicio.actualizar(id, nombre, nombreUsuario, email, password, password2, telefono, null, tipo);
+            }
             Usuario usuario = (Usuario) session.getAttribute("usuariosession");
             modelo.put("usuario", usuario);
             modelo.put("password", password);
             modelo.put("password2", password2);
+            modelo.addAttribute("tipoUsuario", usuario.getRol().name().toLowerCase());
             modelo.put("exito", "Usuario actualizado correctamente!, vuelva a iniciar sesion para ver los cambios");
             return "modiificarUsuario";
         } catch (Exception ex) {
@@ -115,6 +120,8 @@ public class UsuarioControlador {
             modelo.put("usuario", usuario);
             modelo.put("password", password);
             modelo.put("password2", password2);
+            modelo.addAttribute("tipoUsuario", usuario.getRol().name().toLowerCase());
+
             return "modiificarUsuario";
         }
     }

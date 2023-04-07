@@ -37,6 +37,7 @@ public class Cliente extends Usuario {
     public void addReserva(Reserva reserva) {
         reservas.add(reserva);
         reserva.setCliente(this);
+
     }
 
     public void removeReserva(Reserva reserva) {

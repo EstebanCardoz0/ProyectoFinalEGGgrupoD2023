@@ -20,34 +20,65 @@
     sidebar.classList.remove("show-sidebar");
     });
 </script>
+<script type="text/javascript">
+    function limpiar2(){
+    window.location='/propiedad/listarPropiedades'; 
+    }    
+   
+</script>
 <script>
     // Obtener el contenedor de imágenes
     var imageContainer = document.getElementById('image-container');
     var addButton = document.getElementById('add-image-button');
     // Manejar el evento clic del botón "Agregar Imagen"
     addButton.addEventListener('click', function() {
-        // Crear un nuevo campo de carga de imágenes
-        var newImageField = document.createElement('input');
-        newImageField.type = 'file';
-        newImageField.name = 'imagen';
-        newImageField.classList.add('form-control');
-        newImageField.classList.add('is-valid');
-        newImageField.required = true;
-        // Agregar el nuevo campo de carga de imágenes al contenedor
-        imageContainer.appendChild(newImageField);
+    // Crear un nuevo campo de carga de imágenes
+    var newImageField = document.createElement('input');
+    newImageField.type = 'file';
+    newImageField.name = 'imagen';
+    newImageField.classList.add('form-control');
+    newImageField.classList.add('is-valid');
+    newImageField.required = true;
+    // Agregar el nuevo campo de carga de imágenes al contenedor
+    imageContainer.appendChild(newImageField);
     });
 </script>
+
 <script type="text/javascript">
     var fecha = document.getElementById("CopyrightControl");
     copyright=new Date();
     update=copyright.getFullYear();
     document.getElementById('CopyrightControl').innerHTML="Copyright © " + update + " " + " - Quinchapp";  
     document.getElementById('Copyright').innerHTML="Copyright © " + update + " " + " - Quinchapp";    
-    
+
 </script>
 <script type="text/javascript">
     var fecha = document.getElementById("CopyrightControl");
     copyright=new Date();
     update=copyright.getFullYear();
     document.getElementById('CopyrightControl').innerHTML="Copyright © " + update + " " + " - Quinchapp";
+</script>
+<script type="text/javascript">
+    function limpiarComentario(){
+    document.getElementById("palabraClave").value = "";
+    document.getElementById("formBusqueda").submit();
+    }
+</script>
+<script type="text/javascript">
+function limpiarPropiedadesPorPropietario() {
+  document.querySelector('input[name="palabraClave"]').value = '';
+  document.querySelector('form').submit();
+}
+</script>
+<script type="text/javascript">
+    var fecha = document.getElementById("Copyright");
+    copyright=new Date();
+    update=copyright.getFullYear();
+    document.getElementById('Copyright').innerHTML="Copyright © " + update + " " + " - Quinchapp";
+    $('.carousel').carousel({
+  interval: 5000, // tiempo de transición entre imágenes
+  pause: "hover", // pausa la transición al pasar el mouse sobre el carrusel
+  wrap: true // permite que el carrusel "rebote" al llegar al final
+});
+
 </script>

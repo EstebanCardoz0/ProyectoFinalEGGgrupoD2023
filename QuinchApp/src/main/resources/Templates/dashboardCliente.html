@@ -8,53 +8,60 @@
                 <div class="container-fluid px-4">
                     <br>
                     <br>
-                    <h1 class="mt-4"><p>Bienvenido </p> <p th:text="${session.usuariosession.nombreUsuario}"></p> </h1>
-                    <div class="row">
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card bg-primary text-white mb-4"  th:if="${#authorization.expression('hasRole(''ROLE_PROPIETARIO'')')}">
-                                <div class="card-body">Mis Reservas</div>
+                    <h1 class="mt-4">Bienvenido <p th:text="${session.usuariosession.nombreUsuario}"></p> </h1>
+                    <div class="rowDashboard row">
+                        <div class="col-xl-3 col-md-6"  th:class="${#authorization.expression('hasRole(''ROLE_CLIENTE'')') ? '' : 'd-none'}" >
+                            <div class="card bg-warning text-white mb-4">
+                                <div class="card-body">Ver mis comentarios hechos</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-
-                                    <a class="small text-white stretched-link" href="/reserva/listar">Ver mas...</a>
-
+                                    <a class="small text-white stretched-link" href="/comentario/misComentarios">Ver mas...</a>                          
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
-                            </div>
-                        </div>                   
-                    <div class="col-xl-3 col-md-6" th:if="${#authorization.expression('hasRole(''ROLE_CLIENTE'')')}">
-                        <div class="card bg-warning text-white mb-4">
-                            <div class="card-body">Mis Reservas</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="/reserva/listarResevasCliente">Ver mas...</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
-                        </div>                       
-                    </div>
-                     <div class="col-xl-3 col-md-6"  th:if="${#authorization.expression('hasRole(''ROLE_PROPIETARIO'')')}">
+                            </div>                       
+                        </div>
+                        <div class="col-xl-3 col-md-6"  th:class="${#authorization.expression('hasRole(''ROLE_CLIENTE'')') ? '' : 'd-none'}">
+                            <div class="card bg-primary text-white mb-4">
+                                <div class="card-body">Mis Reservas</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="/reserva/listarResevasCliente">Ver mas...</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>                       
+                        </div>
+                        <div class="col-xl-3 col-md-6"   th:class="${#authorization.expression('hasRole(''ROLE_PROPIETARIO'')') ? '' : 'd-none'}">
                             <div class="card bg-warning text-white mb-4">
                                 <div class="card-body">Ver todas mis propiedades</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" th:href="@{propietario/verPropiedadesPr/__${session.usuariosession.id}__}">Ver mas...</a>
+                                    <a class="small text-white stretched-link" th:href="@{/propietario/verPropiedadesPr/__${session.usuariosession.id}__}">Ver mas...</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
                         </div>
-                    <div class="col-xl-3 col-md-6"
-                        th:if="${#authorization.expression('hasRole(''ROLE_PROPIETARIO'')')}">
-                        <div class="card bg-success text-white mb-4">
-                            <div class="card-body">Crear Propiedad</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="/propiedad/registroPropiedad">Ver
-                                    Mas...</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        <div class="col-xl-3 col-md-6"th:class="${#authorization.expression('hasRole(''ROLE_PROPIETARIO'')') ? '' : 'd-none'}">
+                            <div class="card bg-primary text-white mb-4"  >
+                                <div class="card-body">Mis Reservas</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="/reserva/listarReservas">Ver mas...</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>    
+                        <div class="col-xl-3 col-md-6"
+                             th:class="${#authorization.expression('hasRole(''ROLE_PROPIETARIO'')') ? '' : 'd-none'}">
+                            <div class="card bg-success text-white mb-4">
+                                <div class="card-body">Crear Propiedad</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="/propiedad/registroPropiedad">Ver
+                                        Mas...</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>             
+                    </div>             
+                </div>
             </main>
         </div>
-                 </div>
-      <div th:replace="/fragment/footerControl :: div"></div>
+        <div th:replace="/fragment/footer :: div"></div>
         <div th:replace = "/fragment/script-cliente :: script"></div>
     </body>
 </html>
