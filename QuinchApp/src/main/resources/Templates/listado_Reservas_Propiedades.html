@@ -31,7 +31,7 @@
                                 <th>Cliente</th>
                                 <th>Fecha</th>
                                 <th>Cancelar Reserva</th>
-                                <th>Modificar Fecha</th>
+                             <!--   <th>Modificar Fecha</th>-->
                             </tr>
                         </thead>
                         <tbody>
@@ -43,7 +43,7 @@
                                 <td>
                                     <a th:href="@{/reserva/borrar/__${reserva.idReserva}__}">Cancelar</a>                               
                                 </td>
-                                <td>
+                              <!--  <td>
                                     <a href="/reserva/modificar" onclick="mostrarFormulario(${reserva.idReserva})">
                                         Modificar Fecha
                                     </a>
@@ -62,7 +62,7 @@
                                             <button type="button" class="btn btn-default" onclick="ocultarFormulario(${reserva.idReserva})">Cancelar</button>
                                         </form>
                                     </div>
-                                </td>
+                                </td>-->
                             </tr>
                         </tbody>
                     </table>

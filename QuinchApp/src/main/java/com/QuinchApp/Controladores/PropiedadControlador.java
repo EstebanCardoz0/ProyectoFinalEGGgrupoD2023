@@ -1,12 +1,17 @@
 package com.QuinchApp.Controladores;
 
 import com.QuinchApp.Entidades.Comentario;
+import com.QuinchApp.Entidades.Imagen;
 import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Usuario;
 import com.QuinchApp.Enums.PropiedadEnum;
 import com.QuinchApp.Enums.ServicioEnum;
+import com.QuinchApp.Servicios.ImagenServicio;
 import com.QuinchApp.Servicios.PropiedadServicio;
+import com.QuinchApp.Servicios.UsuarioServicio;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,6 +32,10 @@ public class PropiedadControlador {
 
     @Autowired
     private PropiedadServicio propiedadServicio;
+    @Autowired
+    private ImagenServicio imagenServicio;
+    @Autowired
+    private UsuarioServicio usuarioServicio;
 
     @GetMapping("/registroPropiedad")
     public String registrarPropiedad() {
@@ -43,8 +52,18 @@ public class PropiedadControlador {
         Propiedad propiedad = propiedadServicio.getOne(id);
         modelo.addAttribute("propiedad", propiedad);
         List<Comentario> comentarios = propiedad.getComentarios();
-        modelo.addAttribute("propiedad", propiedad);
+        Map<Integer, byte[]> imagenesCliente = new HashMap<>();
+        for (Comentario comentario : comentarios) {
+            int idCliente = comentario.getCliente().getId();
+            Usuario miUsuario = usuarioServicio.getOne(idCliente);
+            Imagen imagen = miUsuario.getFotoPerfil();
+            if (imagen != null) {
+                imagenesCliente.put(idCliente, imagen.getContenido());
+            }
+        }
         modelo.addAttribute("comentarios", comentarios);
+        modelo.addAttribute("imagenesCliente", imagenesCliente); // Pasar el Map a la vista
+
         return "vistaPropiedad.html";
     }
 
@@ -80,16 +99,6 @@ public class PropiedadControlador {
         modelo.put("propiedad", propiedadServicio.getOne(id));
         return "modificarPropiedad";
     }
-    
-    
-   
-    //@GetMapping("/listar")
-    //public String listarUsuario(ModelMap modelo) {
-     // List<Propiedad> propiedad = propiedadServicio.listarPropiedades();
-       //    modelo.addAttribute("propiedad", propieda);
-        
-        //return "listadoPropiedad.html";
-    //}
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROPIETARIO')")
     @PostMapping("/actualizarPropiedad/{idPropiedad}")
@@ -126,6 +135,7 @@ public class PropiedadControlador {
 
     @GetMapping("/borrarPropiedad/{id}")
     public String borrarPropiedad(@PathVariable int id) {
+        System.err.println("propiedad id" + id);
         try {
             propiedadServicio.borrar(id);
         } catch (Exception e) {
