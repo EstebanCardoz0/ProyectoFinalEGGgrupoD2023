@@ -73,4 +73,6 @@ public class ImagenServicio {
     public Imagen getOne(int id) {
         return imagenRepositorio.getOne(id);
     }
+    
+   
 }

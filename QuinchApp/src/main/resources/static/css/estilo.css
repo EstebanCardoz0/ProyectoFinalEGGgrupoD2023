@@ -37,20 +37,8 @@ body{
     opacity: 0.9; 
     padding: 4%;
     position: absolute !important;
-    width: 100%
-}
-
-#CopyrightControl{
-    background-color: #2A0A1B !important;
-    opacity: 0.9; 
-    padding: 4%;
-    position: absolute;
-    width: 100%;   
-    bottom: 0;
-    height: 60px;
-    color: white;
-
-
+    width: 100%;
+    color:#e7f1ff!important;
 }
 
 .container1{
@@ -177,7 +165,9 @@ body{
 }
 
 #cardsPropiedades{
-    margin: 5%;    
+    margin: 5%; 
+    margin-bottom: 0% !important;
+    padding-bottom: 8%;
 }
 
 .btnSolicitarReserva{
@@ -234,5 +224,49 @@ body{
         padding-left: var(--bs-gutter-x, 0.75rem);
         margin-right: auto;
         margin-left: auto;
+<<<<<<< HEAD
     }
+=======
+    }}
+
+.imagenLogo{
+    max-width: 40%;
+}
+
+
+
+.gradient-custom-2 {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+}
+.container py-5 h-100 {
+    background-color: grey;
+    width: 100%;
+    padding-right: var(--bs-gutter-x, 0.75rem);
+    padding-left: var(--bs-gutter-x, 0.75rem);
+    margin-right: auto;
+    margin-left: auto;
+}
+.slogan {
+    font-size: 40px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 1px 1px #3d3d29;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.meal-image img {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px; /* ajusta este valor según tus necesidades */
+}
+
+section {
+    padding: 5px 0;
+}
+
+.rowDashboard{
+    padding-bottom: 5%;
+>>>>>>> developer
 }

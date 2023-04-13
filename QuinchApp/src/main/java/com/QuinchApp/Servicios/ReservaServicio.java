@@ -2,6 +2,7 @@ package com.QuinchApp.Servicios;
 
 import com.QuinchApp.Entidades.Cliente;
 import com.QuinchApp.Entidades.Propiedad;
+import com.QuinchApp.Entidades.Propietario;
 import com.QuinchApp.Entidades.Reserva;
 import com.QuinchApp.Repositorios.ClienteRepositorio;
 import com.QuinchApp.Repositorios.PropiedadRepositorio;
@@ -45,8 +46,8 @@ public class ReservaServicio {
         reserva.setConfirmada(activo);
         Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaDelEvento);
         List<Reserva> reservas = propiedadReserva.getReservas();
-        for(Reserva r : reservas) {
-            if(r.getFechaDelEvento().equals(fecha)) {
+        for (Reserva r : reservas) {
+            if (r.getFechaDelEvento().equals(fecha)) {
                 throw new Exception("error");
             }
         }
@@ -82,13 +83,50 @@ public class ReservaServicio {
         return reserva;
     }
 
+    @Transactional
+    public List<Reserva> listarResevas(String palabraClave) {
+        if (palabraClave != null) {
+            List<Reserva> reservas = reservaRepositorio.findAll(palabraClave);
+            return reservas;
+        } else {
+            List<Reserva> reservas = reservaRepositorio.findAll();
+            return reservas;
+        }
+    }
+
+    @Transactional
+    public List<Reserva> listarResevasPorCliente(Integer idCliente, String palabraClave) {
+        if (palabraClave != null) {
+            List<Reserva> reservas = reservaRepositorio.findAllByClienteIdAndPalabraClave(idCliente, palabraClave);
+            return reservas;
+        } else {
+            List<Reserva> reservas = reservaRepositorio.findAllByClienteId(idCliente);
+            return reservas;
+        }
+    }
+
+    public List<Propiedad> listarReservasPorPropietario(Integer idPropietario, String palabraClave) {
+        List<Propiedad> reservas;
+        if (palabraClave != null && !palabraClave.isEmpty()) {
+            reservas = propiedadRepositorio.findAllByPropietarioIdAndPalabraClave(idPropietario, palabraClave);
+        } else {
+            reservas = reservaRepositorio.obtenerPropiedadesReservadasPorPropietario(idPropietario);
+        }
+        return reservas;
+    }
+
     public Reserva getOne(Integer id) {
         return reservaRepositorio.getOne(id);
     }
 
     @Transactional
-    public void borrar(Integer id) {
-        reservaRepositorio.deleteById(id);
+    public void borrar(Integer id) throws Exception {
+        Optional<Reserva> reservaOptional = reservaRepositorio.findById(id);
+        if (reservaOptional.isPresent()) {
+            reservaRepositorio.deleteById(id);
+        } else {
+            throw new Exception("La reserva con ID " + id + " no existe.");
+        }
     }
 
     public Reserva bajaAlta(Integer id) {
@@ -106,4 +144,17 @@ public class ReservaServicio {
         }
         return reserva;
     }
+
+    @Transactional
+    public void modificarFechaReserva(Integer idReserva, Date fechaDelEvento) throws Exception {
+        Optional<Reserva> optionalReserva = reservaRepositorio.findById(idReserva);
+        if (optionalReserva.isPresent()) {
+            Reserva reserva = optionalReserva.get();
+            reserva.setFechaDelEvento(fechaDelEvento);
+            reservaRepositorio.save(reserva);
+        } else {
+            throw new Exception("No se encontró la reserva con el id " + idReserva);
+        }
+    }
+
 }

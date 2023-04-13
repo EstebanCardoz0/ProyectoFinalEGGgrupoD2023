@@ -1,6 +1,7 @@
 package com.QuinchApp.Entidades;
 
 import com.QuinchApp.Enums.Rol;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -12,10 +13,11 @@ import lombok.Data;
 @Data
 public class Cliente extends Usuario {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", orphanRemoval = true)
+    private List<Reserva> reservas = new ArrayList<>();
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Reserva> reserva;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comentario> comentarios;
+    private List<Comentario> comentarios = new ArrayList<>();
 
     public Cliente() {
     }
@@ -25,11 +27,30 @@ public class Cliente extends Usuario {
     }
 
     public List<Reserva> getReservas() {
-        return reserva;
+        return reservas;
     }
 
-    public void setReservas(List<Reserva> reserva) {
-        this.reserva = reserva;
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
+    }
+
+    public void addReserva(Reserva reserva) {
+        reservas.add(reserva);
+        reserva.setCliente(this);
+
+    }
+
+    public void removeReserva(Reserva reserva) {
+        reservas.remove(reserva);
+        reserva.setCliente(null);
+    }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
     }
 
     @Override

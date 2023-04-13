@@ -4,6 +4,7 @@ import com.QuinchApp.Entidades.Imagen;
 import com.QuinchApp.Entidades.Propiedad;
 import com.QuinchApp.Entidades.Propietario;
 import com.QuinchApp.Enums.Rol;
+import com.QuinchApp.Repositorios.PropiedadRepositorio;
 import com.QuinchApp.Repositorios.PropietarioRepositorio;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +19,8 @@ public class PropietarioServicio {
 
     @Autowired
     private PropietarioRepositorio propietarioRepositorio;
+    @Autowired
+    private PropiedadRepositorio propiedadRepositorio;
     @Autowired
     private ImagenServicio imagenServicio;
 
@@ -101,6 +104,15 @@ public class PropietarioServicio {
         return propietario;
     }
 
+    public List<Propiedad> listarPropiedadesPropietario(String palabraClave, int idPropietario) {
+    if (palabraClave != null) {
+        List<Propiedad> propiedades = propiedadRepositorio.findAllByPropietarioIdAndPalabraClave(idPropietario, palabraClave);
+        return propiedades;
+    } else {
+        List<Propiedad> propiedades = propiedadRepositorio.findAllByPropietarioId(idPropietario);
+        return propiedades;
+    }
+}
     @Transactional
     public void borrar(Integer id) {
         propietarioRepositorio.deleteById(id);

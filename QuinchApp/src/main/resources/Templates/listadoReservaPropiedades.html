@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="/fragment/head_cliente :: head"> </head>
+    <header th:replace="/fragment/nuevo :: div"> </header>
+    <body>
+        <div class="col-sm-10 col-md-10">
+            <div class="well">
+                <h1>Todos mis reservas</h1>                        
+                  <div class="container text-center">
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/reserva/listarReservas}" method="get">
+                        <div class="d-flex flex-row align-items-center">
+                            <div class="mr-2">
+                                <input class="form-control" type="text" placeholder="Buscar propiedad" name="palabraClave" th:value="${palabraClave}" aria-label="Search" required>
+                            </div>
+                            <div>
+                                <button id="btnBuscar" class="btnBuscar btn-material" type="submit" value="Buscar">Buscar</button>
+                                <button id="btnLimpiar" class="btnLimpiar btn-material ml-2" type="button">Limpiar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <br>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Numero de Reserva</th>
+                                <th>Propiedad</th>
+                                <th>Cliente</th>
+                                <th>Fecha</th>
+                                <th>Cancelar Reserva</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="propiedad:${reservas}">
+                                <td th:text="${propiedad.reservas[0].idReserva}"></td>
+                                <td th:text="${propiedad.nombre}"></td>
+                                <td th:text="${propiedad.reservas[0].cliente.nombre}"></td>
+                                <td th:text="${#dates.format(propiedad.reservas[0].fechaDelEvento, 'dd/MM/yyyy')}"></td>
+                                <td>
+                                    <a th:href="@{/reserva/borrar/__${propiedad.reservas[0].idReserva}__}">Cancelar</a>                               
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div th:if="${error != null}" class="alert alert-danger" role="alert">
+                        <p class="MensajeError" th:text="${error}"></p>
+                    </div>
+                    <div th:if="${exito != null}" class="alert alert-success" role="alert">
+                        <p class="MensajeExito" th:text="${exito}"></p>
+                    </div>
+                </div>  
+            </div>
+        </div>
+        <div th:replace = "/fragment/footer :: div"></div>
+        <div th:replace = "/fragment/script-cliente :: script"></div>     
+        <script>
+            const botonLimpiar = document.querySelector("#btnLimpiar");
+            const campoBusqueda = document.querySelector("input[name='palabraClave']");
+            const formBuscar = document.querySelector("form");
+
+            botonLimpiar.addEventListener("click", () => {
+            campoBusqueda.value = "";
+            formBuscar.action = "/reserva/listarResevasPropietario/Limpiar";
+            formBuscar.submit();
+            });
+        </script>
+    </body>
+</html>

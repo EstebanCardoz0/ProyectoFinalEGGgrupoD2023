@@ -72,7 +72,7 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
-    private void validarActualizar(String nombre, String nombreUsuario, String email, String password, long telefono, MultipartFile archivo, String password2) throws Exception {
+    private void validarActualizar(String nombre, String nombreUsuario, String email, String password, long telefono, String password2) throws Exception {
         if (nombre == null || nombre.isEmpty()) {
             throw new Exception("El nombre no puede estar estar vacío");
         }
@@ -94,9 +94,7 @@ public class UsuarioServicio implements UserDetailsService {
         if (telefono == 0L) {
             throw new Exception("El telefono no puede estar vacío");
         }
-        if (archivo == null) {
-            throw new Exception("La imagen no puede estar vacía");
-        }
+        
     }
 
     private void validar(String nombre, String nombreUsuario, String email, String password, long telefono, MultipartFile archivo, String password2) throws Exception {
@@ -130,39 +128,68 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
-    @Transactional
-    public void actualizar(int id, String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo, String tipo) throws Exception {
-        validarActualizar(nombre, nombreUsuario, email, password, telefono, archivo, password2);
-        if (id < 0) {
-            throw new Exception("Ingrese un id");
-        }
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
-        if (respuesta.isPresent()) {
-            Usuario usuario = respuesta.get();
-            usuario.setNombre(nombre);
-            usuario.setNombreUsuario(nombreUsuario);
-            usuario.setEmail(email);
-            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-            usuario.setTelefono(telefono);
+ @Transactional
+public void actualizar(int id, String nombre, String nombreUsuario, String email, String password, String password2, long telefono, MultipartFile archivo, String tipo) throws Exception {
+    validarActualizar(nombre, nombreUsuario, email, password, telefono,  password2);
+    if (id < 0) {
+        throw new Exception("Ingrese un id");
+    }
+    Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+    if (respuesta.isPresent()) {
+        Usuario usuario = respuesta.get();
+        usuario.setNombre(nombre);
+        usuario.setNombreUsuario(nombreUsuario);
+        usuario.setEmail(email);
+        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+        usuario.setTelefono(telefono);
+        
+        Imagen miImagen = usuario.getFotoPerfil();
+        if (archivo != null && !archivo.isEmpty()) {
             int idImagen = 0;
-            if (usuario.getFotoPerfil() != null) {
-                idImagen = usuario.getFotoPerfil().getIdImagen();
+            if (miImagen != null) {
+                idImagen = miImagen.getIdImagen();
             }
-            Imagen miImagen = imagenServicio.actualizar(archivo, idImagen);
-            usuario.setFotoPerfil(miImagen);
-            if (tipo.equalsIgnoreCase("cliente")) {
-                propRepo.deleteById(id);
-                usuario.setRol(Rol.CLIENTE);
-                Cliente cliente = new Cliente(usuario.getId(), nombre, nombreUsuario, email, usuario.getPassword(), telefono, usuario.getRol(), usuario.getFotoPerfil(), usuario.getFechaAlta(), usuario.isActivo());
+            miImagen = imagenServicio.actualizar(archivo, idImagen);
+        }
+        usuario.setFotoPerfil(miImagen);
+        
+        if (tipo.equalsIgnoreCase("cliente")) {
+            Optional<Cliente> clienteOptional = clienteRepo.findById(id);
+            if (clienteOptional.isPresent()) {
+                Cliente cliente = clienteOptional.get();
+                cliente.setNombre(nombre);
+                cliente.setNombreUsuario(nombreUsuario);
+                cliente.setEmail(email);
+                cliente.setPassword(new BCryptPasswordEncoder().encode(password));
+                cliente.setTelefono(telefono);
+                cliente.setFotoPerfil(miImagen);
                 clienteRepo.save(cliente);
             } else {
-                clienteRepo.deleteById(id);
+                usuario.setRol(Rol.CLIENTE);
+                Cliente cliente = new Cliente(usuario.getId(), nombre, nombreUsuario, email, usuario.getPassword(), telefono, usuario.getRol(), usuario.getFotoPerfil(), usuario.getFechaAlta(), usuario.isActivo());
+                cliente.setFotoPerfil(miImagen);
+                clienteRepo.save(cliente);
+            }
+        } else {
+            Optional<Propietario> propietarioOptional = propRepo.findById(id);
+            if (propietarioOptional.isPresent()) {
+                Propietario propietario = propietarioOptional.get();
+                propietario.setNombre(nombre);
+                propietario.setNombreUsuario(nombreUsuario);
+                propietario.setEmail(email);
+                propietario.setPassword(new BCryptPasswordEncoder().encode(password));
+                propietario.setTelefono(telefono);
+                propietario.setFotoPerfil(miImagen);
+                propRepo.save(propietario);
+            } else {
                 usuario.setRol(Rol.PROPIETARIO);
                 Propietario propietario = new Propietario(usuario.getId(), nombre, nombreUsuario, email, usuario.getPassword(), telefono, usuario.getRol(), usuario.getFotoPerfil(), usuario.getFechaAlta(), usuario.isActivo());
+                propietario.setFotoPerfil(miImagen);
                 propRepo.save(propietario);
             }
         }
     }
+}
 
     @Transactional
     public List<Usuario> listarUsuarios(String palabraClave) {
@@ -215,6 +242,18 @@ public class UsuarioServicio implements UserDetailsService {
             }
         }
         return usuario;
+    }
+
+    public Cliente buscarPorNombreUsuario(String nombreUsuario) {
+        Usuario usuario = usuarioRepositorio.buscarPorEmail(nombreUsuario);
+
+        if (usuario instanceof Cliente) {
+            return (Cliente) usuario;
+        } else {
+            // si el usuario no es un Cliente, puedes lanzar una excepción o devolver null según tu necesidad
+            throw new RuntimeException("El usuario no es un Cliente");
+            // return null;
+        }
     }
 
 }

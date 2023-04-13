@@ -2,16 +2,24 @@ package com.QuinchApp.Controladores;
 
 import com.QuinchApp.Entidades.Cliente;
 import com.QuinchApp.Entidades.Propiedad;
+import com.QuinchApp.Entidades.Propietario;
 import com.QuinchApp.Entidades.Reserva;
 import com.QuinchApp.Entidades.Usuario;
+import com.QuinchApp.Repositorios.ReservaRepositorio;
 import com.QuinchApp.Repositorios.UsuarioRepositorio;
 import com.QuinchApp.Servicios.PropiedadServicio;
 import com.QuinchApp.Servicios.ReservaServicio;
+import com.QuinchApp.Servicios.UsuarioServicio;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,6 +35,12 @@ public class ReservaControlador {
 
     @Autowired
     private ReservaServicio reservaServicio;
+
+    @Autowired
+    private UsuarioServicio usuarioServicio;
+
+    @Autowired
+    private ReservaRepositorio reservaRepositorio;
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
@@ -91,7 +105,7 @@ public class ReservaControlador {
     public String listar(ModelMap modelo) {
         List<Reserva> reserva = reservaServicio.listarResevas();
         modelo.addAttribute("reserva", reserva);
-        return "usuarioList";
+        return "listado_reservas_cliente";
     }
 
     @GetMapping("/eliminar/{id}")
@@ -105,4 +119,54 @@ public class ReservaControlador {
         reservaServicio.bajaAlta(id);
         return "redirect:/reservas";
     }
+
+
+  @PreAuthorize("hasAnyRole( 'ROLE_PROPIETARIO')")
+@GetMapping("/listarReservas")
+public String listarReservas(ModelMap modelo, @RequestParam(required = false) String palabraClave, HttpSession session) {
+    Usuario propietario = (Usuario) session.getAttribute("usuariosession");
+    List<Propiedad> reservas = reservaServicio.listarReservasPorPropietario(propietario.getId(), palabraClave);
+    modelo.addAttribute("reservas", reservas);
+    modelo.addAttribute("palabraClave", palabraClave);
+    return "listadoReservaPropiedades";
+}
+    @GetMapping("/listarResevasPropietario/Limpiar")
+    public String limpiarFiltroPropietario(ModelMap modelo, HttpSession session) {
+        return "redirect:/reserva/listarReservas";
+    }
+
+    @PreAuthorize("hasAnyRole( 'ROLE_CLIENTE')")
+    @GetMapping("/listarResevasCliente")
+    public String listarResevasCliente(ModelMap modelo, @Param("palabraClave") String palabraClave, Authentication authentication) {
+        String nombreUsuario = authentication.getName();
+        Cliente cliente = usuarioServicio.buscarPorNombreUsuario(nombreUsuario);
+        List<Reserva> reservas = reservaServicio.listarResevasPorCliente(cliente.getId(), palabraClave);
+        modelo.addAttribute("reserva", reservas);
+        modelo.addAttribute("palabraClave", palabraClave);
+        return "listado_reservas_cliente";
+    }
+
+    @GetMapping("/listarResevasClientes/Limpiar")
+    public String limpiarFiltro(ModelMap modelo, HttpSession session) {
+        return "redirect:/reserva/listarResevasCliente";
+    }
+
+    @GetMapping("/borrar/{id}")
+    public String borrar(@PathVariable Integer id, ModelMap modelo) throws Exception {
+        try {
+            reservaServicio.borrar(id);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return "redirect:/dashboardCliente";
+    }
+
+//    @PostMapping("/reserva/modificar")
+//    public String modificarReserva(@RequestParam Integer idReserva,
+//            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDelEvento) {
+//        Reserva reserva = reservaRepositorio.findById(idReserva).orElseThrow();
+//        reserva.setFechaDelEvento(fechaDelEvento);
+//        reservaRepositorio.save(reserva);
+//        return "listado_Reserva_Propiedades";
+//    }
 }

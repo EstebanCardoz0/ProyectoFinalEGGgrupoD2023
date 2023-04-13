@@ -98,7 +98,23 @@
         <section>
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-4 col-md-6 col-12 pb-4" >
+                    <div class="col-sm-4 col-md-6 col-12 pb-4" th:if="${not #lists.isEmpty(comentarios)}">
+                        <h1>Comentarios</h1>
+                        <div th:each="comentario : ${comentarios}">
+                            <div style="display: inline-flex;">
+                                <img th:if="${imagenesCliente[comentario.cliente.id] != null}" 
+                                     th:src="@{'/imagen/perfil/' + ${comentario.cliente.id}}" 
+                                     alt="" class="rounded-circle" width="40" height="40" style="margin-right: 10px;">
+                                <h5 th:text="${comentario.cliente.nombre}"></h5>
+                            </div> 
+                            <p th:text="${comentario.comentario}"></p>
+                            <span>
+                                <span th:each="i : ${#numbers.sequence(1, comentario.calificacion)}">★</span>
+                            </span>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4"  th:classappend="${session.usuariosession != null and #authorization.expression('hasRole(''ROLE_CLIENTE'')')} ? '' : 'd-none'">
                         <form th:action="@{/comentario/comentar}" method="POST">
                             <div class="form-group" style="display: none;">
                                 <label>Id:</label>
@@ -130,31 +146,34 @@
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="Publicar comentario">
                             </div>
                         </form>
-                    </div> 
-                    <div class="col-sm-4 col-md-6 col-12 pb-4" th:if="${not #lists.isEmpty(comentarios)}">
-                        <h1>Comentarios</h1>
-                        <div class="comment mt-4 text-justify float-left" th:each="comentario: ${comentarios}">
-                            <!--<img src="https://i.imgur.com/yTFUilP.jpg" alt="" class="rounded-circle" width="40" height="40">-->
-                            <h4 th:text="${comentario.cliente.nombre}"></h4>
-                            <span id ="estrellas"> 
-                                <span id = "cantidadEstrellas" th:text="${comentario.calificacion}"></span>
-                            </span>                            
-                            <br>
-                            <p  th:text="${comentario.comentario}"></p>
-                        </div>  
-                    </div>    
-
-
-
+                    </div>
                 </div>
-
-
-            </div>
         </section>
-
         <div th:replace = "/fragment/footer :: div"></div>
         <div th:replace = "/fragment/script :: script"></div>
         <script>
+            function zoomImage(img) {
+            img.classList.toggle("zoomed");
+
+            if (img.classList.contains("zoomed")) {
+            document.body.addEventListener("mousemove", handleMouseMove);
+            } else {
+            document.body.removeEventListener("mousemove", handleMouseMove);
+            }
+            }
+            function handleMouseMove(e) {
+            const img = document.querySelector(".picZoomer img.zoomed");
+            if (!img) return;
+            const container = img.parentElement;
+            const x = e.clientX - container.offsetLeft;
+            const y = e.clientY - container.offsetTop;
+            img.style.transformOrigin = `${x}px ${y}px`;
+            }
+            =======
+
+            <div th:replace = "/fragment/footer :: div"></div>
+            <div th:replace = "/fragment/script :: script"></div>
+            <script>
             function zoomImage(img) {
             img.classList.toggle("zoomed");
 

@@ -5,6 +5,7 @@ import com.QuinchApp.Entidades.Imagen;
 import com.QuinchApp.Entidades.Reserva;
 import com.QuinchApp.Enums.Rol;
 import com.QuinchApp.Repositorios.ClienteRepositorio;
+import com.QuinchApp.Repositorios.ReservaRepositorio;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +20,9 @@ public class ClienteServicio {
 
     @Autowired
     private ClienteRepositorio clienteRepositorio;
+    
+     @Autowired
+    private ReservaRepositorio reservaRepositorio;
 
     @Autowired
     private ImagenServicio imagenServicio;
@@ -56,13 +60,13 @@ public class ClienteServicio {
             usuario.setPassword(password);
             usuario.setTelefono(telefono);
 
-            List<Reserva> reser = usuario.getReserva();
+            List<Reserva> reser = usuario.getReservas();
             if (reser == null) {
                 reser = new ArrayList();
-                usuario.setReserva(reser);
+                usuario.setReservas(reser);
             }
             reser.add(reserva);
-            usuario.setReserva(reser);
+            usuario.setReservas(reser);
             int idImagen = 0;
             if (usuario.getFotoPerfil() != null) {
                 idImagen = usuario.getFotoPerfil().getIdImagen();
@@ -113,5 +117,15 @@ public class ClienteServicio {
             throw new Exception("El email ya se encuentra registrado, pruebe con otro");
         }
     }
+
+   
+//    public List<Reserva> listarResevasPorCliente(Integer idCliente, String palabraClave) {
+//    if (palabraClave == null) {
+//        return reservaRepositorio.findByCliente_IdCliente(idCliente);
+//    } else {
+//        return reservaRepositorio.findByCliente_IdClienteAndPropiedad_NombreContaining(idCliente, palabraClave);
+//    }
+//}
+
 
 }

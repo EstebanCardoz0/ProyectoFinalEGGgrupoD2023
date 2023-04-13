@@ -26,7 +26,6 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Foto Perfil</th>
                                 <th>Nombre</th>
                                 <th>Nombre de Usuario</th>
                                 <th>Email</th>
@@ -38,7 +37,6 @@
                         </thead>
                         <tbody>
                             <tr th:each="usuario:${usuario}" th:class="${usuario.activo} == false ? 'fila-roja' : ''">
-                               <th><img th:src="@{/imagen/perfil/_${usuario.id}_}" class="card-img-top" alt="archivo" > </th>
                                  
                                 <td th:text="${usuario.nombre}" /></td>
                                 <td th:text="${usuario.nombreUsuario}"></td>
