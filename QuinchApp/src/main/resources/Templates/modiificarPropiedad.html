@@ -41,7 +41,7 @@
                                                 <div class="form-group">
                                                     <label for="telefono" class="text-info">Teléfono:</label>
                                                     <input type="text" class="form-control" id="telefono" name="telefono"
-                                                           th:value="${telefono}" pattern="[0-9]{10}"  th:field="*{telefono}" required>
+                                                           th:value="${telefono}" th:field="*{telefono}" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="password" class="text-info">Contraseña:</label><br>
@@ -65,17 +65,16 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="archivo" class="imagen">Imagen de perfil (modifique solo en caso que quiera cambiar la anterior):</label><br>
-                                                    <input type="file" name="archivo" id="archivo" class="form-control" th:value="${archivo}">
+                                                    <label for="archivo" class="imagen">Imagen de perfil:</label><br>
+                                                    <input type="file" name="archivo" id="archivo" class="form-control"
+                                                           th:value="${archivo}" required>
                                                 </div>
-                                                <br>
-                                                <br>
-                                                <select name="tipoUsuario">
-                                                    <option th:value="cliente" th:text="cliente" th:selected="${tipoUsuario == 'cliente'}" />
-                                                    <option th:value="propietario" th:text="propietario" th:selected="${tipoUsuario == 'propietario'}" />
+                                                <select name="tipoUsuario" >
+                                                    <option th:value="cliente" th:text="cliente" th:selected="cliente" />
+                                                    <option th:value="propietario" th:text="propietario"
+                                                            th:selected="propietario" />
                                                 </select>
-                                                <br>
-                                                <br>
+
                                                 <div class="form-group">
                                                     <input type="submit" name="submit" class="btn btn-info btn-md"
                                                            value="Modificar">
@@ -99,3 +98,4 @@
         <div th:replace="/fragment/script :: script"></div>
     </body>
 </html>
+

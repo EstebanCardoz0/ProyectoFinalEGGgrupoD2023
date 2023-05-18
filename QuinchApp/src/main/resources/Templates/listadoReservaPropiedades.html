@@ -1,48 +1,184 @@
 <!DOCTYPE html>
-<html
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace="/fragment/head_cliente :: head"> </head>
-    <header th:replace="/fragment/nuevo :: div"> </header>
-    <body>
-        <div class="col-sm-10 col-md-10">
-            <div class="well">
-                <h1>Todos los Usuarios</h1>
-                <br>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Numero de Reserva</th>
-                                <th>Propiedad</th>
-                                <th>Cliente</th>
-                                <th>Fecha</th>
-                                <th>Cancelar Reserva</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="reserva:${reserva}" th:class="${reserva.confirmada} == false ? 'fila-roja' : ''">
-
-                                <td th:text="${reserva.idReserva}"></td>
-                                <td th:text="${reserva.propiedad.nombre}"></td>
-                                <td th:text="${reserva.cliente.nombre}"></td>
-                                <td th:text="${#dates.format(reserva.fechaDelEvento, 'dd/MM/yyyy')}"></td>
-                                <td>
-                                    <a th:href="@{/reserva/borrar/__${reserva.idReserva}__}">Cancelar</a>                               
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div th:if="${error != null}" class="alert alert-danger" role="alert">
-                        <p class="MensajeError" th:text="${error}"></p>
+<html lang="en">
+    <head th:replace="/fragment/head :: head"> </head>
+    <body>  
+        <header th:replace="/fragment/navbar :: div">          
+        </header>        
+        <header class="masthead text-center text-white">
+            <div class="masthead-content">
+                <div class="masthead-content">
+                    <img class="imagenLogo" th:src="@{/imagenes/quinchapp.png}">
+                    <div class="container px-5">                      
+                        <h2 class="slogan">"...Encuentra el espacio perfecto para tu evento..."</h2>
+                        <a class="btn btn-primary btn-xl rounded-pill mt-5" href="/quienes-somos">Quienes somos</a>
                     </div>
-                    <div th:if="${exito != null}" class="alert alert-success" role="alert">
-                        <p class="MensajeExito" th:text="${exito}"></p>
+                </div>
+                <div class="bg-circle-1 bg-circle"></div>
+                <div class="bg-circle-2 bg-circle"></div>
+                <div class="bg-circle-3 bg-circle"></div>
+                <div class="bg-circle-4 bg-circle"></div>
+        </header>
+        <div class="container-formreservaDetalle">
+            <div id="titulo">
+                <div class="row" id="cardsPropiedades" th:if="${not #lists.isEmpty(QUINCHO)}">
+                    <h2 class="fw-bolder mb-4">QUINCHOS</h2>
+                    <div th:each="propiedad : ${QUINCHO}" class="col-sm-6 col-lg-4">
+                        <div class="meal">
+                            <div class="meal-image">
+                                <img th:src="@{'/imagen/imgPropiedad/' + ${propiedad.imagenes[0].idImagen}}" class="propiedad-imagen d-block w-100" alt="Imagen de la propiedad" data-bs-toggle="modal" th:data-bs-target="'#carouselModal-' + ${propiedad.idPropiedad}" />
+                            </div>
+                            <div class="meal-content">
+                                <div class="meal-tags">
+                                    <span class="tag tag--vegetarian" th:text="${propiedad.tipoDePropiedad}"></span>
+                                </div>
+                                <p class="meal-title" th:text="${propiedad.nombre}"></p>
+                                <ul class="meal-attributes">
+                                    <li class="meal-attribute">
+                                    <ion-icon name='cash-outline' class="meal-icon"></ion-icon>
+                                    <span th:text=" '$' + ${propiedad.valor} "><strong></strong> </span>
+                                    </li>
+                                    <li class="meal-attribute">
+                                    <ion-icon name='earth-sharp' class="meal-icon"></ion-icon>
+                                    <strong th:text=" 'Ubicacion: '"></strong>
+                                    <a th:href="@{'https://www.google.com/maps/search/?api=1&query=' + ${propiedad.ubicacion}}" target="_blank" th:text="${propiedad.ubicacion}"></a>
+                                    </li>
+                                    <li class="meal-attribute">
+                                    <ion-icon name='person-outline' class="meal-icon"></ion-icon>
+                                    <strong th:text=" 'Capacidad: '"></strong>
+                                    <span th:text="  ${propiedad.capacidad} "> </span>
+                                    </li>
+                                    <li class="meal-attribute">
+                                    <ion-icon class="meal-icon" name="restaurant-outline"></ion-icon>
+                                    <strong th:text=" 'Servicio: '"></strong> 
+                                    <span th:text="  ${propiedad.servicios} "> </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div th:replace="/fragment/botonVerPropiedad :: div"></div>
+                        </div>     
+                        <br>    <br>    <br>    <br>
                     </div>
-                </div>  
+                </div>
+                <div class="row" id="cardsPropiedades" th:if="${not #lists.isEmpty(PATIO)}">
+                    <h2 class="fw-bolder mb-4">PATIOS</h2>
+                    <div th:each="propiedad : ${PATIO}" class="col-sm-6 col-lg-4">
+                        <div class="meal">
+                            <div class="meal-image">
+                                <img th:src="@{'/imagen/imgPropiedad/' + ${propiedad.imagenes[0].idImagen}}" class=" propiedad-imagen d-block w-100" alt="Imagen de la propiedad" data-bs-toggle="modal" th:data-bs-target="'#carouselModal-' + ${propiedad.idPropiedad}" />
+                            </div>
+                            <div class="meal-content">
+                                <div class="meal-tags">
+                                    <span class="tag tag--vegetarian" th:text="${propiedad.tipoDePropiedad}"></span>
+                                </div>
+                                <p class="meal-title" th:text="${propiedad.nombre}"></p>
+                                <ul class="meal-attributes">
+                                    <li class="meal-attribute">
+                                    <ion-icon name='cash-outline' class="meal-icon"></ion-icon>
+                                    <span th:text=" '$' + ${propiedad.valor} "><strong></strong> </span>
+                                    </li>
+                                    <li class="meal-attribute">
+                                    <ion-icon name='earth-sharp' class="meal-icon"></ion-icon>
+                                    <strong th:text=" 'Ubicacion: '"></strong>
+                                    <a th:href="@{'https://www.google.com/maps/search/?api=1&query=' + ${propiedad.ubicacion}}" target="_blank" th:text="${propiedad.ubicacion}"></a>
+                                    </li>
+                                    <li class="meal-attribute">
+                                    <ion-icon name='person-outline' class="meal-icon"></ion-icon>
+                                    <strong th:text=" 'Capacidad: '"></strong>
+                                    <span th:text="  ${propiedad.capacidad} "> </span>
+                                    </li>
+                                    <li class="meal-attribute">
+                                    <ion-icon class="meal-icon" name="restaurant-outline"></ion-icon>
+                                    <strong th:text=" 'Servicio: '"></strong> 
+                                    <span th:text="  ${propiedad.servicios} "> </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div th:replace="/fragment/botonVerPropiedad :: div"></div>
+                        </div>        
+                        <br>    <br>    <br>    <br>
+                    </div>
+                </div>
             </div>
+            <div class="row" id="cardsPropiedades" th:if="${not #lists.isEmpty(SALON_DE_FIESTA)}">
+                <h2 class="fw-bolder mb-4">SALONES DE FIESTAS</h2>
+                <div th:each="propiedad : ${SALON_DE_FIESTA}" class="col-sm-6 col-lg-4">
+                    <div class="meal">
+                        <div class="meal-image">
+                            <img th:src="@{'/imagen/imgPropiedad/' + ${propiedad.imagenes[0].idImagen}}" class=" propiedad-imagen d-block w-100" alt="Imagen de la propiedad" data-bs-toggle="modal" th:data-bs-target="'#carouselModal-' + ${propiedad.idPropiedad}" />
+                        </div>
+                        <div class="meal-content">
+                            <div class="meal-tags">
+                                <span class="tag tag--vegetarian" th:text="${propiedad.tipoDePropiedad}"></span>
+                            </div>
+                            <p class="meal-title" th:text="${propiedad.nombre}"></p>
+                            <ul class="meal-attributes">
+                                <li class="meal-attribute">
+                                <ion-icon name='cash-outline' class="meal-icon"></ion-icon>
+                                <span th:text=" '$' + ${propiedad.valor} "><strong></strong> </span>
+                                </li>
+                                <li class="meal-attribute">
+                                <ion-icon name='earth-sharp' class="meal-icon"></ion-icon>
+                                <strong th:text=" 'Ubicacion: '"></strong>
+                                <a th:href="@{'https://www.google.com/maps/search/?api=1&query=' + ${propiedad.ubicacion}}" target="_blank" th:text="${propiedad.ubicacion}"></a>
+                                </li>
+                                <li class="meal-attribute">
+                                <ion-icon name='person-outline' class="meal-icon"></ion-icon>
+                                <strong th:text=" 'Capacidad: '"></strong>
+                                <span th:text="  ${propiedad.capacidad} "> </span>
+                                </li>
+                                <li class="meal-attribute">
+                                <ion-icon class="meal-icon" name="restaurant-outline"></ion-icon>
+                                <strong th:text=" 'Servicio: '"></strong> 
+                                <span th:text="  ${propiedad.servicios} "> </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div th:replace="/fragment/botonVerPropiedad :: div"></div>
+                    </div>      
+                    <br>    <br>    <br>    <br>
+                </div>
+            </div>
+            <div class="row" id="cardsPropiedades" th:if="${not #lists.isEmpty(CASA_QUINTA)}">
+                <h2 class="fw-bolder mb-4">CASA QUINTA</h2>
+                <div th:each="propiedad : ${CASA_QUINTA}" class="col-sm-6 col-lg-4" >
+                    <div class="meal">
+                        <div class="meal-image">
+                            <img th:src="@{'/imagen/imgPropiedad/' + ${propiedad.imagenes[0].idImagen}}" class=" propiedad-imagen d-block w-100" alt="Imagen de la propiedad" data-bs-toggle="modal" th:data-bs-target="'#carouselModal-' + ${propiedad.idPropiedad}" />
+                        </div>
+                        <div class="meal-content">
+                            <div class="meal-tags">
+                                <span class="tag tag--vegetarian" th:text="${propiedad.tipoDePropiedad}"></span>
+                            </div>
+                            <p class="meal-title" th:text="${propiedad.nombre}"></p>
+                            <ul class="meal-attributes">
+                                <li class="meal-attribute">
+                                <ion-icon name='cash-outline' class="meal-icon"></ion-icon>
+                                <span th:text=" '$' + ${propiedad.valor} "><strong></strong> </span>
+                                </li>
+                                <li class="meal-attribute">
+                                <ion-icon name='earth-sharp' class="meal-icon"></ion-icon>
+                                <strong th:text=" 'Ubicacion: '"></strong>
+                                <a th:href="@{'https://www.google.com/maps/search/?api=1&query=' + ${propiedad.ubicacion}}" target="_blank" th:text="${propiedad.ubicacion}"></a>
+                                </li>
+                                <li class="meal-attribute">
+                                <ion-icon name='person-outline' class="meal-icon"></ion-icon>
+                                <strong th:text=" 'Capacidad: '"></strong>
+                                <span th:text="  ${propiedad.capacidad} "> </span>
+                                </li>
+                                <li class="meal-attribute">
+                                <ion-icon class="meal-icon" name="restaurant-outline"></ion-icon>
+                                <strong th:text=" 'Servicio: '"></strong> 
+                                <span th:text="  ${propiedad.servicios} "> </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div th:replace="/fragment/botonVerPropiedad :: div"></div>
+                    </div>  
+                    <br>    <br>    <br>    <br>
+                </div>
+            </div>            
         </div>
         <div th:replace = "/fragment/footer :: div"></div>
-        <div th:replace = "/fragment/script-cliente :: script"></div>     
+        <div th:replace = "/fragment/script :: script"></div>
     </body>
 </html>

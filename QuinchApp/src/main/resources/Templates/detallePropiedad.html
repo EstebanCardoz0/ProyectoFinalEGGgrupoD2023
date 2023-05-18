@@ -6,16 +6,17 @@
         </header>        
         <header class="masthead text-center text-white">
             <div class="masthead-content">
-                <div class="container px-5">
-                    <h1 class="masthead-heading mb-0">BUSCANDO ANDO</h1>
-                    <h2 class="masthead-subheading mb-0">TU ALQUILER AL ALCANCE DE LA MANO</h2>
-                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="/quienes-somos">Quienes somos</a>
+                <div class="masthead-content">
+                    <img class="imagenLogo" th:src="@{/imagenes/quinchapp.png}">
+                    <div class="container px-5">                      
+                        <h2 class="slogan">"...Encuentra el espacio perfecto para tu evento..."</h2>
+                        <a class="btn btn-primary btn-xl rounded-pill mt-5" href="/quienes-somos">Quienes somos</a>
+                    </div>
                 </div>
-            </div>
-            <div class="bg-circle-1 bg-circle"></div>
-            <div class="bg-circle-2 bg-circle"></div>
-            <div class="bg-circle-3 bg-circle"></div>
-            <div class="bg-circle-4 bg-circle"></div>
+                <div class="bg-circle-1 bg-circle"></div>
+                <div class="bg-circle-2 bg-circle"></div>
+                <div class="bg-circle-3 bg-circle"></div>
+                <div class="bg-circle-4 bg-circle"></div>
         </header>
         <div class="container-formreservaDetalle">
             <div id="titulo">
@@ -24,7 +25,7 @@
                     <div th:each="propiedad : ${QUINCHO}" class="col-sm-6 col-lg-4">
                         <div class="meal">
                             <div class="meal-image">
-                                <img th:src="@{'/imagen/imgPropiedad/' + ${propiedad.imagenes[0].idImagen}}" class="d-block w-100" alt="Imagen de la propiedad" data-bs-toggle="modal" th:data-bs-target="'#carouselModal-' + ${propiedad.idPropiedad}" />
+                                <img th:src="@{'/imagen/imgPropiedad/' + ${propiedad.imagenes[0].idImagen}}" class="propiedad-imagen d-block w-100" alt="Imagen de la propiedad" data-bs-toggle="modal" th:data-bs-target="'#carouselModal-' + ${propiedad.idPropiedad}" />
                             </div>
                             <div class="meal-content">
                                 <div class="meal-tags">
@@ -35,11 +36,6 @@
                                     <li class="meal-attribute">
                                     <ion-icon name='cash-outline' class="meal-icon"></ion-icon>
                                     <span th:text=" '$' + ${propiedad.valor} "><strong></strong> </span>
-                                    </li>
-                                    <li class="meal-attribute">
-                                    <ion-icon name='reader-outline' class="meal-icon"></ion-icon>
-                                    <strong th:text=" 'Descrpcion: '"></strong>
-                                    <span th:text="  ${propiedad.descripcion} "> </span>
                                     </li>
                                     <li class="meal-attribute">
                                     <ion-icon name='earth-sharp' class="meal-icon"></ion-icon>
@@ -59,7 +55,8 @@
                                 </ul>
                             </div>
                             <div th:replace="/fragment/botonVerPropiedad :: div"></div>
-                        </div>                      
+                        </div>     
+                        <br>    <br>    <br>    <br>
                     </div>
                 </div>
                 <div class="row" id="cardsPropiedades" th:if="${not #lists.isEmpty(PATIO)}">
@@ -67,7 +64,7 @@
                     <div th:each="propiedad : ${PATIO}" class="col-sm-6 col-lg-4">
                         <div class="meal">
                             <div class="meal-image">
-                                <img th:src="@{'/imagen/imgPropiedad/' + ${propiedad.imagenes[0].idImagen}}" class="d-block w-100" alt="Imagen de la propiedad" data-bs-toggle="modal" th:data-bs-target="'#carouselModal-' + ${propiedad.idPropiedad}" />
+                                <img th:src="@{'/imagen/imgPropiedad/' + ${propiedad.imagenes[0].idImagen}}" class=" propiedad-imagen d-block w-100" alt="Imagen de la propiedad" data-bs-toggle="modal" th:data-bs-target="'#carouselModal-' + ${propiedad.idPropiedad}" />
                             </div>
                             <div class="meal-content">
                                 <div class="meal-tags">
@@ -78,11 +75,6 @@
                                     <li class="meal-attribute">
                                     <ion-icon name='cash-outline' class="meal-icon"></ion-icon>
                                     <span th:text=" '$' + ${propiedad.valor} "><strong></strong> </span>
-                                    </li>
-                                    <li class="meal-attribute">
-                                    <ion-icon name='reader-outline' class="meal-icon"></ion-icon>
-                                    <strong th:text=" 'Descrpcion: '"></strong>
-                                    <span th:text="  ${propiedad.descripcion} "> </span>
                                     </li>
                                     <li class="meal-attribute">
                                     <ion-icon name='earth-sharp' class="meal-icon"></ion-icon>
@@ -102,7 +94,8 @@
                                 </ul>
                             </div>
                             <div th:replace="/fragment/botonVerPropiedad :: div"></div>
-                        </div>                      
+                        </div>        
+                        <br>    <br>    <br>    <br>
                     </div>
                 </div>
             </div>
@@ -111,7 +104,7 @@
                 <div th:each="propiedad : ${SALON_DE_FIESTA}" class="col-sm-6 col-lg-4">
                     <div class="meal">
                         <div class="meal-image">
-                            <img th:src="@{'/imagen/imgPropiedad/' + ${propiedad.imagenes[0].idImagen}}" class="d-block w-100" alt="Imagen de la propiedad" data-bs-toggle="modal" th:data-bs-target="'#carouselModal-' + ${propiedad.idPropiedad}" />
+                            <img th:src="@{'/imagen/imgPropiedad/' + ${propiedad.imagenes[0].idImagen}}" class=" propiedad-imagen d-block w-100" alt="Imagen de la propiedad" data-bs-toggle="modal" th:data-bs-target="'#carouselModal-' + ${propiedad.idPropiedad}" />
                         </div>
                         <div class="meal-content">
                             <div class="meal-tags">
@@ -122,11 +115,6 @@
                                 <li class="meal-attribute">
                                 <ion-icon name='cash-outline' class="meal-icon"></ion-icon>
                                 <span th:text=" '$' + ${propiedad.valor} "><strong></strong> </span>
-                                </li>
-                                <li class="meal-attribute">
-                                <ion-icon name='reader-outline' class="meal-icon"></ion-icon>
-                                <strong th:text=" 'Descrpcion: '"></strong>
-                                <span th:text="  ${propiedad.descripcion} "> </span>
                                 </li>
                                 <li class="meal-attribute">
                                 <ion-icon name='earth-sharp' class="meal-icon"></ion-icon>
@@ -146,7 +134,8 @@
                             </ul>
                         </div>
                         <div th:replace="/fragment/botonVerPropiedad :: div"></div>
-                    </div>                      
+                    </div>      
+                    <br>    <br>    <br>    <br>
                 </div>
             </div>
             <div class="row" id="cardsPropiedades" th:if="${not #lists.isEmpty(CASA_QUINTA)}">
@@ -154,7 +143,7 @@
                 <div th:each="propiedad : ${CASA_QUINTA}" class="col-sm-6 col-lg-4" >
                     <div class="meal">
                         <div class="meal-image">
-                            <img th:src="@{'/imagen/imgPropiedad/' + ${propiedad.imagenes[0].idImagen}}" class="d-block w-100" alt="Imagen de la propiedad" data-bs-toggle="modal" th:data-bs-target="'#carouselModal-' + ${propiedad.idPropiedad}" />
+                            <img th:src="@{'/imagen/imgPropiedad/' + ${propiedad.imagenes[0].idImagen}}" class=" propiedad-imagen d-block w-100" alt="Imagen de la propiedad" data-bs-toggle="modal" th:data-bs-target="'#carouselModal-' + ${propiedad.idPropiedad}" />
                         </div>
                         <div class="meal-content">
                             <div class="meal-tags">
@@ -165,11 +154,6 @@
                                 <li class="meal-attribute">
                                 <ion-icon name='cash-outline' class="meal-icon"></ion-icon>
                                 <span th:text=" '$' + ${propiedad.valor} "><strong></strong> </span>
-                                </li>
-                                <li class="meal-attribute">
-                                <ion-icon name='reader-outline' class="meal-icon"></ion-icon>
-                                <strong th:text=" 'Descrpcion: '"></strong>
-                                <span th:text="  ${propiedad.descripcion} "> </span>
                                 </li>
                                 <li class="meal-attribute">
                                 <ion-icon name='earth-sharp' class="meal-icon"></ion-icon>
@@ -189,7 +173,8 @@
                             </ul>
                         </div>
                         <div th:replace="/fragment/botonVerPropiedad :: div"></div>
-                    </div>    
+                    </div>  
+                    <br>    <br>    <br>    <br>
                 </div>
             </div>            
         </div>

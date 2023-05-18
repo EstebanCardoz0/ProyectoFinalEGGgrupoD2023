@@ -7,7 +7,6 @@ import com.QuinchApp.Enums.PropiedadEnum;
 import com.QuinchApp.Enums.ServicioEnum;
 import com.QuinchApp.Repositorios.PropiedadRepositorio;
 import com.QuinchApp.Repositorios.PropietarioRepositorio;
-import com.QuinchApp.Repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -122,13 +121,12 @@ public class PropiedadServicio {
 
     public List<Propiedad> listarPropiedades(String palabraClave) {
         if (palabraClave != null) {
-            List<Propiedad> propiedades = propiedadRepositorio.findAll();
+            List<Propiedad> propiedades = propiedadRepositorio.findAllByPalabraClave(palabraClave);
             return propiedades;
         } else {
             List<Propiedad> propiedades = propiedadRepositorio.findAll();
             return propiedades;
         }
-
     }
 
     public List<Propiedad> buscarPropiedadPorTipo(PropiedadEnum tipo) {
