@@ -144,16 +144,16 @@ public class ReservaControlador {
 //        modelo.addAttribute("palabraClave", palabraClave);
 //        return "listado_Reservas_Propiedades";
 //    }
-    @PreAuthorize("hasAnyRole( 'ROLE_CLIENTE')")
-    @GetMapping("/listarResevasCliente")
-    public String listarResevasCliente(ModelMap modelo, @Param("palabraClave") String palabraClave, Authentication authentication) {
-        String nombreUsuario = authentication.getName();
-        Cliente cliente = usuarioServicio.buscarPorNombreUsuario(nombreUsuario);
-        List<Reserva> reservas = reservaServicio.listarResevasPorCliente(Long.valueOf(cliente.getId()), palabraClave);
-        modelo.addAttribute("reserva", reservas);
-        modelo.addAttribute("palabraClave", palabraClave);
-        return "listado_Reservas_Propiedades";
-    }
+//    @PreAuthorize("hasAnyRole( 'ROLE_CLIENTE')")
+//    @GetMapping("/listarResevasCliente")
+//    public String listarResevasCliente(ModelMap modelo, @Param("palabraClave") String palabraClave, Authentication authentication) {
+//        String nombreUsuario = authentication.getName();
+//        Cliente cliente = usuarioServicio.buscarPorNombreUsuario(nombreUsuario);
+//        List<Reserva> reservas = reservaServicio.listarResevasPorCliente(Long.valueOf(cliente.getId()), palabraClave);
+//        modelo.addAttribute("reserva", reservas);
+//        modelo.addAttribute("palabraClave", palabraClave);
+//        return "listado_Reservas_Propiedades";
+//    }
 
     @GetMapping("/borrar/{id}")
     public String borrar(@PathVariable Integer id, ModelMap modelo) throws Exception {
